@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The AI Business Stack — What a 66-Year-Old Built in 30 Days | Point Zero AI</title>
+  <meta name="description" content="Real results. Real numbers. Real tools. What Tom Zgainer built in his first 30 days using AI — and what it would have cost the traditional way." />
+  <meta property="og:title" content="The AI Business Stack — What a 66-Year-Old Built in 30 Days" />
+  <meta property="og:description" content="Same deliverable. 400 times cheaper. Done while theirs is still in meetings." />
+  <meta property="og:url" content="https://www.pointzeroai.com/ai-business-stack" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-dark: #0c1e3c;
+      --navy-mid: #152847;
+      --navy-light: #1e3a5f;
+      --gold: #c9a447;
+      --gold-light: #e8c46a;
+      --white: #ffffff;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      background: var(--navy-dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; line-height: 1.15; font-weight: 700; }
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER */
+    .site-header {
+      background: linear-gradient(180deg, #3f6191 0%, #2c4d7c 55%, #1b3562 100%);
+      text-align: center;
+      padding: 40px 40px 32px;
+      border-bottom: 1px solid rgba(201,164,71,0.4);
+    }
+    .header-logo { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 14px; }
+    .header-compass { width: 64px; height: 64px; transform: rotate(22deg); }
+    .header-title { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: 10px; text-transform: uppercase; }
+    .header-title span { color: var(--gold); }
+    .header-tagline { font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
+    .header-sub { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.75; }
+
+    /* HERO TITLE BAND */
+    .doc-hero {
+      background: var(--navy-mid);
+      text-align: center;
+      padding: 64px 40px 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .doc-label {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .doc-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .doc-hero .sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1px;
+    }
+
+    /* PULL QUOTE BOX */
+    .pull-quote {
+      background: rgba(201,164,71,0.07);
+      border: 1px solid rgba(201,164,71,0.3);
+      border-radius: 4px;
+      padding: 28px 36px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .pull-quote p {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .pull-quote p + p { margin-top: 6px; }
+    .pull-quote .gold { color: var(--gold); }
+
+    /* CONTENT SECTIONS */
+    .doc-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .doc-section:last-of-type { border-bottom: none; }
+    .section-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .doc-section h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      margin-bottom: 8px;
+    }
+    .doc-section .section-sub {
+      font-size: 1rem;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+    .doc-section p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 18px;
+      max-width: 700px;
+    }
+    .doc-section p strong { color: var(--white); }
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    /* SCORECARD TABLE */
+    .scorecard-wrap {
+      overflow-x: auto;
+      margin: 36px 0;
+    }
+    .scorecard {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .scorecard thead tr {
+      background: rgba(201,164,71,0.12);
+      border-bottom: 1px solid rgba(201,164,71,0.3);
+    }
+    .scorecard th {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 14px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .scorecard td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.8);
+      vertical-align: top;
+    }
+    .scorecard tr:last-child td { border-bottom: none; }
+    .scorecard tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .scorecard .tool-name { color: var(--gold); font-weight: 600; }
+    .scorecard .old-way { color: rgba(255,100,100,0.75); }
+    .scorecard .ai-cost { color: rgba(100,220,140,0.85); }
+
+    .scorecard-totals {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .total-box {
+      flex: 1;
+      min-width: 200px;
+      padding: 20px 24px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .total-box.ai { background: rgba(100,220,140,0.07); border: 1px solid rgba(100,220,140,0.2); }
+    .total-box.old { background: rgba(255,100,100,0.06); border: 1px solid rgba(255,100,100,0.18); }
+    .total-box .total-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .total-box.ai .total-num { color: rgba(120,230,160,0.9); }
+    .total-box.old .total-num { color: rgba(255,120,100,0.85); }
+    .total-box .total-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    .total-tagline {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* STACK TABLE */
+    .stack-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 36px 0;
+    }
+    .stack-table thead tr {
+      background: rgba(201,164,71,0.1);
+      border-bottom: 1px solid rgba(201,164,71,0.25);
+    }
+    .stack-table th {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 14px 16px;
+      text-align: left;
+    }
+    .stack-table td {
+      padding: 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+    }
+    .stack-table tr:last-child td { border-bottom: none; }
+    .stack-table .tool-cell { font-weight: 600; color: var(--white); }
+    .stack-table .tool-cell a { color: var(--gold); font-size: 0.8rem; display: block; font-weight: 400; margin-top: 2px; }
+    .stack-table .desc-cell { color: rgba(255,255,255,0.72); }
+    .stack-table .cost-cell { color: rgba(120,230,160,0.85); font-weight: 600; white-space: nowrap; }
+
+    /* FIRST MOVE */
+    .first-move-steps { margin: 32px 0; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: flex-start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      min-width: 72px;
+      padding-top: 2px;
+    }
+    .step-text { color: rgba(255,255,255,0.78); font-size: 0.95rem; }
+    .step-text code {
+      display: block;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.05);
+      border-left: 2px solid var(--gold);
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* EMAIL CAPTURE */
+    .email-section {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201,164,71,0.2);
+      text-align: center;
+      padding: 72px 40px;
+    }
+    .email-section .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .email-section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 12px; }
+    .email-section p { color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto 32px; font-size: 0.95rem; }
+    .email-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto 12px; flex-wrap: wrap; justify-content: center; }
+    .email-form input {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .email-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .email-form input:focus { border-color: rgba(201,164,71,0.5); }
+    .email-form button {
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .email-form button:hover { background: var(--gold-light); }
+    .form-note { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    /* ASSESSMENT CTA */
+    .assessment-cta {
+      background: rgba(201,164,71,0.07);
+      border: 1px solid rgba(201,164,71,0.3);
+      border-radius: 6px;
+      padding: 36px 40px;
+      margin: 48px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .assessment-cta .cta-text h3 { font-size: 1.2rem; margin-bottom: 6px; }
+    .assessment-cta .cta-text p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0; }
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 14px 28px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 4px; margin-bottom: 12px; }
+    .footer-logo span { color: var(--gold); }
+    footer a { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin: 0 12px; }
+    footer a:hover { color: var(--white); }
+    .footer-copy { margin-top: 16px; color: rgba(255,255,255,0.25); font-size: 0.78rem; }
+
+    @media (max-width: 600px) {
+      .doc-section { padding: 48px 24px; }
+      .scorecard th, .scorecard td { padding: 12px 10px; font-size: 0.82rem; }
+      .assessment-cta { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-logo">
+      <svg class="header-compass" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="44" stroke="white" stroke-opacity="0.55" stroke-width="1.5" fill="none"/>
+        <path d="M50,23 A27,27 0 0 1 77,50" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M77,50 A27,27 0 0 1 50,77" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M50,77 A27,27 0 0 1 23,50" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M23,50 A27,27 0 0 1 50,23" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M78,22 L47,47 L56,44 L53,53 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M22,78 L53,53 L44,56 L47,47 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M78,78 L53,47 L56,56 L47,53 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M22,22 L47,53 L44,44 L53,47 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M50,7 L44,50 L50,44 L56,50 Z" fill="white"/>
+        <path d="M50,93 L56,50 L50,56 L44,50 Z" fill="white"/>
+        <path d="M93,50 L50,44 L56,50 L50,56 Z" fill="white"/>
+        <path d="M7,50 L50,56 L44,50 L50,44 Z" fill="white"/>
+        <circle cx="50" cy="50" r="2.5" fill="white"/>
+      </svg>
+      <a href="/"><div class="header-title">POINT <span>ZERO</span></div></a>
+    </div>
+    <p class="header-tagline">AI For The Rest Of Us</p>
+    <p class="header-sub">Plain English &nbsp;·&nbsp; Real Tools &nbsp;·&nbsp; No Hype</p>
+  </header>
+
+  <!-- HERO BAND -->
+  <div class="doc-hero">
+    <p class="doc-label">The AI Business Stack</p>
+    <h1>What a 66-Year-Old Built<br/>in 30 Days</h1>
+    <p class="sub">Real Results &nbsp;·&nbsp; Real Numbers &nbsp;·&nbsp; Real Tools</p>
+  </div>
+
+  <!-- THE STORY -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Story</p>
+    <h2>Let me be direct with you.</h2>
+    <div class="pull-quote">
+      <p>Same deliverable. 400 times cheaper.</p>
+      <p class="gold">Done while theirs is still in meetings.</p>
+    </div>
+    <p>A company I have a relationship with recently began rebuilding their website. Professional agency. Multiple stakeholders. Kickoff meetings. Revision rounds. Months in — still not live. Estimated cost: $40,000.</p>
+    <p>While that was happening, I built a brand-new website from scratch. It was designed, built, and live in under 24 hours. Cost: $100 for the month.</p>
+    <p>I'm Tom Zgainer. I'm 66 years old. I spent 30 years in the retirement business, saved American workers over a billion dollars in hidden 401(k) fees, built a company, and sold it to Creative Planning — one of the country's largest wealth management firms. Tony Robbins featured my work in both his bestselling books. I've been on CNBC, Fox Business, and Bloomberg.</p>
+    <p>I've been in business long enough to recognize when something fundamentally changes the rules. <strong>This changes the rules.</strong></p>
+    <p>What follows isn't a list of tools assembled by someone who Googled them. Every example in these pages happened in my first 30 days building Point Zero AI. I did it myself. I know what it cost. I know what it would have cost before AI.</p>
+    <p>The experienced business owners, the accomplished professionals, the people who built real careers over real decades — they're being left behind. Not because they can't learn this. Because nobody is teaching it in a way that respects their intelligence and their time.</p>
+  </section>
+
+  <!-- THE NUMBERS -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Numbers</p>
+    <h2>The 30-Day Scorecard</h2>
+    <p>Here is exactly what I built in my first 30 days — and what it would have cost to do it the traditional way.</p>
+    <div class="scorecard-wrap">
+      <table class="scorecard">
+        <thead>
+          <tr>
+            <th>What I Did</th>
+            <th>AI Tool</th>
+            <th>AI Cost</th>
+            <th>Old Way</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Complete website — live in 24 hours</td>
+            <td class="tool-name">Lovable</td>
+            <td class="ai-cost">$100/mo</td>
+            <td class="old-way">~$40,000 + 4 months</td>
+          </tr>
+          <tr>
+            <td>Full website copywriting — every word</td>
+            <td class="tool-name">Claude</td>
+            <td class="ai-cost">Included</td>
+            <td class="old-way">$5,000+ copywriter</td>
+          </tr>
+          <tr>
+            <td>6+ video scripts for two channels</td>
+            <td class="tool-name">Claude + ChatGPT + Manus</td>
+            <td class="ai-cost">Included</td>
+            <td class="old-way">$3,000+ and weeks</td>
+          </tr>
+          <tr>
+            <td>400 personalized client videos — filmed, edited, sent</td>
+            <td class="tool-name">Dubb</td>
+            <td class="ai-cost">$59/mo</td>
+            <td class="old-way">Days of manual outreach</td>
+          </tr>
+          <tr>
+            <td>8-minute produced film</td>
+            <td class="tool-name">Manus</td>
+            <td class="ai-cost">~$50</td>
+            <td class="old-way">$15,000–$30,000 production</td>
+          </tr>
+          <tr>
+            <td>On-camera tutorial videos with split screen</td>
+            <td class="tool-name">Tella</td>
+            <td class="ai-cost">$39/mo</td>
+            <td class="old-way">$2,000+ per video</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="scorecard-totals">
+      <div class="total-box ai">
+        <div class="total-num">~$300<span style="font-size:1rem; font-weight:400;">/mo</span></div>
+        <div class="total-label">Full AI stack · monthly</div>
+      </div>
+      <div class="total-box old">
+        <div class="total-num">$60,000+</div>
+        <div class="total-label">Traditional equivalent</div>
+      </div>
+    </div>
+    <p class="total-tagline">That's not a rounding error. That's the new math of modern business.</p>
+  </section>
+
+  <!-- THE BUILD -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Build</p>
+    <h2>A $40,000 website vs. a $100 one.</h2>
+    <p class="section-sub">The $100 one is live.</p>
+    <p>I had a front-row seat to two website projects happening simultaneously. The first: a corporate rebuild. Professional agency. Multiple stakeholders. Kickoff meetings. Revision rounds. Months in — still not live. Price tag: nearly $40,000.</p>
+    <p>The second: my own new site, pointzeroai.com. I used a tool called Lovable — an AI web builder — for the very first time. Never touched it before. The site was designed, built, and live in under 24 hours. Cost: $100 a month.</p>
+    <p>The copy? Every word written with Claude. I gave it my background, my audience, my mission. It drafted the whole thing. What a copywriter would have charged $5,000 for minimum was done in an afternoon.</p>
+    <div class="pull-quote">
+      <p>"I'm not telling you to fire your web team.</p>
+      <p>I'm telling you to understand what's now possible."</p>
+    </div>
+  </section>
+
+  <!-- THE REACH -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Reach</p>
+    <h2>400 clients. Face to face. 2 hours.</h2>
+    <p class="section-sub">$59 a month.</p>
+    <p>I had a subset of 400 clients in my retirement business I needed to contact. Reaching all of them personally — real message, real face, real conversation — used to mean days of calls and emails, or a mass blast that nobody reads.</p>
+    <p>Instead I used Dubb. In under two hours, I filmed, edited, and sent personalized video messages to all 400 of them. They opened their email and saw my face — not a template. Me, talking directly to them.</p>
+    <p>Then I used Tella — $39 a month — to record instruction videos where I'm presenting data on one side of the screen while they can see me on the other. Walking clients through 401(k) fee disclosures, visually, personally. What used to require an in-person meeting or a production crew now takes an afternoon.</p>
+  </section>
+
+  <!-- THE FILM -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Film</p>
+    <h2>I made an 8-minute movie.</h2>
+    <p class="section-sub">At 66. In days. With no production team.</p>
+    <p>I've spent years trying to explain what hidden 401(k) fees do to working families. I've written about it. I've been on national television talking about it. Tony Robbins put it in both his bestselling books.</p>
+    <p>Last month, I made a movie about it. Not a slideshow. Not a talking-head clip. A produced, eight-minute film — the kind of content that used to require a production budget, a crew, an editor, and weeks of post-production.</p>
+    <p>I used a tool called Manus. I gave it my script, my concept, my direction. It produced the film.</p>
+    <div class="pull-quote">
+      <p><a href="https://youtube.com/watch?v=ux_MSLJ0T0o" target="_blank" style="color: var(--gold); text-decoration: underline; text-underline-offset: 4px;">▶ Watch it here: youtube.com/watch?v=ux_MSLJ0T0o</a></p>
+    </div>
+    <p>I'm 66 years old. No film background. No production team. No tech department. Just AI — and the willingness to try.</p>
+    <p><strong>If that's possible — what do you think you could build?</strong></p>
+  </section>
+
+  <!-- THE STACK -->
+  <section class="doc-section">
+    <p class="section-eyebrow">The Stack</p>
+    <h2>The exact tools I use.</h2>
+    <p>What each tool does in one plain-English sentence. What it costs. You don't need all of them. Start with one.</p>
+    <table class="stack-table">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>What It Does</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tool-cell">Claude<a href="https://claude.ai" target="_blank">claude.ai</a></td>
+          <td class="desc-cell">Your thinking partner — writing, analysis, strategy, complex decisions</td>
+          <td class="cost-cell">Free / $20/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">ChatGPT<a href="https://chat.openai.com" target="_blank">chat.openai.com</a></td>
+          <td class="desc-cell">Fast and versatile — brainstorming, scripts, quick research</td>
+          <td class="cost-cell">Free / $20/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">Perplexity<a href="https://perplexity.ai" target="_blank">perplexity.ai</a></td>
+          <td class="desc-cell">AI-powered search — real answers with sources, in seconds</td>
+          <td class="cost-cell">Free / $20/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">Lovable<a href="https://lovable.dev" target="_blank">lovable.dev</a></td>
+          <td class="desc-cell">Builds websites and apps from plain English — no code required</td>
+          <td class="cost-cell">$100/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">Dubb<a href="https://dubb.com" target="_blank">dubb.com</a></td>
+          <td class="desc-cell">Personalized video messaging to clients and prospects at scale</td>
+          <td class="cost-cell">$59/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">Tella<a href="https://tella.tv" target="_blank">tella.tv</a></td>
+          <td class="desc-cell">Screen + face recording for tutorials, walkthroughs, presentations</td>
+          <td class="cost-cell">$39/mo</td>
+        </tr>
+        <tr>
+          <td class="tool-cell">Manus<a href="https://manus.im" target="_blank">manus.im</a></td>
+          <td class="desc-cell">AI agent for research, content production, and complex projects</td>
+          <td class="cost-cell">Usage-based</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 8px;">Full stack: approximately $300/month. Most people start with Claude (free) and never look back.</p>
+
+    <!-- ASSESSMENT CTA -->
+    <div class="assessment-cta">
+      <div class="cta-text">
+        <h3>Want this mapped to your specific business?</h3>
+        <p>An AI Business Assessment identifies exactly which tools solve your problems — and where to start.</p>
+      </div>
+      <a href="/#assessment" class="btn-gold">Book an Assessment →</a>
+    </div>
+  </section>
+
+  <!-- YOUR FIRST MOVE -->
+  <section class="doc-section">
+    <p class="section-eyebrow">Your First Move</p>
+    <h2>One tool. One task. This week.</h2>
+    <p>Don't try to do all of this at once. Here's exactly what I'd do if I were starting where you are:</p>
+    <div class="first-move-steps">
+      <div class="step">
+        <div class="step-label">Today</div>
+        <div class="step-text">Go to claude.ai and create a free account. Takes 60 seconds.</div>
+      </div>
+      <div class="step">
+        <div class="step-label">Then</div>
+        <div class="step-text">Think of one real task you've been avoiding — an email, a proposal, a decision you keep circling.</div>
+      </div>
+      <div class="step">
+        <div class="step-label">Do This</div>
+        <div class="step-text">Type your request — give it context about who you are and what you need.
+          <code>"I'm a [your profession]. I need help with [the task]. Here's the background: [give it context]."</code>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-label">Notice</div>
+        <div class="step-text">The quality. The speed. The fact that it thinks <em>with</em> you, not at you. That's the shift.</div>
+      </div>
+    </div>
+    <p>One task. One tool. That's how it starts. The rest follows naturally.</p>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="email-section">
+    <p class="label">Stay in the Loop</p>
+    <h2>AI is moving fast.<br/>We'll keep you ahead of it.</h2>
+    <p>Practical insights, tool recommendations, and straight talk on what's actually working — delivered when it matters. No noise.</p>
+    <form class="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="Your email address" required id="emailInput" />
+      <button type="submit">Keep Me Posted</button>
+    </form>
+    <p class="form-note">No spam. No selling your data. Unsubscribe anytime.</p>
+  </div>
+
+  <footer>
+    <div class="footer-logo">POINT <span>ZERO</span> AI</div>
+    <a href="/">Home</a>
+    <a href="/#assessment">AI Assessment</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/support">Support</a>
+    <p class="footer-copy">&copy; 2026 Point Zero AI LLC · Tom Zgainer · info@pointzeroai.com</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      console.log('Email captured:', email);
+      alert("You're on the list. We'll be in touch.");
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
