@@ -992,7 +992,7 @@
   <section class="hero">
     <h1>The world changed.<br /><span>Nobody told you.</span></h1>
     <p class="hero-sub">Built for experienced business owners and professionals who want straight talk, real tools, and zero fluff — taught by someone who's actually built and sold a company.</p>
-    <a href="#starter" class="btn-gold">Get the Free AI Starter Kit</a>
+    <a href="#assessment" class="btn-gold">Book an AI Business Assessment →</a>
     <p class="hero-sub-tag">Trusted by business owners nationwide &nbsp;·&nbsp; Featured in Tony Robbins' bestselling books</p>
   </section>
 
@@ -1133,7 +1133,7 @@
   </section>
 
   <!-- AI ASSESSMENT -->
-  <section class="course">
+  <section class="course" id="assessment">
     <div class="section-inner">
       <p class="section-label">AI Business Assessment</p>
       <h2>You don't need another course.<br/>You need someone to look at <em>your</em> business.</h2>
@@ -1232,12 +1232,12 @@
   <!-- STARTER KIT -->
   <section class="starter" id="starter">
     <div class="section-inner">
-      <p class="section-label">Start Here</p>
-      <h2>Get the Free AI Starter Kit</h2>
-      <p class="starter-sub">Five AI tools every person over 50 should know — what they do, what they cost, and exactly how to start using them today. Delivered to your inbox in 60 seconds.</p>
+      <p class="section-label">Stay in the Loop</p>
+      <h2>AI is moving fast.<br/>We'll keep you ahead of it.</h2>
+      <p class="starter-sub">Practical insights, tool recommendations, and straight talk on what's actually working in AI for business — delivered when it matters. No noise.</p>
       <form class="email-form" onsubmit="handleSubmit(event)">
         <input type="email" placeholder="Your email address" required id="emailInput" />
-        <button type="submit">Send It</button>
+        <button type="submit">Keep Me Posted</button>
       </form>
       <p class="form-note">No spam. No selling your data. Unsubscribe anytime.</p>
     </div>
@@ -1262,7 +1262,7 @@
     function handleSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
-      alert('Thanks! Check your inbox for the free AI Starter Kit.');
+      alert('You\'re on the list. We\'ll be in touch.');
       e.target.reset();
     }
 
