@@ -576,6 +576,151 @@
       padding-top: 2px;
     }
 
+    /* ── AI ASSESSMENT ── */
+    .assessment-pain {
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid var(--gold);
+      padding: 24px 28px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 48px;
+      max-width: 680px;
+    }
+    .assessment-pain p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .assessment-pain p + p { margin-top: 12px; }
+    .assessment-pain strong { color: var(--white); }
+
+    .assessment-offer {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+    .assessment-price-box {
+      background: rgba(201,164,71,0.08);
+      border: 1px solid rgba(201,164,71,0.35);
+      border-radius: 6px;
+      padding: 32px 36px;
+      text-align: center;
+      min-width: 200px;
+      flex-shrink: 0;
+    }
+    .assessment-price {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .assessment-price-label {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .assessment-guarantee {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    .assessment-guarantee strong { color: var(--gold); }
+
+    .assessment-includes {
+      flex: 1;
+      min-width: 260px;
+    }
+    .assessment-includes h3 {
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      color: var(--white);
+    }
+    .assessment-includes ul {
+      list-style: none;
+    }
+    .assessment-includes li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .assessment-includes li:last-child { border-bottom: none; }
+    .check { color: var(--gold); font-size: 1rem; flex-shrink: 0; }
+
+    .assessment-phases {
+      max-width: 700px;
+      margin-bottom: 48px;
+    }
+    .assessment-phases h3 {
+      font-size: 1.2rem;
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.9);
+    }
+    .phase {
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .phase:last-child { border-bottom: none; }
+    .phase-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      min-width: 28px;
+      padding-top: 3px;
+    }
+    .phase-content h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+    .phase-content p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    .assessment-stat-row {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .assessment-stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 6px;
+      padding: 24px 28px;
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+    }
+    .assessment-stat .stat-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .assessment-stat .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+    }
+
     .launching-box {
       background: rgba(201,164,71,0.08);
       border: 1px solid rgba(201,164,71,0.3);
@@ -991,9 +1136,93 @@
   <section class="course">
     <div class="section-inner">
       <p class="section-label">AI Business Assessment</p>
-      <h2>Find out exactly where AI fits in your business.</h2>
-      <p class="course-sub">A personalized assessment built for business owners who want straight answers — not a course, not a template. A real look at your specific business.</p>
-      <!-- ASSESSMENT CONTENT GOES HERE — Tom to provide -->
+      <h2>You don't need another course.<br/>You need someone to look at <em>your</em> business.</h2>
+      <p class="course-sub">You know AI exists. You've seen the demos. You've probably tried ChatGPT. And you're still stuck — drowning in tools with no idea which ones solve your specific problems.</p>
+
+      <div class="assessment-pain">
+        <p>You don't need a developer. You don't need a newsletter. You don't need a 12-week program.</p>
+        <p><strong>You need someone who can look at your calendar, your inbox, your workflows, and say: "This tool. This process. This is where you start."</strong></p>
+        <p>That's exactly what this is.</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="assessment-stat-row">
+        <div class="assessment-stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Hours returned per week<br/>on average</div>
+        </div>
+        <div class="assessment-stat">
+          <div class="stat-num">~$40</div>
+          <div class="stat-label">Average monthly tool cost<br/>for clients</div>
+        </div>
+        <div class="assessment-stat">
+          <div class="stat-num">25×</div>
+          <div class="stat-label">Average return on<br/>the $999 investment</div>
+        </div>
+        <div class="assessment-stat">
+          <div class="stat-num">60%</div>
+          <div class="stat-label">Of clients move to<br/>implementation after</div>
+        </div>
+      </div>
+
+      <!-- OFFER + PRICE -->
+      <div class="assessment-offer">
+        <div class="assessment-price-box">
+          <div class="assessment-price">$999</div>
+          <div class="assessment-price-label">One-time investment</div>
+          <div class="assessment-guarantee"><strong>Guarantee:</strong> 5+ hours returned per week — or a full refund.</div>
+        </div>
+        <div class="assessment-includes">
+          <h3>What you get:</h3>
+          <ul>
+            <li><span class="check">✦</span> 45-minute discovery call — we map your actual workflow, not a hypothetical one</li>
+            <li><span class="check">✦</span> Custom report: 3–7 specific tool recommendations built for your business</li>
+            <li><span class="check">✦</span> Priority matrix — high impact, low effort: here's where you start</li>
+            <li><span class="check">✦</span> 4-day quick-start plan with financial impact breakdown</li>
+            <li><span class="check">✦</span> 30-minute review call to walk through every recommendation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4 PHASES -->
+      <div class="assessment-phases">
+        <h3>How it works</h3>
+        <div class="phase">
+          <div class="phase-num">01</div>
+          <div class="phase-content">
+            <h4>Discovery Call — 45 minutes</h4>
+            <p>We're not pitching solutions. We're pulling problems. Walk me through yesterday. Where did your time actually go? What tasks do you dread? Where does work pile up waiting on you?</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">02</div>
+          <div class="phase-content">
+            <h4>The Analysis</h4>
+            <p>I analyze your workflow against the current AI landscape — identifying 5–7 areas where existing tools solve your specific problems. Not generic tools. Not what's trending. What fits your situation.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">03</div>
+          <div class="phase-content">
+            <h4>The Report</h4>
+            <p>A clean, professional deliverable: executive summary, priority matrix, tool recommendations with implementation details, a 4-day quick-start plan, and your financial impact breakdown.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">04</div>
+          <div class="phase-content">
+            <h4>Review Call — 30 minutes</h4>
+            <p>We walk through every recommendation together. You ask questions. You decide what's urgent. No upsell pressure — just clarity on where to start and what it would take to go further.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="launching-box" style="text-align:left; max-width:680px;">
+        <p class="tag">Book Your Assessment</p>
+        <h3 style="margin-bottom:12px; font-size:1.2rem;">Ready to find out exactly where AI fits in your business?</h3>
+        <p style="color:rgba(255,255,255,0.65); margin-bottom:24px; font-size:0.95rem;">Spots are limited. Each assessment requires real time and attention — this isn't automated. Apply below and I'll be in touch within 24 hours.</p>
+        <a href="mailto:info@pointzeroai.com?subject=AI%20Business%20Assessment%20Inquiry" class="btn-gold">Apply for an Assessment →</a>
+      </div>
     </div>
   </section>
 
