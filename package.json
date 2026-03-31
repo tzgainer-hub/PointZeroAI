@@ -1,0 +1,12 @@
+{
+  "name": "pointzeroai",
+  "version": "1.0.0",
+  "description": "Point Zero AI - AI for the rest of us",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
