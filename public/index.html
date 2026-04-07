@@ -342,6 +342,32 @@
       line-height: 1.8;
     }
 
+    /* ── DIVIDER STATEMENT ── */
+    .divider-statement {
+      background:
+        linear-gradient(rgba(5, 12, 28, 0.88), rgba(5, 12, 28, 0.92)),
+        radial-gradient(ellipse at 30% 50%, #1e3a5f 0%, #040d1e 70%);
+      padding: 120px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(201,164,71,0.08);
+      border-bottom: 1px solid rgba(201,164,71,0.08);
+    }
+
+    .divider-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .divider-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      margin-bottom: 48px;
+    }
+
     /* ── WHO ── */
     .who {
       background: var(--navy-mid);
@@ -1079,6 +1105,14 @@
       </div>
     </div>
   </section>
+
+  <!-- DIVIDER STATEMENT -->
+  <div class="divider-statement">
+    <div class="divider-inner">
+      <p class="divider-text">The gap between the AI-enabled and the traditional professional is widening.</p>
+      <a href="#assessment" class="btn-gold">Book an Assessment →</a>
+    </div>
+  </div>
 
   <!-- WHO THIS IS FOR -->
   <section class="who">
