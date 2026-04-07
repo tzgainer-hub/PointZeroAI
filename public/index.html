@@ -979,24 +979,68 @@
     }
 
     @media (max-width: 768px) {
-      nav { padding: 14px 20px; }
-      section { padding: 70px 20px; }
-      .hero { padding: 70px 20px 80px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .guide-stats { grid-template-columns: repeat(2, 1fr); }
-      .email-form { flex-direction: column; }
-      .email-form input { border-right: 1px solid rgba(255,255,255,0.12); border-radius: 0; margin-bottom: 8px; }
-      .email-form button { border-radius: 0; }
-      .advisory-box { padding: 28px 24px; }
-      .products-grid { grid-template-columns: 1fr; }
+      /* Ticker — faster on mobile so it actually feels like it's moving */
+      .ticker-inner { animation-duration: 14s; }
+
+      /* Layout */
+      section { padding: 64px 20px; }
+      .hero { padding: 60px 20px 72px; }
+      .divider-statement { padding: 80px 20px; }
+
+      /* Header */
       .site-header { padding: 32px 20px 28px; }
       .header-logo { flex-direction: column; gap: 10px; }
-      .header-compass { width: 52px; height: 52px; }
-      .header-title { font-size: 2rem; letter-spacing: 8px; }
+      .header-compass { width: 48px; height: 48px; }
+      .header-title { font-size: 1.7rem; letter-spacing: 6px; }
+      .header-tagline { font-size: 0.65rem; letter-spacing: 4px; }
+
+      /* Hero */
+      .hero h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+      .hero-sub { font-size: 1rem; }
+      .btn-gold { padding: 16px 32px; font-size: 0.75rem; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .stat-card { padding: 28px 16px; }
+
+      /* Who */
+      .who-grid { grid-template-columns: 1fr; }
+      .who-card { padding: 28px 24px; }
+
+      /* Products */
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { padding: 28px 24px; }
+
+      /* Assessment */
+      .assessment-offer { flex-direction: column; gap: 24px; }
+      .assessment-price-box { width: 100%; min-width: unset; }
+      .launching-box { padding: 28px 24px; }
+
+      /* Guide */
+      .guide-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .guide-stat { padding: 24px 16px; }
+
+      /* Advisory */
+      .advisory-box { padding: 28px 20px; }
+
+      /* Email form */
+      .email-form { flex-direction: column; }
+      .email-form input { border-right: 1px solid rgba(255,255,255,0.12); border-radius: 0; margin-bottom: 8px; }
+      .email-form button { border-radius: 0; padding: 16px; }
+
+      /* Footer */
+      .footer-links { gap: 20px; }
+      footer { padding: 40px 20px 24px; }
+
+      /* Divider */
+      .divider-text { font-size: clamp(1.3rem, 5vw, 1.8rem); margin-bottom: 32px; }
     }
 
     @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .guide-stats { grid-template-columns: repeat(2, 1fr); }
+      .header-title { font-size: 1.4rem; letter-spacing: 5px; }
+      section { padding: 52px 16px; }
     }
   </style>
 </head>
