@@ -227,7 +227,7 @@
 
     .ticker-inner {
       display: flex;
-      gap: 60px;
+      width: max-content;
       animation: ticker 28s linear infinite;
       white-space: nowrap;
     }
@@ -238,6 +238,7 @@
       text-transform: uppercase;
       color: rgba(201,164,71,0.75);
       flex-shrink: 0;
+      padding: 0 30px;
     }
 
     @keyframes ticker {
@@ -980,7 +981,7 @@
 
     @media (max-width: 768px) {
       /* Ticker — faster on mobile so it actually feels like it's moving */
-      .ticker-inner { animation-duration: 14s; }
+      .ticker-inner { animation-duration: 8s; }
 
       /* Layout */
       section { padding: 64px 20px; }
