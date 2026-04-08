@@ -23,11 +23,8 @@ app.post('/api/submit-assessment', async (req, res) => {
     const apiKey = process.env.MAILCHIMP_API_KEY;
     const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
-    console.log('API key present:', !!apiKey, '| Audience ID present:', !!audienceId);
-    console.log('Env keys with MAIL:', Object.keys(process.env).filter(k => k.includes('MAIL')));
     if (!apiKey || !audienceId) {
-      console.error('Mailchimp env vars missing');
-      return res.json({ ok: true, error: 'config' });
+      return res.json({ ok: true });
     }
 
     // Normalize arrays to strings
@@ -36,7 +33,6 @@ app.post('/api/submit-assessment', async (req, res) => {
 
     // Extract datacenter from API key (e.g. "abc123-us1" → "us1")
     const dc = apiKey.split('-').pop();
-    console.log('Using Mailchimp datacenter:', dc);
 
     const data = JSON.stringify({
       email_address: email,

@@ -1450,8 +1450,6 @@ function buildResults() {
 async function submitAssessment() {
   const score = calculateScore();
   const level = getLevel(score);
-  console.log('Submitting assessment for:', userEmail, 'score:', score, 'level:', level);
-
   try {
     await fetch('/api/submit-assessment', {
       method: 'POST',
