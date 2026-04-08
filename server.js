@@ -61,9 +61,9 @@ app.post('/api/submit-assessment', async (req, res) => {
     let body = '';
     mcRes.on('data', chunk => body += chunk);
     mcRes.on('end', () => {
-      // If already subscribed (400), update their record instead
+      console.log('Mailchimp status:', mcRes.statusCode);
+      console.log('Mailchimp response:', body);
       if (mcRes.statusCode === 400 && body.includes('already a list member')) {
-        // Silently succeed — they're already in the list
         return res.json({ ok: true });
       }
       res.json({ ok: true });
@@ -71,8 +71,8 @@ app.post('/api/submit-assessment', async (req, res) => {
   });
 
   mcReq.on('error', (e) => {
-    console.error('Mailchimp error:', e);
-    res.json({ ok: true }); // Don't block the user experience
+    console.error('Mailchimp request error:', e);
+    res.json({ ok: true });
   });
 
   mcReq.write(data);
