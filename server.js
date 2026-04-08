@@ -16,6 +16,7 @@ app.get('/assessment', (req, res) => res.sendFile(path.join(__dirname, 'public',
 
 // ── MAILCHIMP SUBMIT ──
 app.post('/api/submit-assessment', async (req, res) => {
+  console.log('Assessment submission received:', req.body.email);
   const { email, score, level, industry, hours_lost, ai_usage, goal, tasks } = req.body;
 
   const apiKey = process.env.MAILCHIMP_API_KEY;
