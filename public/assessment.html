@@ -568,7 +568,7 @@
   <div class="intro-inner">
     <div class="intro-label">Point Zero AI · Free Assessment</div>
     <h1 class="intro-headline">Your Business Is Losing Money and Time Every Week to Tasks AI Already Handles</h1>
-    <p class="intro-sub">15 questions. 3 minutes. You get a custom AI readiness score, your top opportunities, and specific tool recommendations — free.</p>
+    <p class="intro-sub">19 questions. 4 minutes. You get a custom AI readiness score, your top opportunities, and specific tool recommendations — free.</p>
 
     <label class="email-label" for="email-input">Enter your email to receive your results</label>
     <input type="email" id="email-input" class="email-input" placeholder="your@email.com" autocomplete="email" />
@@ -783,16 +783,17 @@ const QUESTIONS = [
   {
     id: 'tools_tried',
     section: 'YOUR AI EXPERIENCE',
-    text: 'Which AI tools have you tried? Select all that apply.',
+    text: 'Which of these AI tools have you used or tried? Select all that apply.',
     type: 'multi',
     hint: 'Select all that apply',
     options: [
-      'ChatGPT',
+      'ChatGPT (OpenAI)',
+      'Microsoft Copilot (AI inside Word, Excel, Outlook)',
+      'Grammarly (AI writing and editing)',
+      'Zoom AI Companion or Otter.ai (meeting summaries)',
+      'Canva Magic Studio (AI design and images)',
+      'Gemini (Google\'s AI)',
       'Claude (Anthropic)',
-      'Grammarly',
-      'Siri, Alexa, or Google Assistant',
-      'Zapier or Make.com (automation)',
-      'Canva AI features',
       'None of these'
     ]
   },
@@ -835,6 +836,54 @@ const QUESTIONS = [
       'Captures leads or has a contact form',
       'Shows up well on Google (SEO)',
       'None of these — it\'s basically a digital business card'
+    ]
+  },
+  {
+    id: 'website_leads',
+    section: 'YOUR WEBSITE',
+    text: 'Does your website generate leads on its own — or do all your new clients come from referrals and word of mouth?',
+    type: 'single',
+    options: [
+      'My website generates leads consistently on its own',
+      'Occasionally — but most clients still come from referrals',
+      'Almost never — it\'s basically just an online brochure',
+      'I honestly don\'t know if my website has ever brought in a client'
+    ]
+  },
+  {
+    id: 'website_booking',
+    section: 'YOUR WEBSITE',
+    text: 'Can a potential client book an appointment, request a quote, or contact you directly from your website — right now, at midnight, without calling anyone?',
+    type: 'single',
+    options: [
+      'Yes — they can book or contact us instantly online',
+      'They can fill out a form but someone has to respond manually',
+      'No — they have to call or email us separately',
+      'I\'m not sure what happens when someone tries'
+    ]
+  },
+  {
+    id: 'website_differentiation',
+    section: 'YOUR WEBSITE',
+    text: 'If a potential client landed on your website right now, would they immediately understand what makes you different from your competitors?',
+    type: 'single',
+    options: [
+      'Yes — it\'s clear and compelling',
+      'Somewhat — but it could be much stronger',
+      'Probably not — it looks similar to everyone else in my field',
+      'No — it doesn\'t really say anything unique about us'
+    ]
+  },
+  {
+    id: 'website_lost',
+    section: 'YOUR WEBSITE',
+    text: 'Have you ever suspected you lost a potential client because your website didn\'t make a strong enough first impression?',
+    type: 'single',
+    options: [
+      'Yes — I\'m fairly certain it has cost me business',
+      'Probably — I\'ve thought about it more than once',
+      'Maybe — I\'m not sure',
+      'No — my website represents me well'
     ]
   },
   {
@@ -936,7 +985,7 @@ function renderQuestion() {
   const total = QUESTIONS.length;
   const stepNum = currentQ + 1;
 
-  document.getElementById('step-counter').textContent = `Step ${stepNum} of ${total}`;
+  document.getElementById('step-counter').textContent = `Step ${stepNum} of ${QUESTIONS.length}`;
   document.getElementById('progress-fill').style.width = `${(stepNum / total) * 100}%`;
   document.getElementById('q-section').textContent = q.section;
   document.getElementById('q-text').textContent = q.text;
