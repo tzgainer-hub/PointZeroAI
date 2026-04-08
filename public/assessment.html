@@ -743,8 +743,9 @@ const QUESTIONS = [
   {
     id: 'dread',
     section: 'YOUR TIME',
-    text: 'What do you dread most each week?',
-    type: 'single',
+    text: 'What do you dread most each week? Check all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
     options: [
       'Catching up on email',
       'Writing anything (proposals, emails, reports)',
@@ -798,8 +799,9 @@ const QUESTIONS = [
   {
     id: 'barrier',
     section: 'YOUR AI EXPERIENCE',
-    text: 'What\'s stopped you from using AI more in your business?',
-    type: 'single',
+    text: 'What\'s stopped you from using AI more in your business? Check all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
     options: [
       'I don\'t know where to start',
       'Privacy and security concerns',
@@ -812,7 +814,7 @@ const QUESTIONS = [
   {
     id: 'website_age',
     section: 'YOUR BUSINESS SYSTEMS',
-    text: 'When was your website last meaningfully updated?',
+    text: 'When was the last time your website had a significant upgrade?',
     type: 'single',
     options: [
       'Within the last year',
@@ -838,8 +840,9 @@ const QUESTIONS = [
   {
     id: 'communication',
     section: 'YOUR BUSINESS SYSTEMS',
-    text: 'How do you currently handle client communication and follow-up?',
-    type: 'single',
+    text: 'How do you currently handle client communication and follow-up? Check all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
     options: [
       'Mostly email — nothing is really organized',
       'I have a CRM system with organized contacts and follow-ups',
