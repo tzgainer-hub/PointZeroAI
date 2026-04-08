@@ -894,7 +894,7 @@ const QUESTIONS = [
   },
   {
     id: 'website_age',
-    section: 'YOUR BUSINESS SYSTEMS',
+    section: 'YOUR DIGITAL PRESENCE',
     text: 'When was the last time your website had a significant upgrade?',
     type: 'single',
     options: [
@@ -905,22 +905,8 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'website_features',
-    section: 'YOUR BUSINESS SYSTEMS',
-    text: 'What does your website currently do for your business? Select all that apply.',
-    type: 'multi',
-    hint: 'Select all that apply',
-    options: [
-      'Has a live chat or AI chatbot',
-      'Has online scheduling or booking',
-      'Captures leads or has a contact form',
-      'Shows up well on Google (SEO)',
-      'None of these — it\'s basically a digital business card'
-    ]
-  },
-  {
     id: 'website_leads',
-    section: 'YOUR WEBSITE',
+    section: 'YOUR DIGITAL PRESENCE',
     text: 'Does your website generate leads on its own — or do all your new clients come from referrals and word of mouth?',
     type: 'single',
     options: [
@@ -931,32 +917,8 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'website_booking',
-    section: 'YOUR WEBSITE',
-    text: 'Can a potential client book an appointment, request a quote, or contact you directly from your website — right now, at midnight, without calling anyone?',
-    type: 'single',
-    options: [
-      'Yes — they can book or contact us instantly online',
-      'They can fill out a form but someone has to respond manually',
-      'No — they have to call or email us separately',
-      'I\'m not sure what happens when someone tries'
-    ]
-  },
-  {
-    id: 'website_differentiation',
-    section: 'YOUR WEBSITE',
-    text: 'If a potential client landed on your website right now, would they immediately understand what makes you different from your competitors?',
-    type: 'single',
-    options: [
-      'Yes — it\'s clear and compelling',
-      'Somewhat — but it could be much stronger',
-      'Probably not — it looks similar to everyone else in my field',
-      'No — it doesn\'t really say anything unique about us'
-    ]
-  },
-  {
     id: 'website_lost',
-    section: 'YOUR WEBSITE',
+    section: 'YOUR DIGITAL PRESENCE',
     text: 'Have you ever suspected you lost a potential client because your website didn\'t make a strong enough first impression?',
     type: 'single',
     options: [
@@ -1261,10 +1223,14 @@ function calculateScore() {
   };
   score += webScores[answers.website_age] || 0;
 
-  // Website features (0–10)
-  const webFeats = answers.website_features || [];
-  const nonNoneFeats = webFeats.filter(f => !f.includes('digital business card'));
-  score += Math.min(nonNoneFeats.length * 3, 10);
+  // Website leads (0–10)
+  const webLeadScores = {
+    'My website generates leads consistently on its own': 10,
+    'Occasionally — but most clients still come from referrals': 6,
+    'Almost never — it\'s basically just an online brochure': 2,
+    'I honestly don\'t know if my website has ever brought in a client': 0
+  };
+  score += webLeadScores[answers.website_leads] || 0;
 
   // Communication (0–10) — multi-select, pick best score from selected options
   const commScores = {
@@ -1387,12 +1353,22 @@ function buildResults() {
   const totalHrs = getTotalHours(opps);
   const tools = getTools(level);
 
+  const industry = answers.industry || '';
+  const size = answers.size || '';
+  const hours = answers.hours_lost || '';
+  const goals = Array.isArray(answers.goal) ? answers.goal : (answers.goal ? [answers.goal] : []);
+
+  // Industry-aware label (short form for inline use)
+  const industryLabel = industry || 'your business';
+  const sizeLabel = size ? ` with ${size.toLowerCase()}` : '';
+
+  // Level descriptions — injected with user's industry
   const levelData = {
-    1: { name: 'AI Novice', desc: 'While you\'re doing things manually, other business owners are using AI to do the same work in a fraction of the time. You\'re not behind because you\'re not capable — you\'re behind because nobody has shown you the right starting point for your specific situation. That\'s exactly what the strategy call fixes.' },
-    2: { name: 'AI Curious', desc: 'You\'ve tried AI but it hasn\'t clicked yet. That\'s not a you problem — it\'s a guidance problem. The tools exist. The workflows exist. You just haven\'t had someone connect them to YOUR business, YOUR clients, and YOUR day-to-day reality. Yet.' },
-    3: { name: 'AI Explorer', desc: 'You\'re using AI more than most — and still giving away hours every single week. The gap between where you are and where you could be is smaller than you think. It\'s 3–5 targeted changes, not a complete overhaul. But those changes need to be the right ones for your situation.' },
-    4: { name: 'AI Adopter', desc: 'You\'re ahead of 90% of business owners your age. The question now isn\'t whether to use AI — it\'s whether your current setup is actually optimized, or just the first thing that worked. There\'s a difference, and it\'s worth finding out.' },
-    5: { name: 'AI Practitioner', desc: 'You\'re running a sophisticated operation. The opportunity isn\'t basics — it\'s whether your systems are genuinely optimized or just impressive-looking. Advanced automation and custom workflows are where your next gains live.' }
+    1: { name: 'AI Novice', desc: `While ${industryLabel} professionals are still handling things manually, others in your field are using AI to do the same work in a fraction of the time. You're not behind because you're not capable — you're behind because nobody has shown you the right starting point for${sizeLabel ? ' a business' + sizeLabel : ' your situation'}. That's exactly what the strategy call fixes.` },
+    2: { name: 'AI Curious', desc: `You've tried AI but it hasn't clicked yet for ${industryLabel}. That's not a you problem — it's a guidance problem. The tools exist. The workflows exist. You just haven't had someone connect them to YOUR clients, YOUR team${sizeLabel}, and YOUR day-to-day reality. Yet.` },
+    3: { name: 'AI Explorer', desc: `You're using AI more than most ${industryLabel} owners — and still giving away hours every single week. The gap between where you are and where you could be is smaller than you think. It's 3–5 targeted changes built around your specific workflow, not a complete overhaul.` },
+    4: { name: 'AI Adopter', desc: `You're ahead of 90% of business owners in ${industryLabel}. The question now isn't whether to use AI — it's whether your current setup is actually optimized for your business, or just the first thing that worked. There's a real difference, and it's worth a 30-minute conversation to find out.` },
+    5: { name: 'AI Practitioner', desc: `You're running a sophisticated operation for ${industryLabel}. The opportunity isn't basics — it's whether your systems are genuinely optimized or just impressive-looking. Advanced automation and custom workflows built for your industry are where your next gains live.` }
   };
 
   // Score display
@@ -1409,6 +1385,12 @@ function buildResults() {
     segsEl.appendChild(seg);
   }
 
+  // Opportunities header — personalized
+  const oppsLabel = document.querySelector('.opps-label');
+  if (oppsLabel && industry) {
+    oppsLabel.textContent = `Where ${industry} Businesses Like Yours Are Bleeding Time and Money`;
+  }
+
   // Opportunities
   const oppsGrid = document.getElementById('r-opps-grid');
   oppsGrid.innerHTML = '';
@@ -1423,8 +1405,19 @@ function buildResults() {
     oppsGrid.appendChild(card);
   });
 
-  // Total
-  document.getElementById('r-total').textContent = `That's ${totalHrs}+ hours every week you're currently giving away. At even a modest hourly value, you're losing thousands of dollars a month to tasks AI can handle — for about $40/month in tools.`;
+  // Total — personalized with hours answer
+  const hoursPhrase = hours === 'More than 10 hours — it\'s out of control'
+    ? 'You already know you\'re losing more than 10 hours a week.'
+    : hours
+      ? `Based on your answers, you're losing ${hours.toLowerCase()} to work AI already handles.`
+      : `That's ${totalHrs}+ hours every week you're currently giving away.`;
+  document.getElementById('r-total').textContent = `${hoursPhrase} At even a modest hourly value for someone in ${industryLabel}, that's thousands of dollars a month going to tasks AI can handle for about $40/month in tools.`;
+
+  // Tools label — personalized
+  const toolsLabel = document.querySelector('.tools-label');
+  if (toolsLabel && industry) {
+    toolsLabel.textContent = `Where To Start — Matched To ${industry} at Level ${level}`;
+  }
 
   // Tools
   const toolsEl = document.getElementById('r-tools');
@@ -1436,15 +1429,22 @@ function buildResults() {
     toolsEl.appendChild(tag);
   });
 
+  // Goals summary — inject into CTA sub if goals selected
+  const goalsSummary = goals.filter(g => g !== 'All of the above' && g !== 'Additional');
+  const ctaSub = document.querySelector('.cta-sub');
+  if (ctaSub && goalsSummary.length > 0) {
+    const goalsText = goalsSummary.length === 1
+      ? goalsSummary[0].toLowerCase()
+      : goalsSummary.slice(0, 2).map(g => g.toLowerCase()).join(' and ');
+    ctaSub.textContent = `You said your top priority is to ${goalsText}. The strategy call is 30 minutes built entirely around that goal — for your business, your clients, your workflow. Tom has worked inside 8,000+ businesses. He'll show you exactly what to do next.`;
+  }
+
   // CTA always points to Calendly
   const ctaLink = document.getElementById('cta-link');
-  if (ctaLink) {
-    ctaLink.href = 'https://calendly.com/tomz-pointzeroai/30min';
-  }
+  if (ctaLink) ctaLink.href = 'https://calendly.com/tomz-pointzeroai/30min';
 
   // HIPAA note
   const hipaaIndustries = ['Healthcare / Medical', 'Dental', 'Legal'];
-  const industry = answers.industry || '';
   const hipaaEl = document.getElementById('r-hipaa');
   if (hipaaIndustries.includes(industry)) {
     hipaaEl.style.display = 'block';
