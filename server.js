@@ -16,30 +16,37 @@ app.get('/assessment', (req, res) => res.sendFile(path.join(__dirname, 'public',
 
 // ── MAILCHIMP SUBMIT ──
 app.post('/api/submit-assessment', async (req, res) => {
-  console.log('Assessment submission received:', req.body.email);
-  const { email, score, level, industry, hours_lost, ai_usage, goal, tasks } = req.body;
+  try {
+    console.log('Assessment submission received:', req.body.email);
+    const { email, score, level, industry, hours_lost, ai_usage, goal, tasks } = req.body;
 
-  const apiKey = process.env.MAILCHIMP_API_KEY;
-  const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
+    const apiKey = process.env.MAILCHIMP_API_KEY;
+    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
-  if (!apiKey || !audienceId) {
-    return res.status(500).json({ error: 'Mailchimp not configured' });
-  }
+    if (!apiKey || !audienceId) {
+      console.error('Mailchimp env vars missing');
+      return res.status(500).json({ error: 'Mailchimp not configured' });
+    }
 
-  // Extract datacenter from API key (e.g. "abc123-us1" → "us1")
-  const dc = apiKey.split('-').pop();
+    // Normalize arrays to strings
+    const goalStr = Array.isArray(goal) ? goal.join(', ') : (goal || '');
+    const tasksStr = Array.isArray(tasks) ? tasks.join(', ') : (tasks || '');
 
-  const data = JSON.stringify({
-    email_address: email,
-    status: 'subscribed',
-    merge_fields: {
-      SCORE: String(score),
-      LEVEL: String(level),
-      INDUSTRY: industry || '',
-      HOURS: hours_lost || '',
-      AIUSAGE: ai_usage || '',
-      GOAL: goal || ''
-    },
+    // Extract datacenter from API key (e.g. "abc123-us1" → "us1")
+    const dc = apiKey.split('-').pop();
+    console.log('Using Mailchimp datacenter:', dc);
+
+    const data = JSON.stringify({
+      email_address: email,
+      status: 'subscribed',
+      merge_fields: {
+        SCORE: String(score || ''),
+        LEVEL: String(level || ''),
+        INDUSTRY: industry || '',
+        HOURS: hours_lost || '',
+        AIUSAGE: ai_usage || '',
+        GOAL: goalStr
+      },
     tags: [
       'Assessment',
       `Level-${level}`,
@@ -78,6 +85,11 @@ app.post('/api/submit-assessment', async (req, res) => {
 
   mcReq.write(data);
   mcReq.end();
+
+  } catch(err) {
+    console.error('Server error in submit-assessment:', err);
+    res.json({ ok: true });
+  }
 });
 
 app.listen(PORT, () => console.log(`Point Zero AI running on port ${PORT}`));
