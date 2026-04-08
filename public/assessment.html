@@ -915,7 +915,7 @@ const QUESTIONS = [
       'Reduce operating costs',
       'Systematize and scale what\'s already working',
       'All of the above',
-      'Other'
+      'Additional'
     ]
   },
   {
@@ -1044,10 +1044,10 @@ function selectOption(q, opt, card) {
     if (!Array.isArray(answers[q.id])) answers[q.id] = [];
 
     // Handle "Other" option with text field
-    if (opt === 'Other') {
+    if (opt === 'Additional') {
       const otherWrap = document.getElementById('other-text-wrap');
       if (card.classList.contains('selected')) {
-        answers[q.id] = answers[q.id].filter(a => a !== 'Other');
+        answers[q.id] = answers[q.id].filter(a => a !== 'Additional');
         card.classList.remove('selected');
         otherWrap.style.display = 'none';
       } else {
