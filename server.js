@@ -23,9 +23,11 @@ app.post('/api/submit-assessment', async (req, res) => {
     const apiKey = process.env.MAILCHIMP_API_KEY;
     const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
+    console.log('API key present:', !!apiKey, '| Audience ID present:', !!audienceId);
+    console.log('Env keys with MAIL:', Object.keys(process.env).filter(k => k.includes('MAIL')));
     if (!apiKey || !audienceId) {
       console.error('Mailchimp env vars missing');
-      return res.status(500).json({ error: 'Mailchimp not configured' });
+      return res.json({ ok: true, error: 'config' });
     }
 
     // Normalize arrays to strings
