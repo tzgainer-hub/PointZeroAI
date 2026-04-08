@@ -134,6 +134,32 @@
 
     .nav-cta:hover { background: var(--gold); color: var(--navy-dark); }
 
+    /* ── TOC ── */
+    .toc-bar {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(201,164,71,0.1);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc-bar::-webkit-scrollbar { display: none; }
+    .toc-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      padding: 12px 20px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .toc-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .toc-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
     /* ── HERO ── */
     .hero {
       background: var(--navy-dark);
@@ -985,6 +1011,10 @@
       /* Ticker — faster on mobile so it actually feels like it's moving */
       .ticker-inner { animation-duration: 20s; }
 
+      /* TOC */
+      .toc-bar { padding: 0 16px; }
+      .toc-link { padding: 10px 14px; font-size: 0.6rem; }
+
       /* Layout */
       section { padding: 64px 20px; }
       .hero { padding: 60px 20px 72px; }
@@ -1079,6 +1109,18 @@
     <p class="header-sub">Plain English &nbsp;·&nbsp; Real Tools &nbsp;·&nbsp; No Hype</p>
   </header>
 
+  <!-- TOC -->
+  <nav class="toc-bar" id="toc">
+    <a href="#top" class="toc-link active">Home</a>
+    <a href="#reality" class="toc-link">The Reality</a>
+    <a href="#who" class="toc-link">Who This Is For</a>
+    <a href="#products" class="toc-link">Products</a>
+    <a href="#assessment" class="toc-link">Assessment</a>
+    <a href="#guide" class="toc-link">Tom's Story</a>
+    <a href="#advisory" class="toc-link">Advisory</a>
+    <a href="#starter" class="toc-link">Stay in the Loop</a>
+  </nav>
+
   <!-- HERO -->
   <section class="hero">
     <h1>The world changed.<br /><span>Nobody told you.</span></h1>
@@ -1117,7 +1159,7 @@
   </div>
 
   <!-- THE REALITY -->
-  <section class="reality">
+  <section class="reality" id="reality">
     <div class="section-inner">
       <span class="section-label">The Reality</span>
       <h2>AI isn't coming. It's here. And the people who need it most are being left behind.</h2>
@@ -1165,7 +1207,7 @@
   </div>
 
   <!-- WHO THIS IS FOR -->
-  <section class="who">
+  <section class="who" id="who">
     <div class="section-inner">
       <span class="section-label">Who This Is For</span>
       <h2>Two kinds of people. One mission.</h2>
@@ -1188,7 +1230,7 @@
   </section>
 
   <!-- OUR PRODUCTS -->
-  <section class="products">
+  <section class="products" id="products">
     <div class="section-inner">
       <span class="section-label">What We Build</span>
       <h2>Products from Point Zero AI</h2>
@@ -1298,7 +1340,7 @@
   </section>
 
   <!-- YOUR GUIDE -->
-  <section class="guide">
+  <section class="guide" id="guide">
     <div class="section-inner">
       <span class="section-label">Your Guide</span>
       <h2>I've done this before.</h2>
@@ -1331,7 +1373,7 @@
   </section>
 
   <!-- PRIVATE ADVISORY -->
-  <section class="advisory">
+  <section class="advisory" id="advisory">
     <div class="section-inner">
       <span class="section-label">Private Advisory</span>
       <h2>For founders and executives who want a thinking partner.</h2>
@@ -1396,6 +1438,22 @@
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
+
+    // TOC scroll spy
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = ['top','reality','who','products','assessment','guide','advisory','starter']
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+      let current = 'top';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }, { passive: true });
   </script>
 
 </body>

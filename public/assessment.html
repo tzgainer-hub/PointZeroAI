@@ -998,13 +998,52 @@ let currentQ = 0;
 let answers = {};
 let userEmail = '';
 
+// Restore saved progress if it exists
+(function restoreProgress() {
+  try {
+    const saved = localStorage.getItem('pzai_assessment');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.answers) answers = parsed.answers;
+      if (parsed.currentQ) currentQ = parsed.currentQ;
+    }
+  } catch(e) {}
+})();
+
 // ══════════════════════════════════════════
 // INTRO → START
 // ══════════════════════════════════════════
 function startAssessment() {
-  currentQ = 0;
+  // currentQ already restored from localStorage if available
   showScreen('screen-question');
   renderQuestion();
+}
+
+// Show resume prompt if saved progress exists
+(function checkResume() {
+  try {
+    const saved = localStorage.getItem('pzai_assessment');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.currentQ > 0) {
+        const btn = document.querySelector('.btn-start');
+        if (btn) btn.textContent = `RESUME WHERE YOU LEFT OFF (Q${parsed.currentQ + 1} of ${QUESTIONS.length}) →`;
+        const disclaimer = document.querySelector('.intro-disclaimer');
+        if (disclaimer) disclaimer.innerHTML = 'Your progress was saved. <a href="#" onclick="resetAssessment(event)" style="color:var(--gold);">Start over instead</a>';
+      }
+    }
+  } catch(e) {}
+})();
+
+function resetAssessment(e) {
+  e.preventDefault();
+  try { localStorage.removeItem('pzai_assessment'); } catch(e) {}
+  answers = {};
+  currentQ = 0;
+  const btn = document.querySelector('.btn-start');
+  if (btn) btn.textContent = 'START MY FREE ASSESSMENT →';
+  const disclaimer = document.querySelector('.intro-disclaimer');
+  if (disclaimer) disclaimer.textContent = 'No email required to start. Takes 4 minutes.';
 }
 
 function submitEmail() {
@@ -1020,6 +1059,7 @@ function submitEmail() {
   }
   errorEl.style.display = 'none';
   userEmail = email;
+  try { localStorage.removeItem('pzai_assessment'); } catch(e) {}
   showProcessing();
 }
 
@@ -1165,6 +1205,8 @@ function updateNextButton() {
   const hasAnswer = answers[q.id] && (Array.isArray(answers[q.id]) ? answers[q.id].length > 0 : true);
   btn.disabled = !hasAnswer;
   btn.textContent = currentQ === QUESTIONS.length - 1 ? 'See My Results →' : 'Next →';
+  // Save progress
+  try { localStorage.setItem('pzai_assessment', JSON.stringify({ answers, currentQ })); } catch(e) {}
 }
 
 // ══════════════════════════════════════════
