@@ -581,17 +581,37 @@
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .assess-header { padding: 20px; }
-      #screen-intro { padding: 40px 24px; }
-      .intro-headline { font-size: clamp(1.7rem, 6vw, 2.4rem); }
-      .trust-row { flex-direction: column; gap: 16px; }
-      .question-body { padding: 32px 24px; }
-      .question-nav { padding: 20px 24px; flex-wrap: wrap; gap: 12px; }
-      .nav-save-note { width: 100%; text-align: center; order: -1; }
-      .results-body { padding: 32px 24px; }
+      .assess-header { padding: 16px 20px; }
+      #screen-intro { padding: 32px 20px; justify-content: flex-start; }
+      .intro-headline { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+      .intro-sub { font-size: 0.95rem; }
+      .trust-row { flex-direction: column; gap: 12px; margin-top: 28px; }
+      .btn-start { padding: 18px 24px; font-size: 0.8rem; }
+
+      .question-body { padding: 24px 20px; }
+      .question-text { font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom: 24px; }
+      .option-card { padding: 16px 18px; min-height: 54px; }
+      .option-text { font-size: 0.95rem; }
+      .question-nav {
+        padding: 16px 20px;
+        flex-wrap: nowrap;
+        gap: 12px;
+        position: sticky;
+        bottom: 0;
+        background: var(--navy-dark);
+        border-top: 1px solid var(--gold-dim);
+      }
+      .nav-save-note { display: none; }
+      .btn-back { padding: 14px 20px; font-size: 0.7rem; flex-shrink: 0; }
+      .btn-next { padding: 14px 24px; font-size: 0.7rem; flex: 1; }
+
+      .results-body { padding: 24px 20px; }
+      .results-score-display { font-size: clamp(2rem, 8vw, 3rem); }
       .opps-grid { grid-template-columns: 1fr; }
-      .results-cta-section { padding: 32px 24px; }
-      .btn-cta { display: block; text-align: center; }
+      .results-cta-section { padding: 28px 20px; }
+      .btn-cta { display: block; text-align: center; padding: 18px 24px; }
+
+      #screen-email > div { padding: 32px 20px !important; }
     }
   </style>
 </head>
@@ -1080,8 +1100,7 @@ function selectOption(q, opt, card) {
     answers[q.id] = opt;
     document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
-    // Auto-advance for single select after brief delay
-    setTimeout(() => goNext(), 300);
+    updateNextButton();
   } else {
     // Multi-select
     if (!Array.isArray(answers[q.id])) answers[q.id] = [];
