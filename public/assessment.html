@@ -653,10 +653,10 @@
   </div>
 
   <div class="results-cta-section">
-    <div class="cta-headline">Ready to Get These Hours Back?</div>
-    <p class="cta-sub">Tom will walk you through your results personally in a free 30-minute strategy call. No pitch — just a plan built around your specific situation.</p>
-    <a href="mailto:onboarding@pointzeroai.com?subject=AI Assessment — Strategy Call Request" class="btn-cta">BOOK YOUR FREE STRATEGY CALL →</a>
-    <p class="cta-email-note">Or reply to your results email with any questions first.</p>
+    <div class="cta-headline">Here's What This Assessment Can't Tell You</div>
+    <p class="cta-sub">Your score shows WHERE the opportunity is. It can't show you exactly HOW to fix it — for your specific business, your specific clients, your specific workflow. That's what the strategy call is for. Tom has done this for 8,000+ businesses. He'll tell you in 30 minutes what most consultants charge thousands to figure out.</p>
+    <a href="mailto:onboarding@pointzeroai.com?subject=AI Assessment — Book My Strategy Call (Level ${level})" class="btn-cta" id="cta-link">BOOK YOUR FREE 30-MINUTE CALL →</a>
+    <p class="cta-email-note">Check your inbox — your full results are on their way. Reply to that email with any questions first.</p>
   </div>
 </div>
 
@@ -1195,11 +1195,11 @@ function buildResults() {
   const tools = getTools(level);
 
   const levelData = {
-    1: { name: 'AI Novice', desc: 'You\'re at the starting line — and that\'s completely fine. Most business owners your age are in the same place. The good news: your biggest gains are ahead of you, and they\'re easier to reach than you think.' },
-    2: { name: 'AI Curious', desc: 'You\'ve dipped your toe in but haven\'t found your footing yet. That\'s the most common spot. The tools exist — you just need the right starting point for your specific situation.' },
-    3: { name: 'AI Explorer', desc: 'You\'re ahead of most business owners your age — and leaving significant time on the table. A few targeted implementations could double what AI does for your business.' },
-    4: { name: 'AI Adopter', desc: 'You\'re solidly in the minority of business owners who actually use AI. Now it\'s about going deeper — custom workflows and automation that compound over time.' },
-    5: { name: 'AI Practitioner', desc: 'You\'re running ahead of the pack. The opportunity now is advanced automation and systems that let you scale without adding headcount.' }
+    1: { name: 'AI Novice', desc: 'While you\'re doing things manually, other business owners are using AI to do the same work in a fraction of the time. You\'re not behind because you\'re not capable — you\'re behind because nobody has shown you the right starting point for your specific situation. That\'s exactly what the strategy call fixes.' },
+    2: { name: 'AI Curious', desc: 'You\'ve tried AI but it hasn\'t clicked yet. That\'s not a you problem — it\'s a guidance problem. The tools exist. The workflows exist. You just haven\'t had someone connect them to YOUR business, YOUR clients, and YOUR day-to-day reality. Yet.' },
+    3: { name: 'AI Explorer', desc: 'You\'re using AI more than most — and still giving away hours every single week. The gap between where you are and where you could be is smaller than you think. It\'s 3–5 targeted changes, not a complete overhaul. But those changes need to be the right ones for your situation.' },
+    4: { name: 'AI Adopter', desc: 'You\'re ahead of 90% of business owners your age. The question now isn\'t whether to use AI — it\'s whether your current setup is actually optimized, or just the first thing that worked. There\'s a difference, and it\'s worth finding out.' },
+    5: { name: 'AI Practitioner', desc: 'You\'re running a sophisticated operation. The opportunity isn\'t basics — it\'s whether your systems are genuinely optimized or just impressive-looking. Advanced automation and custom workflows are where your next gains live.' }
   };
 
   // Score display
@@ -1224,14 +1224,14 @@ function buildResults() {
     card.className = 'opp-card';
     card.innerHTML = `
       <div class="opp-title">${o.title}</div>
-      <div class="opp-hours">${o.hours} saved</div>
+      <div class="opp-hours">${o.hours} lost per week</div>
       <div class="opp-desc">${o.desc}</div>
     `;
     oppsGrid.appendChild(card);
   });
 
   // Total
-  document.getElementById('r-total').textContent = `Estimated ${totalHrs}+ hours returned to you every week — at an average AI tool cost of ~$40/month.`;
+  document.getElementById('r-total').textContent = `That's ${totalHrs}+ hours every week you're currently giving away. At even a modest hourly value, you're losing thousands of dollars a month to tasks AI can handle — for about $40/month in tools.`;
 
   // Tools
   const toolsEl = document.getElementById('r-tools');
@@ -1242,6 +1242,12 @@ function buildResults() {
     tag.textContent = t;
     toolsEl.appendChild(tag);
   });
+
+  // Update CTA link with actual level
+  const ctaLink = document.getElementById('cta-link');
+  if (ctaLink) {
+    ctaLink.href = `mailto:onboarding@pointzeroai.com?subject=AI Assessment — Book My Strategy Call (Level ${level} — ${levelData[level].name})`;
+  }
 
   // HIPAA note
   const hipaaIndustries = ['Healthcare / Medical', 'Dental', 'Legal'];
