@@ -703,8 +703,8 @@
   <div class="results-cta-section">
     <div class="cta-headline">Here's What This Assessment Can't Tell You</div>
     <p class="cta-sub">Your score shows WHERE the opportunity is. It can't show you exactly HOW to fix it — for your specific business, your specific clients, your specific workflow. That's what the strategy call is for. Tom has done this for 8,000+ businesses. He'll tell you in 30 minutes what most consultants charge thousands to figure out.</p>
-    <a href="mailto:onboarding@pointzeroai.com?subject=AI Assessment — Book My Strategy Call (Level ${level})" class="btn-cta" id="cta-link">BOOK YOUR FREE 30-MINUTE CALL →</a>
-    <p class="cta-email-note">Check your inbox — your full results are on their way. Reply to that email with any questions first.</p>
+    <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta" id="cta-link">BOOK YOUR FREE 30-MINUTE CALL →</a>
+    <p class="cta-email-note">Check your inbox — your full results are on their way. Or email <a href="mailto:onboarding@pointzeroai.com" style="color: var(--gold);">onboarding@pointzeroai.com</a> with any questions first.</p>
   </div>
 </div>
 
@@ -1384,10 +1384,10 @@ function buildResults() {
     toolsEl.appendChild(tag);
   });
 
-  // Update CTA link with actual level
+  // CTA always points to Calendly
   const ctaLink = document.getElementById('cta-link');
   if (ctaLink) {
-    ctaLink.href = `mailto:onboarding@pointzeroai.com?subject=AI Assessment — Book My Strategy Call (Level ${level} — ${levelData[level].name})`;
+    ctaLink.href = 'https://calendly.com/tomz-pointzeroai/30min';
   }
 
   // HIPAA note
