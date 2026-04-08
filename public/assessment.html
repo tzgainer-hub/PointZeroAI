@@ -1416,18 +1416,8 @@ function buildResults() {
   // Tools label — personalized
   const toolsLabel = document.querySelector('.tools-label');
   if (toolsLabel && industry) {
-    toolsLabel.textContent = `Where To Start — Matched To ${industry} at Level ${level}`;
+    toolsLabel.textContent = `The Right Tools For ${industry}`;
   }
-
-  // Tools
-  const toolsEl = document.getElementById('r-tools');
-  toolsEl.innerHTML = '';
-  tools.forEach(t => {
-    const tag = document.createElement('div');
-    tag.className = 'tool-tag';
-    tag.textContent = t;
-    toolsEl.appendChild(tag);
-  });
 
   // Goals summary — inject into CTA sub if goals selected
   const goalsSummary = goals.filter(g => g !== 'All of the above' && g !== 'Additional');
