@@ -356,6 +356,7 @@
     .processing-sub {
       font-size: 0.9rem;
       color: var(--white-50);
+      transition: opacity 0.2s ease;
     }
 
     /* ── RESULTS SCREEN ── */
@@ -686,10 +687,10 @@
 <div id="screen-processing" class="screen">
   <div class="processing-label">Analyzing Your Responses</div>
   <div class="processing-headline">Building Your AI Readiness Report...</div>
-  <div class="processing-bar-wrap">
+  <div class="processing-bar-wrap" style="margin-bottom: 32px;">
     <div class="processing-bar"></div>
   </div>
-  <div class="processing-sub">Matching your situation to specific AI opportunities</div>
+  <div class="processing-sub" id="processing-rotating-text">Matching your situation to specific AI opportunities</div>
 </div>
 
 
@@ -719,11 +720,22 @@
     <div class="hipaa-note" id="r-hipaa" style="display:none"></div>
   </div>
 
+  <div style="background: rgba(201,164,71,0.07); border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); padding: 16px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold);">⚡ Limited Availability</div>
+    <div style="font-size:0.88rem; color:var(--white-70); line-height:1.5;">Tom takes a limited number of strategy calls each week. Spots go fast — especially for business owners already at Level 3 or above.</div>
+  </div>
+
   <div class="results-cta-section">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--white-50);">Featured in</span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.72rem; letter-spacing:1px; color:var(--gold); font-style:italic;">Tony Robbins' Money Master the Game</span>
+      <span style="color:var(--gold-dim);">·</span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.72rem; letter-spacing:1px; color:var(--white-50);">CNBC &nbsp;·&nbsp; Fox Business &nbsp;·&nbsp; Bloomberg</span>
+    </div>
     <div class="cta-headline">Your Score Is a Starting Point. The Strategy Call Is Where It Gets Specific.</div>
     <p class="cta-sub">You now know where you are. The next step is knowing exactly what to do about it — for your business, your clients, your workflow. Tom has worked inside 8,000+ businesses. He'll show you in 30 minutes what most consultants charge thousands to figure out.</p>
     <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta" id="cta-link">BOOK YOUR FREE 30-MINUTE CALL →</a>
-    <p class="cta-email-note">Check your inbox — your full results are on their way. Or email <a href="mailto:onboarding@pointzeroai.com" style="color: var(--gold);">onboarding@pointzeroai.com</a> with any questions first.</p>
+    <p class="cta-email-note" style="margin-top:20px;">Check your inbox — your full results are on their way. Or email <a href="mailto:onboarding@pointzeroai.com" style="color: var(--gold);">onboarding@pointzeroai.com</a> with any questions first.</p>
   </div>
 </div>
 
@@ -788,19 +800,6 @@ const QUESTIONS = [
       '2–5 hours',
       '5–10 hours',
       'More than 10 hours — it\'s out of control'
-    ]
-  },
-  {
-    id: 'aha',
-    section: 'YOUR TIME',
-    text: 'Think about yesterday. How many hours did you personally spend on tasks a $20/hour employee could have handled?',
-    type: 'single',
-    options: [
-      'Less than 1 hour',
-      '1–2 hours',
-      '2–4 hours',
-      'More than 4 hours',
-      'I don\'t want to answer that honestly'
     ]
   },
   {
@@ -1187,14 +1186,36 @@ function updateNextButton() {
 // ══════════════════════════════════════════
 // PROCESSING
 // ══════════════════════════════════════════
+const PROCESSING_LINES = [
+  'Matching your situation to specific AI opportunities...',
+  'Calculating hours lost to tasks AI already handles...',
+  'Identifying the tools that fit your industry...',
+  'Building your personalized AI readiness report...',
+  'Almost done — scoring your results now...'
+];
+
 function showProcessing() {
   showScreen('screen-processing');
-  // Submit in background, show results after 2.5s
   submitAssessment();
+
+  // Rotate proof statements every 500ms
+  let idx = 0;
+  const rotEl = document.getElementById('processing-rotating-text');
+  rotEl.textContent = PROCESSING_LINES[0];
+  const interval = setInterval(() => {
+    idx = (idx + 1) % PROCESSING_LINES.length;
+    rotEl.style.opacity = '0';
+    setTimeout(() => {
+      rotEl.textContent = PROCESSING_LINES[idx];
+      rotEl.style.opacity = '1';
+    }, 200);
+  }, 600);
+
   setTimeout(() => {
+    clearInterval(interval);
     buildResults();
     showScreen('screen-results');
-  }, 2500);
+  }, 3000);
 }
 
 // ══════════════════════════════════════════
