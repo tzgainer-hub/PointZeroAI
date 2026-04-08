@@ -603,6 +603,9 @@
     <div class="question-text" id="q-text"></div>
     <div class="question-hint" id="q-hint"></div>
     <div class="options-list" id="options-list"></div>
+    <div id="other-text-wrap" style="display:none; margin-top:12px;">
+      <input type="text" id="other-text-input" class="email-input" placeholder="Please describe your goal..." />
+    </div>
   </div>
 
   <div class="question-nav">
@@ -903,14 +906,16 @@ const QUESTIONS = [
   {
     id: 'goal',
     section: 'YOUR GOALS',
-    text: 'What\'s your #1 goal for the next 12 months?',
-    type: 'single',
+    text: 'What are your top goals over the next 12 months? Select all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
     options: [
       'Grow revenue without hiring more people',
       'Get more of my time back',
       'Reduce operating costs',
       'Systematize and scale what\'s already working',
-      'All of the above'
+      'All of the above',
+      'Other'
     ]
   },
   {
@@ -1020,6 +1025,11 @@ function renderQuestion() {
 
   updateNextButton();
   document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+
+  // Hide Other text field when rendering a new question
+  const otherWrap = document.getElementById('other-text-wrap');
+  otherWrap.style.display = 'none';
+  document.getElementById('other-text-input').value = answers.goal_other || '';
 }
 
 function selectOption(q, opt, card) {
@@ -1032,6 +1042,26 @@ function selectOption(q, opt, card) {
   } else {
     // Multi-select
     if (!Array.isArray(answers[q.id])) answers[q.id] = [];
+
+    // Handle "Other" option with text field
+    if (opt === 'Other') {
+      const otherWrap = document.getElementById('other-text-wrap');
+      if (card.classList.contains('selected')) {
+        answers[q.id] = answers[q.id].filter(a => a !== 'Other');
+        card.classList.remove('selected');
+        otherWrap.style.display = 'none';
+      } else {
+        answers[q.id].push('Other');
+        card.classList.add('selected');
+        otherWrap.style.display = 'block';
+        document.getElementById('other-text-input').focus();
+        document.getElementById('other-text-input').oninput = function() {
+          answers.goal_other = this.value;
+        };
+      }
+      updateNextButton();
+      return;
+    }
 
     // Special case: "None of these" deselects others
     const noneOptions = ['None of these', 'None of these — it\'s basically a digital business card'];
