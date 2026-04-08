@@ -828,6 +828,7 @@ const QUESTIONS = [
     text: 'Which tasks eat most of your time? Select all that apply.',
     type: 'multi',
     hint: 'Select up to 4',
+    max: 4,
     options: [
       'Email and inbox management',
       'Scheduling and calendar',
@@ -907,7 +908,7 @@ const QUESTIONS = [
       'I don\'t know where to start',
       'Privacy and security concerns',
       'I tried it but the results weren\'t good enough',
-      'I don\'t have time to learn new tools',
+      'I don\'t have the time or staff to implement it',
       'My industry has compliance concerns (HIPAA, legal, etc.)',
       'Nothing — I\'m already using AI actively'
     ]
@@ -933,6 +934,7 @@ const QUESTIONS = [
       'My website generates leads consistently on its own',
       'Occasionally — but most clients still come from referrals',
       'Almost never — it\'s basically just an online brochure',
+      'My website is a PR tool — leads come from my dedicated sales and marketing team',
       'I honestly don\'t know if my website has ever brought in a client'
     ]
   },
@@ -1146,7 +1148,8 @@ function selectOption(q, opt, card) {
         answers[q.id] = answers[q.id].filter(a => a !== opt);
         card.classList.remove('selected');
       } else {
-        if (answers[q.id].length < 4) {
+        const maxSelections = q.max || 99;
+        if (answers[q.id].length < maxSelections) {
           answers[q.id].push(opt);
           card.classList.add('selected');
         }
