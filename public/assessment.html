@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSGMQREKGT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSGMQREKGT');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Business Assessment — Point Zero AI</title>
+  <meta name="description" content="Find out exactly where AI can save you 5+ hours a week. Free AI readiness assessment from Point Zero AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    :root {
+      --navy-dark:  #0c1e3c;
+      --navy-mid:   #0f2444;
+      --navy-card:  #13294e;
+      --navy-hover: #1a3460;
+      --gold:       #c9a447;
+      --gold-light: #e8c46a;
+      --gold-dim:   rgba(201,164,71,0.2);
+      --white:      #ffffff;
+      --white-70:   rgba(255,255,255,0.70);
+      --white-50:   rgba(255,255,255,0.50);
+      --white-30:   rgba(255,255,255,0.30);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy-dark);
+      color: var(--white);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: flex; flex-direction: column; }
+
+    /* ── SHARED HEADER ── */
+    .assess-header {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gold-dim);
+    }
+    .assess-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .step-counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white-50);
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      width: 100%;
+    }
+    .progress-bar-fill {
+      height: 3px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    /* ── INTRO SCREEN ── */
+    #screen-intro {
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+    }
+    .intro-inner {
+      max-width: 640px;
+      width: 100%;
+    }
+    .intro-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .intro-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .intro-sub {
+      font-size: 1.05rem;
+      color: var(--white-70);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .email-label {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-bottom: 10px;
+    }
+    .email-input {
+      width: 100%;
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 3px solid var(--gold);
+      padding: 18px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+      outline: none;
+      border-radius: 0;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .email-input::placeholder { color: var(--white-30); }
+    .email-input:focus { border-color: var(--gold); }
+    .btn-start {
+      width: 100%;
+      background: var(--gold);
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 20px 32px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-start:hover { background: var(--gold-light); }
+    .intro-disclaimer {
+      font-size: 0.8rem;
+      color: var(--white-40, rgba(255,255,255,0.4));
+      margin-top: 16px;
+      text-align: center;
+    }
+    .trust-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--gold-dim);
+    }
+    .trust-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── QUESTION SCREEN ── */
+    #screen-question {
+      flex-direction: column;
+    }
+    .question-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .question-section {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .question-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .question-hint {
+      font-size: 0.85rem;
+      color: var(--white-50);
+      margin-top: -20px;
+      margin-bottom: 28px;
+    }
+
+    /* Answer cards */
+    .options-list { display: flex; flex-direction: column; gap: 12px; }
+    .option-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid transparent;
+      padding: 18px 24px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .option-card:hover {
+      background: var(--navy-hover);
+      border-left-color: var(--gold-dim);
+    }
+    .option-card.selected {
+      background: var(--navy-hover);
+      border-left-color: var(--gold);
+      border-color: rgba(201,164,71,0.25);
+    }
+    .option-check {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .option-card.selected .option-check {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .option-check-dot {
+      width: 8px;
+      height: 8px;
+      background: #1a1000;
+      display: none;
+    }
+    .option-card.selected .option-check-dot { display: block; }
+    .option-text {
+      font-size: 1rem;
+      color: var(--white-70);
+      line-height: 1.4;
+    }
+    .option-card.selected .option-text { color: var(--white); }
+
+    /* Navigation */
+    .question-nav {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--gold-dim);
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .btn-back {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white-70);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--white-50); color: var(--white); }
+    .btn-next {
+      background: var(--gold);
+      border: none;
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background 0.2s;
+    }
+    .btn-next:hover { background: var(--gold-light); }
+    .btn-next:disabled { background: rgba(201,164,71,0.3); cursor: not-allowed; color: rgba(26,16,0,0.5); }
+    .nav-save-note {
+      font-size: 0.75rem;
+      color: var(--white-30);
+      letter-spacing: 1px;
+    }
+
+    /* ── PROCESSING SCREEN ── */
+    #screen-processing {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 32px;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .processing-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .processing-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--white);
+    }
+    .processing-bar-wrap {
+      width: 320px;
+      max-width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .processing-bar {
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scan 1.8s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .processing-sub {
+      font-size: 0.9rem;
+      color: var(--white-50);
+    }
+
+    /* ── RESULTS SCREEN ── */
+    #screen-results {
+      flex-direction: column;
+    }
+    .results-body {
+      flex: 1;
+      padding: 48px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .results-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .results-score-display {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .level-segments {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .level-seg {
+      height: 6px;
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+    }
+    .level-seg.filled { background: var(--gold); }
+    .level-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .level-desc {
+      font-size: 1rem;
+      color: var(--white-70);
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+
+    /* Opportunity cards */
+    .opps-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .opps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .opp-card {
+      background: var(--navy-card);
+      border-left: 4px solid var(--gold);
+      padding: 24px 20px;
+    }
+    .opp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .opp-hours {
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .opp-desc {
+      font-size: 0.8rem;
+      color: var(--white-50);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .results-total {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 40px;
+      padding: 20px 0;
+      border-top: 1px solid var(--gold-dim);
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    /* Tool recommendations */
+    .tools-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-bottom: 12px;
+    }
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .tool-tag {
+      background: var(--navy-card);
+      border: 1px solid var(--gold-dim);
+      padding: 8px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: var(--white-70);
+    }
+
+    /* HIPAA note */
+    .hipaa-note {
+      background: rgba(201,164,71,0.08);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      color: var(--white-70);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .results-cta-section {
+      background: var(--navy-mid);
+      padding: 40px;
+      margin-top: 8px;
+    }
+    .cta-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-sub {
+      font-size: 0.95rem;
+      color: var(--white-70);
+      margin-bottom: 28px;
+      max-width: 520px;
+    }
+    .btn-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 20px 40px;
+      text-decoration: none;
+      border-radius: 0;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover { background: var(--gold-light); }
+    .cta-email-note {
+      font-size: 0.8rem;
+      color: var(--white-40, rgba(255,255,255,0.4));
+      margin-top: 16px;
+    }
+
+    /* Error */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .assess-header { padding: 20px; }
+      #screen-intro { padding: 40px 24px; }
+      .intro-headline { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+      .trust-row { flex-direction: column; gap: 16px; }
+      .question-body { padding: 32px 24px; }
+      .question-nav { padding: 20px 24px; flex-wrap: wrap; gap: 12px; }
+      .nav-save-note { width: 100%; text-align: center; order: -1; }
+      .results-body { padding: 32px 24px; }
+      .opps-grid { grid-template-columns: 1fr; }
+      .results-cta-section { padding: 32px 24px; }
+      .btn-cta { display: block; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1: INTRO
+══════════════════════════════════════════ -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-inner">
+    <div class="intro-label">Point Zero AI · Free Assessment</div>
+    <h1 class="intro-headline">Find Out Exactly Where AI Can Save You 5+ Hours a Week</h1>
+    <p class="intro-sub">15 questions. 3 minutes. You get a custom AI readiness score, your top opportunities, and specific tool recommendations — free.</p>
+
+    <label class="email-label" for="email-input">Enter your email to receive your results</label>
+    <input type="email" id="email-input" class="email-input" placeholder="your@email.com" autocomplete="email" />
+    <div class="error-msg" id="email-error">Please enter a valid email address.</div>
+
+    <button class="btn-start" onclick="startAssessment()">START MY FREE ASSESSMENT →</button>
+    <p class="intro-disclaimer">Your personalized results are emailed to you instantly. No spam, ever.</p>
+
+    <div class="trust-row">
+      <span class="trust-item">3 Minutes</span>
+      <span class="trust-item">100% Free</span>
+      <span class="trust-item">Instant Results</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2: QUESTION
+══════════════════════════════════════════ -->
+<div id="screen-question" class="screen">
+  <div class="assess-header">
+    <a href="/" class="assess-logo">Point Zero AI</a>
+    <span class="step-counter" id="step-counter">Step 1 of 15</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width: 6.66%"></div>
+  </div>
+
+  <div class="question-body">
+    <div class="question-section" id="q-section"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="question-hint" id="q-hint"></div>
+    <div class="options-list" id="options-list"></div>
+  </div>
+
+  <div class="question-nav">
+    <button class="btn-back" id="btn-back" onclick="goBack()">← Back</button>
+    <span class="nav-save-note">Progress saved automatically</span>
+    <button class="btn-next" id="btn-next" onclick="goNext()">Next →</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3: PROCESSING
+══════════════════════════════════════════ -->
+<div id="screen-processing" class="screen">
+  <div class="processing-label">Analyzing Your Responses</div>
+  <div class="processing-headline">Building Your AI Readiness Report...</div>
+  <div class="processing-bar-wrap">
+    <div class="processing-bar"></div>
+  </div>
+  <div class="processing-sub">Matching your situation to specific AI opportunities</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 4: RESULTS
+══════════════════════════════════════════ -->
+<div id="screen-results" class="screen">
+  <div class="assess-header">
+    <a href="/" class="assess-logo">Point Zero AI</a>
+    <span class="step-counter">Your Results</span>
+  </div>
+
+  <div class="results-body">
+    <div class="results-label">Your AI Readiness Score</div>
+    <div class="results-score-display" id="r-score-display">LEVEL 3 OF 5</div>
+    <div class="level-segments" id="r-segments"></div>
+    <div class="level-name" id="r-level-name"></div>
+    <div class="level-desc" id="r-level-desc"></div>
+
+    <div class="opps-label">Your Top Opportunities</div>
+    <div class="opps-grid" id="r-opps-grid"></div>
+    <div class="results-total" id="r-total"></div>
+
+    <div class="tools-label">Recommended Starting Point</div>
+    <div class="tools-list" id="r-tools"></div>
+
+    <div class="hipaa-note" id="r-hipaa" style="display:none"></div>
+  </div>
+
+  <div class="results-cta-section">
+    <div class="cta-headline">Ready to Get These Hours Back?</div>
+    <p class="cta-sub">Tom will walk you through your results personally in a free 30-minute strategy call. No pitch — just a plan built around your specific situation.</p>
+    <a href="mailto:onboarding@pointzeroai.com?subject=AI Assessment — Strategy Call Request" class="btn-cta">BOOK YOUR FREE STRATEGY CALL →</a>
+    <p class="cta-email-note">Or reply to your results email with any questions first.</p>
+  </div>
+</div>
+
+
+<script>
+// ══════════════════════════════════════════
+// QUESTIONS DATA
+// ══════════════════════════════════════════
+const QUESTIONS = [
+  {
+    id: 'industry',
+    section: 'YOUR BUSINESS',
+    text: 'What industry are you in?',
+    type: 'single',
+    options: [
+      'Healthcare / Medical',
+      'Dental',
+      'Legal',
+      'Financial Services',
+      'Real Estate',
+      'Insurance',
+      'Consulting / Coaching',
+      'Retail / E-Commerce',
+      'Hospitality / Restaurant',
+      'Construction / Trades',
+      'Manufacturing',
+      'Other'
+    ]
+  },
+  {
+    id: 'size',
+    section: 'YOUR BUSINESS',
+    text: 'How many people work in your business, including you?',
+    type: 'single',
+    options: [
+      'Just me',
+      '2–5 people',
+      '6–15 people',
+      '16–50 people',
+      '50+ people'
+    ]
+  },
+  {
+    id: 'years',
+    section: 'YOUR BUSINESS',
+    text: 'How long have you been in business?',
+    type: 'single',
+    options: [
+      'Less than 2 years',
+      '2–5 years',
+      '6–15 years',
+      '16+ years'
+    ]
+  },
+  {
+    id: 'hours_lost',
+    section: 'YOUR TIME',
+    text: 'How many hours per week are you losing to tasks you know you shouldn\'t be doing yourself?',
+    type: 'single',
+    options: [
+      'Less than 2 hours',
+      '2–5 hours',
+      '5–10 hours',
+      'More than 10 hours — it\'s out of control'
+    ]
+  },
+  {
+    id: 'tasks',
+    section: 'YOUR TIME',
+    text: 'Which tasks eat most of your time? Select all that apply.',
+    type: 'multi',
+    hint: 'Select up to 4',
+    options: [
+      'Email and inbox management',
+      'Scheduling and calendar',
+      'Writing proposals, reports, or content',
+      'Client follow-up and communication',
+      'Invoicing and bookkeeping',
+      'Social media and marketing',
+      'Recruiting or HR tasks',
+      'Research and data entry'
+    ]
+  },
+  {
+    id: 'dread',
+    section: 'YOUR TIME',
+    text: 'What do you dread most each week?',
+    type: 'single',
+    options: [
+      'Catching up on email',
+      'Writing anything (proposals, emails, reports)',
+      'Following up with clients or leads',
+      'Administrative and paperwork tasks',
+      'Scheduling and calendar management',
+      'Creating content or marketing materials'
+    ]
+  },
+  {
+    id: 'bottleneck',
+    section: 'YOUR TIME',
+    text: 'Where does work pile up waiting on you specifically?',
+    type: 'single',
+    options: [
+      'Approving things — invoices, proposals, content',
+      'Responding to client or team messages',
+      'Writing or creating deliverables',
+      'Following up on leads or opportunities',
+      'All of the above — everything waits on me'
+    ]
+  },
+  {
+    id: 'ai_usage',
+    section: 'YOUR AI EXPERIENCE',
+    text: 'How would you describe your current use of AI tools?',
+    type: 'single',
+    options: [
+      'I\'ve never used AI tools',
+      'I\'ve tried a few things but nothing stuck',
+      'I use AI occasionally when I remember to',
+      'I use AI tools regularly as part of my workflow'
+    ]
+  },
+  {
+    id: 'tools_tried',
+    section: 'YOUR AI EXPERIENCE',
+    text: 'Which AI tools have you tried? Select all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
+    options: [
+      'ChatGPT',
+      'Claude (Anthropic)',
+      'Grammarly',
+      'Siri, Alexa, or Google Assistant',
+      'Zapier or Make.com (automation)',
+      'Canva AI features',
+      'None of these'
+    ]
+  },
+  {
+    id: 'barrier',
+    section: 'YOUR AI EXPERIENCE',
+    text: 'What\'s stopped you from using AI more in your business?',
+    type: 'single',
+    options: [
+      'I don\'t know where to start',
+      'Privacy and security concerns',
+      'I tried it but the results weren\'t good enough',
+      'I don\'t have time to learn new tools',
+      'My industry has compliance concerns (HIPAA, legal, etc.)',
+      'Nothing — I\'m already using AI actively'
+    ]
+  },
+  {
+    id: 'website_age',
+    section: 'YOUR BUSINESS SYSTEMS',
+    text: 'When was your website last meaningfully updated?',
+    type: 'single',
+    options: [
+      'Within the last year',
+      '1–3 years ago',
+      '3–5 years ago',
+      'Honestly, I have no idea'
+    ]
+  },
+  {
+    id: 'website_features',
+    section: 'YOUR BUSINESS SYSTEMS',
+    text: 'What does your website currently do for your business? Select all that apply.',
+    type: 'multi',
+    hint: 'Select all that apply',
+    options: [
+      'Has a live chat or AI chatbot',
+      'Has online scheduling or booking',
+      'Captures leads or has a contact form',
+      'Shows up well on Google (SEO)',
+      'None of these — it\'s basically a digital business card'
+    ]
+  },
+  {
+    id: 'communication',
+    section: 'YOUR BUSINESS SYSTEMS',
+    text: 'How do you currently handle client communication and follow-up?',
+    type: 'single',
+    options: [
+      'Mostly email — nothing is really organized',
+      'I have a CRM system with organized contacts and follow-ups',
+      'A mix of email, text, and phone — it\'s inconsistent',
+      'It\'s honestly chaotic and things fall through the cracks'
+    ]
+  },
+  {
+    id: 'goal',
+    section: 'YOUR GOALS',
+    text: 'What\'s your #1 goal for the next 12 months?',
+    type: 'single',
+    options: [
+      'Grow revenue without hiring more people',
+      'Get more of my time back',
+      'Reduce operating costs',
+      'Systematize and scale what\'s already working',
+      'All of the above'
+    ]
+  },
+  {
+    id: 'readiness',
+    section: 'YOUR GOALS',
+    text: 'Are you ready to invest time in learning and implementing AI tools in your business?',
+    type: 'single',
+    options: [
+      'Yes — I\'m committed and ready to start now',
+      'Maybe — I need to see the ROI first',
+      'Not sure yet — still researching my options'
+    ]
+  }
+];
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let currentQ = 0;
+let answers = {};
+let userEmail = '';
+
+// ══════════════════════════════════════════
+// INTRO → START
+// ══════════════════════════════════════════
+function startAssessment() {
+  const emailEl = document.getElementById('email-input');
+  const errorEl = document.getElementById('email-error');
+  const email = emailEl.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    errorEl.style.display = 'block';
+    emailEl.focus();
+    return;
+  }
+  errorEl.style.display = 'none';
+  userEmail = email;
+  currentQ = 0;
+  showScreen('screen-question');
+  renderQuestion();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function goNext() {
+  const q = QUESTIONS[currentQ];
+  if (!answers[q.id] || (Array.isArray(answers[q.id]) && answers[q.id].length === 0)) return;
+
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showProcessing();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  } else {
+    showScreen('screen-intro');
+  }
+}
+
+// ══════════════════════════════════════════
+// RENDER QUESTION
+// ══════════════════════════════════════════
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+  const stepNum = currentQ + 1;
+
+  document.getElementById('step-counter').textContent = `Step ${stepNum} of ${total}`;
+  document.getElementById('progress-fill').style.width = `${(stepNum / total) * 100}%`;
+  document.getElementById('q-section').textContent = q.section;
+  document.getElementById('q-text').textContent = q.text;
+
+  const hintEl = document.getElementById('q-hint');
+  hintEl.textContent = q.hint || '';
+
+  const listEl = document.getElementById('options-list');
+  listEl.innerHTML = '';
+
+  const currentAnswer = answers[q.id];
+
+  q.options.forEach((opt, i) => {
+    const card = document.createElement('div');
+    card.className = 'option-card';
+
+    const isSelected = q.type === 'multi'
+      ? (Array.isArray(currentAnswer) && currentAnswer.includes(opt))
+      : (currentAnswer === opt);
+
+    if (isSelected) card.classList.add('selected');
+
+    card.innerHTML = `
+      <div class="option-check"><div class="option-check-dot"></div></div>
+      <div class="option-text">${opt}</div>
+    `;
+
+    card.addEventListener('click', () => selectOption(q, opt, card));
+    listEl.appendChild(card);
+  });
+
+  updateNextButton();
+  document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+}
+
+function selectOption(q, opt, card) {
+  if (q.type === 'single') {
+    answers[q.id] = opt;
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    // Auto-advance for single select after brief delay
+    setTimeout(() => goNext(), 300);
+  } else {
+    // Multi-select
+    if (!Array.isArray(answers[q.id])) answers[q.id] = [];
+
+    // Special case: "None of these" deselects others
+    const noneOptions = ['None of these', 'None of these — it\'s basically a digital business card'];
+    const isNone = noneOptions.some(n => opt.includes(n.substring(0, 10)));
+
+    if (isNone) {
+      answers[q.id] = card.classList.contains('selected') ? [] : [opt];
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      if (answers[q.id].length > 0) card.classList.add('selected');
+    } else {
+      // Remove any "none" answer
+      answers[q.id] = answers[q.id].filter(a => !noneOptions.some(n => a.includes(n.substring(0, 10))));
+      document.querySelectorAll('.option-card').forEach((c, i) => {
+        if (noneOptions.some(n => q.options[i] && q.options[i].includes(n.substring(0, 10)))) {
+          c.classList.remove('selected');
+        }
+      });
+
+      if (card.classList.contains('selected')) {
+        answers[q.id] = answers[q.id].filter(a => a !== opt);
+        card.classList.remove('selected');
+      } else {
+        if (answers[q.id].length < 4) {
+          answers[q.id].push(opt);
+          card.classList.add('selected');
+        }
+      }
+    }
+  }
+  updateNextButton();
+}
+
+function updateNextButton() {
+  const q = QUESTIONS[currentQ];
+  const btn = document.getElementById('btn-next');
+  const hasAnswer = answers[q.id] && (Array.isArray(answers[q.id]) ? answers[q.id].length > 0 : true);
+  btn.disabled = !hasAnswer;
+  btn.textContent = currentQ === QUESTIONS.length - 1 ? 'See My Results →' : 'Next →';
+}
+
+// ══════════════════════════════════════════
+// PROCESSING
+// ══════════════════════════════════════════
+function showProcessing() {
+  showScreen('screen-processing');
+  // Submit in background, show results after 2.5s
+  submitAssessment();
+  setTimeout(() => {
+    buildResults();
+    showScreen('screen-results');
+  }, 2500);
+}
+
+// ══════════════════════════════════════════
+// SCORING ENGINE
+// ══════════════════════════════════════════
+function calculateScore() {
+  let score = 0;
+
+  // AI Usage (0–30)
+  const usageScores = { 0: 5, 1: 15, 2: 22, 3: 30 };
+  const usageIdx = [
+    'I\'ve never used AI tools',
+    'I\'ve tried a few things but nothing stuck',
+    'I use AI occasionally when I remember to',
+    'I use AI tools regularly as part of my workflow'
+  ].indexOf(answers.ai_usage);
+  score += usageScores[usageIdx] || 5;
+
+  // Tools tried (0–15)
+  const tools = answers.tools_tried || [];
+  const nonNoneTools = tools.filter(t => t !== 'None of these');
+  score += Math.min(nonNoneTools.length * 5, 15);
+
+  // Barrier (0–10)
+  const barrierScores = {
+    'Nothing — I\'m already using AI actively': 10,
+    'I don\'t have time to learn new tools': 7,
+    'I tried it but the results weren\'t good enough': 5,
+    'Privacy and security concerns': 5,
+    'My industry has compliance concerns (HIPAA, legal, etc.)': 5,
+    'I don\'t know where to start': 3
+  };
+  score += barrierScores[answers.barrier] || 3;
+
+  // Website freshness (0–10)
+  const webScores = {
+    'Within the last year': 10,
+    '1–3 years ago': 6,
+    '3–5 years ago': 2,
+    'Honestly, I have no idea': 0
+  };
+  score += webScores[answers.website_age] || 0;
+
+  // Website features (0–10)
+  const webFeats = answers.website_features || [];
+  const nonNoneFeats = webFeats.filter(f => !f.includes('digital business card'));
+  score += Math.min(nonNoneFeats.length * 3, 10);
+
+  // Communication (0–10)
+  const commScores = {
+    'I have a CRM system with organized contacts and follow-ups': 10,
+    'A mix of email, text, and phone — it\'s inconsistent': 6,
+    'Mostly email — nothing is really organized': 3,
+    'It\'s honestly chaotic and things fall through the cracks': 0
+  };
+  score += commScores[answers.communication] || 0;
+
+  // Readiness (0–15)
+  const readyScores = {
+    'Yes — I\'m committed and ready to start now': 15,
+    'Maybe — I need to see the ROI first': 8,
+    'Not sure yet — still researching my options': 3
+  };
+  score += readyScores[answers.readiness] || 3;
+
+  return Math.min(score, 100);
+}
+
+function getLevel(score) {
+  if (score <= 20) return 1;
+  if (score <= 40) return 2;
+  if (score <= 60) return 3;
+  if (score <= 80) return 4;
+  return 5;
+}
+
+// ══════════════════════════════════════════
+// OPPORTUNITY ENGINE
+// ══════════════════════════════════════════
+function getOpportunities() {
+  const opps = [];
+  const tasks = answers.tasks || [];
+  const dread = answers.dread || '';
+  const bottleneck = answers.bottleneck || '';
+
+  const hoursMap = {
+    'Less than 2 hours': { min: 1, max: 3 },
+    '2–5 hours': { min: 3, max: 6 },
+    '5–10 hours': { min: 5, max: 10 },
+    'More than 10 hours — it\'s out of control': { min: 8, max: 15 }
+  };
+  const range = hoursMap[answers.hours_lost] || { min: 3, max: 7 };
+
+  // Email
+  if (tasks.includes('Email and inbox management') || dread.includes('email')) {
+    opps.push({ title: 'Email & Inbox Management', hours: `${Math.round(range.min * 0.35)}–${Math.round(range.max * 0.35)} hrs/week`, desc: 'AI drafts, sorts, and summarizes — you review and send.' });
+  }
+
+  // Writing
+  if (tasks.includes('Writing proposals, reports, or content') || dread.includes('Writing')) {
+    opps.push({ title: 'Writing & Content Creation', hours: `${Math.round(range.min * 0.4)}–${Math.round(range.max * 0.4)} hrs/week`, desc: 'First drafts in minutes instead of hours.' });
+  }
+
+  // Follow-up
+  if (tasks.includes('Client follow-up and communication') || dread.includes('Following up') || bottleneck.includes('following up')) {
+    opps.push({ title: 'Client Follow-Up & Outreach', hours: `${Math.round(range.min * 0.3)}–${Math.round(range.max * 0.3)} hrs/week`, desc: 'Automated follow-up sequences that feel personal.' });
+  }
+
+  // Scheduling
+  if (tasks.includes('Scheduling and calendar') || dread.includes('Scheduling')) {
+    opps.push({ title: 'Scheduling & Calendar', hours: `1–3 hrs/week`, desc: 'Eliminate back-and-forth with AI scheduling tools.' });
+  }
+
+  // Admin
+  if (tasks.includes('Invoicing and bookkeeping') || bottleneck.includes('Approving')) {
+    opps.push({ title: 'Admin & Invoicing', hours: `2–4 hrs/week`, desc: 'Automate routine approvals, invoices, and paperwork.' });
+  }
+
+  // Social
+  if (tasks.includes('Social media and marketing')) {
+    opps.push({ title: 'Social Media & Marketing', hours: `2–5 hrs/week`, desc: 'AI generates posts, captions, and ad copy in minutes.' });
+  }
+
+  // Default if none matched
+  if (opps.length === 0) {
+    opps.push({ title: 'Workflow Automation', hours: `${range.min}–${range.max} hrs/week`, desc: 'Multiple areas where AI can eliminate manual steps.' });
+    opps.push({ title: 'Communication & Follow-Up', hours: `2–4 hrs/week`, desc: 'Streamline client and team communication.' });
+    opps.push({ title: 'Document & Report Creation', hours: `2–3 hrs/week`, desc: 'First drafts in minutes instead of hours.' });
+  }
+
+  return opps.slice(0, 3);
+}
+
+function getTotalHours(opps) {
+  // Sum minimums from opportunity hours
+  let total = 0;
+  opps.forEach(o => {
+    const match = o.hours.match(/(\d+)/);
+    if (match) total += parseInt(match[1]);
+  });
+  return Math.max(total, 5);
+}
+
+function getTools(level) {
+  const toolsByLevel = {
+    1: ['ChatGPT', 'Grammarly', 'Calendly', 'Google Workspace AI'],
+    2: ['ChatGPT', 'Claude', 'Zapier Starter', 'Fathom (meeting notes)', 'Calendly'],
+    3: ['Claude', 'Zapier', 'Fathom', 'Gamma (presentations)', 'ChatGPT'],
+    4: ['Claude', 'Make.com', 'Fathom', 'Custom GPTs', 'Zapier Advanced'],
+    5: ['Claude API', 'Make.com', 'Custom AI Agents', 'Advanced Automations']
+  };
+  return toolsByLevel[level] || toolsByLevel[2];
+}
+
+// ══════════════════════════════════════════
+// BUILD RESULTS SCREEN
+// ══════════════════════════════════════════
+function buildResults() {
+  const score = calculateScore();
+  const level = getLevel(score);
+  const opps = getOpportunities();
+  const totalHrs = getTotalHours(opps);
+  const tools = getTools(level);
+
+  const levelData = {
+    1: { name: 'AI Novice', desc: 'You\'re at the starting line — and that\'s completely fine. Most business owners your age are in the same place. The good news: your biggest gains are ahead of you, and they\'re easier to reach than you think.' },
+    2: { name: 'AI Curious', desc: 'You\'ve dipped your toe in but haven\'t found your footing yet. That\'s the most common spot. The tools exist — you just need the right starting point for your specific situation.' },
+    3: { name: 'AI Explorer', desc: 'You\'re ahead of most business owners your age — and leaving significant time on the table. A few targeted implementations could double what AI does for your business.' },
+    4: { name: 'AI Adopter', desc: 'You\'re solidly in the minority of business owners who actually use AI. Now it\'s about going deeper — custom workflows and automation that compound over time.' },
+    5: { name: 'AI Practitioner', desc: 'You\'re running ahead of the pack. The opportunity now is advanced automation and systems that let you scale without adding headcount.' }
+  };
+
+  // Score display
+  document.getElementById('r-score-display').textContent = `LEVEL ${level} OF 5`;
+  document.getElementById('r-level-name').textContent = levelData[level].name;
+  document.getElementById('r-level-desc').textContent = levelData[level].desc;
+
+  // Segments
+  const segsEl = document.getElementById('r-segments');
+  segsEl.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const seg = document.createElement('div');
+    seg.className = 'level-seg' + (i <= level ? ' filled' : '');
+    segsEl.appendChild(seg);
+  }
+
+  // Opportunities
+  const oppsGrid = document.getElementById('r-opps-grid');
+  oppsGrid.innerHTML = '';
+  opps.forEach(o => {
+    const card = document.createElement('div');
+    card.className = 'opp-card';
+    card.innerHTML = `
+      <div class="opp-title">${o.title}</div>
+      <div class="opp-hours">${o.hours} saved</div>
+      <div class="opp-desc">${o.desc}</div>
+    `;
+    oppsGrid.appendChild(card);
+  });
+
+  // Total
+  document.getElementById('r-total').textContent = `Estimated ${totalHrs}+ hours returned to you every week — at an average AI tool cost of ~$40/month.`;
+
+  // Tools
+  const toolsEl = document.getElementById('r-tools');
+  toolsEl.innerHTML = '';
+  tools.forEach(t => {
+    const tag = document.createElement('div');
+    tag.className = 'tool-tag';
+    tag.textContent = t;
+    toolsEl.appendChild(tag);
+  });
+
+  // HIPAA note
+  const hipaaIndustries = ['Healthcare / Medical', 'Dental', 'Legal'];
+  const industry = answers.industry || '';
+  const hipaaEl = document.getElementById('r-hipaa');
+  if (hipaaIndustries.includes(industry)) {
+    hipaaEl.style.display = 'block';
+    hipaaEl.textContent = `Note for ${industry} professionals: All recommended tools can be configured for HIPAA-compliant use. During your strategy call, Tom will walk you through compliant implementation specific to your practice.`;
+  } else {
+    hipaaEl.style.display = 'none';
+  }
+}
+
+// ══════════════════════════════════════════
+// SUBMIT TO SERVER (Mailchimp)
+// ══════════════════════════════════════════
+async function submitAssessment() {
+  const score = calculateScore();
+  const level = getLevel(score);
+
+  try {
+    await fetch('/api/submit-assessment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: userEmail,
+        score,
+        level,
+        industry: answers.industry || '',
+        hours_lost: answers.hours_lost || '',
+        ai_usage: answers.ai_usage || '',
+        goal: answers.goal || '',
+        tasks: (answers.tasks || []).join(', ')
+      })
+    });
+  } catch (e) {
+    // Fail silently — results still show
+    console.log('Submission error:', e);
+  }
+}
+
+// ══════════════════════════════════════════
+// SCREEN SWITCHER
+// ══════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Allow Enter key on email field
+document.getElementById('email-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startAssessment();
+});
+</script>
+</body>
+</html>
