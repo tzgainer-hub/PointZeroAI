@@ -18,8 +18,16 @@
   <meta property="og:description" content="Plain English. Real Tools. No Hype. AI built for experienced business owners and professionals who want straight talk and real results." />
   <meta property="og:url" content="https://www.pointzeroai.com" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.pointzeroai.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Point Zero AI — AI for the Rest of Us" />
+  <meta name="twitter:description" content="Plain English. Real Tools. No Hype. AI built for experienced business owners and professionals who want straight talk and real results." />
+  <meta name="twitter:image" content="https://www.pointzeroai.com/og-image.png" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.pointzeroai.com" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -134,6 +142,27 @@
 
     .nav-cta:hover { background: var(--gold); color: var(--navy-dark); }
 
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--gold);
+      margin: 5px 0;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
     /* ── TOC ── */
     .toc-bar {
       background: var(--navy-mid);
@@ -146,6 +175,14 @@
       scrollbar-width: none;
     }
     .toc-bar::-webkit-scrollbar { display: none; }
+    .toc-links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc-links::-webkit-scrollbar { display: none; }
     .toc-link {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.65rem;
@@ -1011,9 +1048,36 @@
       /* Ticker — faster on mobile so it actually feels like it's moving */
       .ticker-inner { animation-duration: 20s; }
 
-      /* TOC */
-      .toc-bar { padding: 0 16px; }
-      .toc-link { padding: 10px 14px; font-size: 0.6rem; }
+      /* TOC / Hamburger */
+      .hamburger { display: block; }
+      .toc-bar {
+        padding: 12px 16px;
+        position: relative;
+      }
+      .toc-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--navy-mid);
+        border-bottom: 1px solid rgba(201,164,71,0.15);
+        padding: 8px 0;
+        z-index: 99;
+      }
+      .toc-links.open { display: flex; }
+      .toc-link {
+        padding: 14px 24px;
+        font-size: 0.7rem;
+        border-bottom: none;
+        border-left: 2px solid transparent;
+      }
+      .toc-link:hover, .toc-link.active {
+        border-bottom: none;
+        border-left-color: var(--gold);
+        background: rgba(201,164,71,0.05);
+      }
 
       /* Layout */
       section { padding: 64px 20px; }
@@ -1111,14 +1175,19 @@
 
   <!-- TOC -->
   <nav class="toc-bar" id="toc">
-    <a href="#top" class="toc-link active">Home</a>
-    <a href="#reality" class="toc-link">The Reality</a>
-    <a href="#who" class="toc-link">Who This Is For</a>
-    <a href="#products" class="toc-link">Products</a>
-    <a href="#assessment" class="toc-link">Assessment</a>
-    <a href="#guide" class="toc-link">Tom's Story</a>
-    <a href="#advisory" class="toc-link">Advisory</a>
-    <a href="#starter" class="toc-link">Stay in the Loop</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="toc-links" id="toc-links">
+      <a href="#top" class="toc-link active">Home</a>
+      <a href="#reality" class="toc-link">The Reality</a>
+      <a href="#who" class="toc-link">Who This Is For</a>
+      <a href="#products" class="toc-link">Products</a>
+      <a href="#assessment" class="toc-link">Assessment</a>
+      <a href="#guide" class="toc-link">Tom's Story</a>
+      <a href="#advisory" class="toc-link">Advisory</a>
+      <a href="#starter" class="toc-link">Stay in the Loop</a>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -1333,7 +1402,7 @@
       <div class="launching-box">
         <span class="tag">Start Here — Free</span>
         <h3 style="margin-bottom:12px; font-size:1.2rem; color:var(--white);">Not sure if this is right for you? Take the free assessment first.</h3>
-        <p style="margin-bottom:24px;">20 questions. 4 minutes. You'll get a custom AI readiness score, your top opportunities, and specific tool recommendations — instantly. Then we'll talk.</p>
+        <p style="margin-bottom:24px;">16 questions. 4 minutes. You'll get a custom AI readiness score, your top opportunities, and specific tool recommendations — instantly. Then we'll talk.</p>
         <a href="/assessment" class="btn-gold">Take the Free Assessment →</a>
       </div>
     </div>
@@ -1384,7 +1453,10 @@
         <h3>One-on-one strategic sessions</h3>
         <p>For founders, CEOs, and senior executives who want a thinking partner — not a tutorial. We cover AI integration, operational strategy, competitive positioning, and whatever else your business needs. Informed by 30 years of building and selling companies.</p>
         <span class="availability-tag">Limited Availability · By Application Only</span>
-        <form class="advisory-form" action="mailto:info@pointzeroai.com" method="post" enctype="text/plain">
+        <form class="advisory-form" action="https://formsubmit.co/info@pointzeroai.com" method="POST">
+          <input type="hidden" name="_subject" value="New Advisory Application — Point Zero AI" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://www.pointzeroai.com/#advisory" />
           <input type="text" name="name" placeholder="Your name" required />
           <input type="email" name="email" placeholder="Your email address" required />
           <textarea name="message" placeholder="Tell us about your business and what you're looking to accomplish..."></textarea>
@@ -1400,8 +1472,9 @@
       <span class="section-label">Stay in the Loop</span>
       <h2>AI is moving fast.<br/>We'll keep you ahead of it.</h2>
       <p class="starter-sub">Practical insights, tool recommendations, and straight talk on what's actually working in AI for business — delivered when it matters. No noise.</p>
-      <form class="email-form" onsubmit="handleSubmit(event)">
-        <input type="email" placeholder="Your email address" required id="emailInput" />
+      <form class="email-form" action="https://pointzeroai.us1.list-manage.com/subscribe/post?u=520e9d4c16e7be955428af4e4&amp;id=30f4bd1d00&amp;f_id=007fcfe0f0" method="post" target="_blank">
+        <input type="email" name="EMAIL" placeholder="Your email address" required />
+        <div aria-hidden="true" style="position:absolute;left:-5000px;"><input type="text" name="b_520e9d4c16e7be955428af4e4_30f4bd1d00" tabindex="-1" value=""></div>
         <button type="submit">Keep Me Posted</button>
       </form>
       <p class="form-note">No spam. No selling your data. Unsubscribe anytime.</p>
@@ -1412,9 +1485,8 @@
   <footer>
     <a href="#top" class="footer-logo">POINT <span>ZERO</span> AI</a>
     <div class="footer-links">
-      <a href="https://youtube.com" target="_blank">YouTube</a>
-      <a href="https://instagram.com" target="_blank">Instagram</a>
-      <a href="https://tiktok.com" target="_blank">TikTok</a>
+      <a href="https://www.youtube.com/@pointzeroai" target="_blank">YouTube</a>
+      <a href="https://x.com/PointZeroAI" target="_blank">X</a>
       <a href="https://www.getstreamtracker.com" target="_blank">StreamTracker</a>
       <a href="/privacy">Privacy Policy</a>
       <a href="/support">Support</a>
@@ -1424,12 +1496,20 @@
   </footer>
 
   <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('emailInput').value;
-      alert('You\'re on the list. We\'ll be in touch.');
-      e.target.reset();
-    }
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const tocLinksEl = document.getElementById('toc-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      tocLinksEl.classList.toggle('open');
+    });
+    // Close menu when a link is tapped
+    tocLinksEl.querySelectorAll('.toc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        tocLinksEl.classList.remove('open');
+      });
+    });
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {

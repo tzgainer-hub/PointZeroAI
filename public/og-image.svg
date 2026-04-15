@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#c9a447" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0c1e3c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0c1e3c"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- Gold accent line top -->
+  <rect x="0" y="0" width="1200" height="3" fill="#c9a447" opacity="0.6"/>
+  <!-- Compass icon -->
+  <g transform="translate(600,200)">
+    <circle cx="0" cy="0" r="52" stroke="#c9a447" stroke-opacity="0.4" stroke-width="1.5" fill="none"/>
+    <path d="M0,-58 L-7,0 L0,-7 L7,0 Z" fill="white"/>
+    <path d="M0,58 L7,0 L0,7 L-7,0 Z" fill="white"/>
+    <path d="M58,0 L0,-7 L7,0 L0,7 Z" fill="white"/>
+    <path d="M-58,0 L0,7 L-7,0 L0,-7 Z" fill="white"/>
+    <path d="M38,-38 L-3,-3 L7,-7 L3,3 Z" fill="white" fill-opacity="0.35"/>
+    <path d="M-38,38 L3,3 L-7,7 L-3,-3 Z" fill="white" fill-opacity="0.35"/>
+    <path d="M38,38 L3,-3 L7,7 L-3,3 Z" fill="white" fill-opacity="0.35"/>
+    <path d="M-38,-38 L-3,3 L-7,-7 L3,-3 Z" fill="white" fill-opacity="0.35"/>
+    <circle cx="0" cy="0" r="3" fill="#c9a447"/>
+  </g>
+  <!-- Title -->
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="300" letter-spacing="14" fill="white">POINT <tspan fill="#c9a447">ZERO</tspan> AI</text>
+  <!-- Tagline -->
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" letter-spacing="6" fill="white" fill-opacity="0.45">AI FOR THE REST OF US</text>
+  <!-- Subtitle -->
+  <text x="600" y="460" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="white" fill-opacity="0.7">Plain English · Real Tools · No Hype</text>
+  <!-- URL -->
+  <text x="600" y="570" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" letter-spacing="3" fill="#c9a447" fill-opacity="0.6">POINTZEROAI.COM</text>
+  <!-- Gold accent line bottom -->
+  <rect x="0" y="627" width="1200" height="3" fill="#c9a447" opacity="0.6"/>
+</svg>
