@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSGMQREKGT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSGMQREKGT');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice Revenue Audit — Point Zero AI</title>
+  <meta name="description" content="Find out how much revenue your practice is leaving on the table. Free revenue audit for healthcare practices — dentists, surgeons, specialists." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    :root {
+      --navy-dark:  #0c1e3c;
+      --navy-mid:   #0f2444;
+      --navy-card:  #13294e;
+      --navy-hover: #1a3460;
+      --gold:       #c9a447;
+      --gold-light: #e8c46a;
+      --gold-dim:   rgba(201,164,71,0.2);
+      --white:      #ffffff;
+      --white-70:   rgba(255,255,255,0.70);
+      --white-50:   rgba(255,255,255,0.50);
+      --white-30:   rgba(255,255,255,0.30);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy-dark);
+      color: var(--white);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: flex; flex-direction: column; }
+
+    /* ── SHARED HEADER ── */
+    .assess-header {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gold-dim);
+    }
+    .assess-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .step-counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white-50);
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      width: 100%;
+    }
+    .progress-bar-fill {
+      height: 3px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    /* ── INTRO SCREEN ── */
+    #screen-intro {
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+    }
+    .intro-inner {
+      max-width: 640px;
+      width: 100%;
+    }
+    .intro-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .intro-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .intro-sub {
+      font-size: 1.05rem;
+      color: var(--white-70);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .btn-start {
+      width: 100%;
+      background: var(--gold);
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 20px 32px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-start:hover { background: var(--gold-light); }
+    .intro-disclaimer {
+      font-size: 0.8rem;
+      color: var(--white-40, rgba(255,255,255,0.4));
+      margin-top: 16px;
+      text-align: center;
+    }
+    .trust-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--gold-dim);
+    }
+    .trust-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── QUESTION SCREEN ── */
+    #screen-question {
+      flex-direction: column;
+    }
+    .question-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .question-section {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .question-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .question-hint {
+      font-size: 0.85rem;
+      color: var(--white-50);
+      margin-top: -20px;
+      margin-bottom: 28px;
+    }
+
+    /* Answer cards */
+    .options-list { display: flex; flex-direction: column; gap: 12px; }
+    .option-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid transparent;
+      padding: 18px 24px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .option-card:hover {
+      background: var(--navy-hover);
+      border-left-color: var(--gold-dim);
+    }
+    .option-card.selected {
+      background: var(--navy-hover);
+      border-left-color: var(--gold);
+      border-color: rgba(201,164,71,0.25);
+    }
+    .option-check {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .option-card.selected .option-check {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .option-check-dot {
+      width: 8px;
+      height: 8px;
+      background: #1a1000;
+      display: none;
+    }
+    .option-card.selected .option-check-dot { display: block; }
+    .option-text {
+      font-size: 1rem;
+      color: var(--white-70);
+      line-height: 1.4;
+    }
+    .option-card.selected .option-text { color: var(--white); }
+
+    /* Navigation */
+    .question-nav {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--gold-dim);
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .btn-back {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white-70);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--white-50); color: var(--white); }
+    .btn-next {
+      background: var(--gold);
+      border: none;
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background 0.2s;
+    }
+    .btn-next:hover { background: var(--gold-light); }
+    .btn-next:disabled { background: rgba(201,164,71,0.3); cursor: not-allowed; color: rgba(26,16,0,0.5); }
+    .nav-save-note {
+      font-size: 0.75rem;
+      color: var(--white-30);
+      letter-spacing: 1px;
+    }
+
+    /* ── PROCESSING SCREEN ── */
+    #screen-processing {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 32px;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .processing-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .processing-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--white);
+    }
+    .processing-bar-wrap {
+      width: 320px;
+      max-width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .processing-bar {
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scan 1.8s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .processing-sub {
+      font-size: 0.9rem;
+      color: var(--white-50);
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── RESULTS SCREEN ── */
+    #screen-results {
+      flex-direction: column;
+    }
+    .results-body {
+      padding: 48px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .results-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .results-score-display {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .results-score-display .gold { color: var(--gold); }
+    .results-context {
+      font-size: 1rem;
+      color: var(--white-70);
+      margin-bottom: 48px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* Revenue breakdown cards */
+    .opps-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .opps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .opp-card {
+      background: var(--navy-card);
+      border-left: 4px solid var(--gold);
+      padding: 24px 20px;
+    }
+    .opp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .opp-dollars {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .opp-desc {
+      font-size: 0.8rem;
+      color: var(--white-50);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .opp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .opp-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,164,71,0.1);
+      border: 1px solid rgba(201,164,71,0.2);
+      padding: 4px 10px;
+    }
+
+    /* Solution package */
+    .package-section {
+      margin-bottom: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gold-dim);
+    }
+    .package-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .package-check {
+      width: 24px;
+      height: 24px;
+      background: var(--gold);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .package-check svg {
+      width: 14px;
+      height: 14px;
+      stroke: #1a1000;
+      fill: none;
+      stroke-width: 3;
+    }
+    .package-info { flex: 1; }
+    .package-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .high-impact-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1a1000;
+      background: var(--gold);
+      padding: 3px 10px;
+      font-weight: 700;
+    }
+    .package-desc {
+      font-size: 0.85rem;
+      color: var(--white-50);
+      line-height: 1.5;
+    }
+
+    /* HIPAA note */
+    .hipaa-note {
+      background: rgba(201,164,71,0.08);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      color: var(--white-70);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .results-cta-section {
+      background: var(--navy-mid);
+      padding: 40px;
+      margin-top: 8px;
+    }
+    .cta-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-sub {
+      font-size: 0.95rem;
+      color: var(--white-70);
+      margin-bottom: 28px;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .btn-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: #1a1000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 20px 40px;
+      text-decoration: none;
+      border-radius: 0;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover { background: var(--gold-light); }
+    .cta-email-note {
+      font-size: 0.8rem;
+      color: var(--white-40, rgba(255,255,255,0.4));
+      margin-top: 16px;
+    }
+
+    /* Email input (shared) */
+    .email-label {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white-50);
+      margin-bottom: 10px;
+    }
+    .email-input {
+      width: 100%;
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 3px solid var(--gold);
+      padding: 18px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+      outline: none;
+      border-radius: 0;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .email-input::placeholder { color: var(--white-30); }
+    .email-input:focus { border-color: var(--gold); }
+
+    /* Error */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* ── SOCIAL PROOF ── */
+    .social-proof-block {
+      margin-top: 40px;
+    }
+    .social-proof-divider {
+      height: 1px;
+      background: var(--gold-dim);
+      margin-bottom: 24px;
+    }
+    .social-proof-text {
+      font-size: 0.88rem;
+      color: var(--white-50);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .social-proof-text strong {
+      color: var(--white-70);
+      font-weight: 600;
+    }
+    .social-proof-logos {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sp-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .sp-badge em { font-style: italic; text-transform: none; letter-spacing: 0; }
+    .sp-sep { color: var(--gold-dim); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .assess-header { padding: 16px 20px; }
+      #screen-intro { padding: 32px 20px; justify-content: flex-start; }
+      .intro-headline { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+      .intro-sub { font-size: 0.95rem; }
+      .trust-row { flex-direction: column; gap: 12px; margin-top: 28px; }
+      .btn-start { padding: 18px 24px; font-size: 0.8rem; }
+
+      .question-body { padding: 24px 20px; }
+      .question-text { font-size: clamp(1.1rem, 4vw, 1.4rem); margin-bottom: 24px; }
+      .option-card { padding: 16px 18px; min-height: 54px; }
+      .option-text { font-size: 0.95rem; }
+      .question-nav {
+        padding: 16px 20px;
+        flex-wrap: nowrap;
+        gap: 12px;
+        position: sticky;
+        bottom: 0;
+        background: var(--navy-dark);
+        border-top: 1px solid var(--gold-dim);
+      }
+      .nav-save-note { display: none; }
+      .btn-back { padding: 14px 20px; font-size: 0.7rem; flex-shrink: 0; }
+      .btn-next { padding: 14px 24px; font-size: 0.7rem; flex: 1; }
+
+      .results-body { padding: 24px 20px; }
+      .results-score-display { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+      .opps-grid { grid-template-columns: 1fr; }
+      .results-cta-section { padding: 28px 20px; }
+      .btn-cta { display: block; text-align: center; padding: 18px 24px; }
+
+      #screen-email > div { padding: 32px 20px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1: INTRO
+══════════════════════════════════════════ -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-inner">
+    <div class="intro-label">Point Zero AI &middot; Free Practice Revenue Audit</div>
+    <h1 class="intro-headline">Your Practice Is Leaving Money on the Table Every Month. Find Out How Much.</h1>
+    <p class="intro-sub">14 questions. 3 minutes. You'll get a custom revenue leakage report showing exactly where patients, production, and profit are slipping through the cracks — and what to do about it.</p>
+
+    <button class="btn-start" onclick="startAudit()">START MY FREE REVENUE AUDIT &rarr;</button>
+    <p class="intro-disclaimer">Takes 3 minutes. No email required to start.</p>
+
+    <div class="trust-row">
+      <span class="trust-item">3 Minutes</span>
+      <span class="trust-item">100% Free</span>
+      <span class="trust-item">Instant Dollar Estimates</span>
+    </div>
+
+    <div class="social-proof-block">
+      <div class="social-proof-divider"></div>
+      <p class="social-proof-text">Built by a business consultant who has reviewed <strong>15,000+ businesses</strong> and helped <strong>8,000+ companies</strong> identify revenue leakage, cut fees, and eliminate waste. 30+ years inside real practices — not theory.</p>
+      <div class="social-proof-logos">
+        <span class="sp-badge">Featured in Tony Robbins' <em>Money Master the Game</em></span>
+        <span class="sp-sep">&middot;</span>
+        <span class="sp-badge">CNBC &nbsp;&middot;&nbsp; Fox Business &nbsp;&middot;&nbsp; Bloomberg</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2: QUESTION
+══════════════════════════════════════════ -->
+<div id="screen-question" class="screen">
+  <div class="assess-header">
+    <a href="/" class="assess-logo">Point Zero AI</a>
+    <span class="step-counter" id="step-counter">Step 1 of 14</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width: 7.14%"></div>
+  </div>
+
+  <div class="question-body">
+    <div class="question-section" id="q-section"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="question-hint" id="q-hint"></div>
+    <div class="options-list" id="options-list"></div>
+  </div>
+
+  <div class="question-nav">
+    <button class="btn-back" id="btn-back" onclick="goBack()">&larr; Back</button>
+    <span class="nav-save-note">Progress saved automatically</span>
+    <button class="btn-next" id="btn-next" onclick="goNext()">Next &rarr;</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3: EMAIL GATE
+══════════════════════════════════════════ -->
+<div id="screen-email" class="screen">
+  <div class="assess-header">
+    <a href="/" class="assess-logo">Point Zero AI</a>
+    <span class="step-counter">Done &mdash; Unlock Your Results</span>
+  </div>
+  <div style="flex:1; display:flex; align-items:center; justify-content:center; padding: 48px 40px;">
+    <div style="max-width: 560px; width: 100%;">
+      <div class="intro-label">Your Revenue Audit Is Complete</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif; font-size:clamp(1.8rem,3vw,2.4rem); font-weight:700; color:var(--white); line-height:1.2; margin-bottom:16px;">Your Revenue Report Is Ready.</h2>
+      <p style="font-size:1rem; color:var(--white-70); line-height:1.7; margin-bottom:32px;">Enter your email to unlock your full revenue leakage report — the dollar breakdown, the specific gaps in your practice, and the recommended recovery plan. We'll also email you a copy.</p>
+      <label class="email-label" for="email-input">Your email address</label>
+      <input type="email" id="email-input" class="email-input" placeholder="your@email.com" autocomplete="email" />
+      <div class="error-msg" id="email-error">Please enter a valid email address.</div>
+      <button class="btn-start" onclick="submitEmail()" style="margin-top:4px;">UNLOCK MY REVENUE REPORT &rarr;</button>
+      <p class="intro-disclaimer" style="margin-top:12px;">No spam. Unsubscribe anytime. Your results are yours.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 4: PROCESSING
+══════════════════════════════════════════ -->
+<div id="screen-processing" class="screen">
+  <div class="processing-label">Analyzing Your Practice</div>
+  <div class="processing-headline">Building Your Revenue Leakage Report...</div>
+  <div class="processing-bar-wrap" style="margin-bottom: 32px;">
+    <div class="processing-bar"></div>
+  </div>
+  <div class="processing-sub" id="processing-rotating-text">Calculating revenue leakage from inactive patients...</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 5: RESULTS
+══════════════════════════════════════════ -->
+<div id="screen-results" class="screen">
+  <div class="assess-header">
+    <a href="/" class="assess-logo">Point Zero AI</a>
+    <span class="step-counter">Your Revenue Audit Results</span>
+  </div>
+
+  <div class="results-body">
+    <div class="results-label">Practice Revenue Audit &mdash; Complete</div>
+    <div class="results-score-display" id="r-headline">Your practice is leaving approximately <span class="gold">$87,000 &ndash; $142,000/year</span> on the table</div>
+    <div class="results-context" id="r-context">Based on your responses as a General Dentistry practice with 2-3 providers at 1 location.</div>
+
+    <div class="opps-label" id="r-opps-label">Where Your Revenue Is Leaking</div>
+    <div class="opps-grid" id="r-opps-grid"></div>
+
+    <!-- Solution package -->
+    <div class="package-section">
+      <div class="opps-label">Your Recommended Revenue Recovery Package</div>
+      <div id="r-package-list"></div>
+    </div>
+
+    <div class="hipaa-note" id="r-hipaa">All recommended tools and systems are configured for HIPAA-compliant operation. During your strategy call, Tom will walk through compliant implementation specific to your practice.</div>
+  </div>
+
+  <div style="background: rgba(201,164,71,0.07); border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); padding: 16px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold);">Limited Availability</div>
+    <div style="font-size:0.88rem; color:var(--white-70); line-height:1.5;">Tom works with a limited number of practices each month. Priority goes to practices with $50K+ in identified revenue leakage.</div>
+  </div>
+
+  <div class="results-cta-section">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;">
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--white-50);">Featured in</span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.72rem; letter-spacing:1px; color:var(--gold); font-style:italic;">Tony Robbins' Money Master the Game</span>
+      <span style="color:var(--gold-dim);">&middot;</span>
+      <span style="font-family:'Space Grotesk',sans-serif; font-size:0.72rem; letter-spacing:1px; color:var(--white-50);">CNBC &nbsp;&middot;&nbsp; Fox Business &nbsp;&middot;&nbsp; Bloomberg</span>
+    </div>
+    <div class="cta-headline" id="r-cta-headline">This Is Revenue You're Losing Right Now. Let's Build a Plan to Recover It.</div>
+    <p class="cta-sub" id="r-cta-sub">In a 30-minute call, Tom will walk you through exactly how these systems recover revenue — and what the first 90 days look like for your practice. He's worked inside 8,000+ businesses. This isn't theory.</p>
+    <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta" id="cta-link">BOOK YOUR FREE 30-MINUTE REVENUE RECOVERY CALL &rarr;</a>
+    <p class="cta-email-note" style="margin-top:20px;">Check your inbox — your full results are on their way. Or email <a href="mailto:onboarding@pointzeroai.com" style="color: var(--gold);">onboarding@pointzeroai.com</a> with any questions first.</p>
+  </div>
+</div>
+
+
+<script>
+// ══════════════════════════════════════════
+// QUESTIONS DATA — 14 QUESTIONS
+// ══════════════════════════════════════════
+const QUESTIONS = [
+  {
+    id: 'specialty',
+    section: 'YOUR PRACTICE',
+    text: 'What type of practice do you run?',
+    type: 'single',
+    options: [
+      'General Dentistry',
+      'Oral Surgery',
+      'Orthodontics',
+      'Periodontics / Endodontics',
+      'Pediatric Dentistry',
+      'Plastic Surgery',
+      'Dermatology',
+      'Ophthalmology / Optometry',
+      'Med Spa / Aesthetics',
+      'Chiropractic',
+      'OB/GYN',
+      'Veterinary',
+      'Other Specialty Practice'
+    ]
+  },
+  {
+    id: 'locations',
+    section: 'YOUR PRACTICE',
+    text: 'How many locations does your practice operate?',
+    type: 'single',
+    options: [
+      '1 location',
+      '2 locations',
+      '3-5 locations',
+      '6+ locations'
+    ]
+  },
+  {
+    id: 'providers',
+    section: 'YOUR PRACTICE',
+    text: 'How many providers (doctors, surgeons, or clinicians) see patients at your practice?',
+    type: 'single',
+    options: [
+      '1 (solo practitioner)',
+      '2-3',
+      '4-6',
+      '7+'
+    ]
+  },
+  {
+    id: 'new_patients',
+    section: 'YOUR PRACTICE',
+    text: 'Roughly how many new patients does your practice see per month?',
+    type: 'single',
+    options: [
+      'Fewer than 15',
+      '15-30',
+      '31-60',
+      '61-100',
+      'More than 100'
+    ]
+  },
+  {
+    id: 'active_patients',
+    section: 'YOUR PATIENTS',
+    text: 'Approximately how many active patients are in your practice\'s database?',
+    hint: 'Active = seen within the last 18 months',
+    type: 'single',
+    options: [
+      'Under 500',
+      '500-1,500',
+      '1,500-3,000',
+      '3,000-5,000',
+      '5,000+'
+    ]
+  },
+  {
+    id: 'inactive_patients',
+    section: 'YOUR PATIENTS',
+    text: 'How many patients haven\'t been seen in over 6 months but are still in your system?',
+    hint: 'Your best guess is fine',
+    type: 'single',
+    options: [
+      'Not sure \u2014 probably not many',
+      'Maybe a few hundred',
+      'Probably 500-1,000',
+      'Over 1,000 \u2014 it\'s a big number',
+      'I honestly have no idea'
+    ]
+  },
+  {
+    id: 'treatment_followup',
+    section: 'YOUR PATIENTS',
+    text: 'When a patient has recommended treatment but hasn\'t scheduled, what happens?',
+    type: 'single',
+    options: [
+      'We have a system that follows up automatically',
+      'Someone on staff tries to call, but it\'s inconsistent',
+      'We mention it at the visit but rarely follow up after',
+      'Nothing \u2014 if they don\'t schedule, we wait until their next visit'
+    ]
+  },
+  {
+    id: 'noshow_rate',
+    section: 'YOUR PATIENTS',
+    text: 'What\'s your approximate no-show and last-minute cancellation rate?',
+    type: 'single',
+    options: [
+      'Under 5% \u2014 we rarely have no-shows',
+      '5-10% \u2014 a few per week',
+      '10-20% \u2014 it\'s a real problem',
+      'Over 20% \u2014 we lose significant chair time',
+      'I don\'t track it'
+    ]
+  },
+  {
+    id: 'review_count',
+    section: 'YOUR REPUTATION',
+    text: 'How many Google reviews does your practice have?',
+    type: 'single',
+    options: [
+      'Under 25',
+      '25-75',
+      '75-150',
+      '150-300',
+      '300+'
+    ]
+  },
+  {
+    id: 'review_system',
+    section: 'YOUR REPUTATION',
+    text: 'How do you currently ask patients for Google reviews?',
+    type: 'single',
+    options: [
+      'We have an automated system that sends review requests after visits',
+      'Staff sometimes asks verbally but there\'s no system',
+      'We\'ve tried a few things but nothing consistent',
+      'We don\'t actively ask for reviews'
+    ]
+  },
+  {
+    id: 'after_hours',
+    section: 'YOUR FRONT DESK',
+    text: 'What happens when a potential new patient calls or visits your website after hours?',
+    type: 'single',
+    options: [
+      'They can book online 24/7 through our scheduling system',
+      'They get a voicemail and we call back next business day',
+      'They see a contact form but can\'t actually book',
+      'Nothing \u2014 if we\'re closed, they have to try again tomorrow'
+    ]
+  },
+  {
+    id: 'reminder_system',
+    section: 'YOUR FRONT DESK',
+    text: 'How does your practice handle appointment confirmations and reminders?',
+    type: 'single',
+    options: [
+      'Automated system (text, email, or both) sends reminders automatically',
+      'Staff manually calls or texts patients before appointments',
+      'We send one reminder but nothing more',
+      'We don\'t have a consistent reminder process'
+    ]
+  },
+  {
+    id: 'website_age',
+    section: 'YOUR WEBSITE',
+    text: 'When was your practice\'s website last significantly updated or redesigned?',
+    type: 'single',
+    options: [
+      'Within the last year',
+      '1-3 years ago',
+      '3-5 years ago',
+      'More than 5 years ago',
+      'I honestly don\'t know'
+    ]
+  },
+  {
+    id: 'website_booking',
+    section: 'YOUR WEBSITE',
+    text: 'Can new patients book an appointment directly from your website without calling?',
+    type: 'single',
+    options: [
+      'Yes \u2014 full online booking integrated with our system',
+      'They can request an appointment but someone has to confirm it',
+      'No \u2014 they have to call or email us',
+      'I\'m not sure'
+    ]
+  }
+];
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let currentQ = 0;
+let answers = {};
+let userEmail = '';
+
+// Restore saved progress
+(function restoreProgress() {
+  try {
+    const saved = localStorage.getItem('pzai_practice_audit');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.answers) answers = parsed.answers;
+      if (parsed.currentQ) currentQ = parsed.currentQ;
+    }
+  } catch(e) {}
+})();
+
+// ══════════════════════════════════════════
+// INTRO
+// ══════════════════════════════════════════
+function startAudit() {
+  showScreen('screen-question');
+  renderQuestion();
+}
+
+// Resume prompt if saved progress exists
+(function checkResume() {
+  try {
+    const saved = localStorage.getItem('pzai_practice_audit');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.currentQ > 0) {
+        const btn = document.querySelector('.btn-start');
+        if (btn) btn.textContent = `RESUME WHERE YOU LEFT OFF (Q${parsed.currentQ + 1} of ${QUESTIONS.length}) \u2192`;
+        const disclaimer = document.querySelector('.intro-disclaimer');
+        if (disclaimer) disclaimer.innerHTML = 'Your progress was saved. <a href="#" onclick="resetAudit(event)" style="color:var(--gold);">Start over instead</a>';
+      }
+    }
+  } catch(e) {}
+})();
+
+function resetAudit(e) {
+  e.preventDefault();
+  try { localStorage.removeItem('pzai_practice_audit'); } catch(e) {}
+  answers = {};
+  currentQ = 0;
+  const btn = document.querySelector('.btn-start');
+  if (btn) btn.textContent = 'START MY FREE REVENUE AUDIT \u2192';
+  const disclaimer = document.querySelector('.intro-disclaimer');
+  if (disclaimer) disclaimer.textContent = 'Takes 3 minutes. No email required to start.';
+}
+
+function submitEmail() {
+  const emailEl = document.getElementById('email-input');
+  const errorEl = document.getElementById('email-error');
+  const email = emailEl.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    errorEl.style.display = 'block';
+    emailEl.focus();
+    return;
+  }
+  errorEl.style.display = 'none';
+  userEmail = email;
+  try { localStorage.removeItem('pzai_practice_audit'); } catch(e) {}
+  showProcessing();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function goNext() {
+  const q = QUESTIONS[currentQ];
+  if (!answers[q.id]) return;
+
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showScreen('screen-email');
+    document.getElementById('email-input').focus();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  } else {
+    showScreen('screen-intro');
+  }
+}
+
+// ══════════════════════════════════════════
+// RENDER QUESTION
+// ══════════════════════════════════════════
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+  const stepNum = currentQ + 1;
+
+  document.getElementById('step-counter').textContent = `Step ${stepNum} of ${total}`;
+  document.getElementById('progress-fill').style.width = `${(stepNum / total) * 100}%`;
+  document.getElementById('q-section').textContent = q.section;
+  document.getElementById('q-text').textContent = q.text;
+
+  const hintEl = document.getElementById('q-hint');
+  hintEl.textContent = q.hint || '';
+  hintEl.style.display = q.hint ? 'block' : 'none';
+
+  const listEl = document.getElementById('options-list');
+  listEl.innerHTML = '';
+
+  q.options.forEach((opt) => {
+    const card = document.createElement('div');
+    card.className = 'option-card';
+    if (answers[q.id] === opt) card.classList.add('selected');
+
+    card.innerHTML = `
+      <div class="option-check"><div class="option-check-dot"></div></div>
+      <div class="option-text">${opt}</div>
+    `;
+
+    card.addEventListener('click', () => {
+      answers[q.id] = opt;
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      updateNextButton();
+    });
+    listEl.appendChild(card);
+  });
+
+  updateNextButton();
+  document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+}
+
+function updateNextButton() {
+  const q = QUESTIONS[currentQ];
+  const btn = document.getElementById('btn-next');
+  btn.disabled = !answers[q.id];
+  btn.textContent = currentQ === QUESTIONS.length - 1 ? 'See My Results \u2192' : 'Next \u2192';
+  try { localStorage.setItem('pzai_practice_audit', JSON.stringify({ answers, currentQ })); } catch(e) {}
+}
+
+// ══════════════════════════════════════════
+// PROCESSING
+// ══════════════════════════════════════════
+const PROCESSING_LINES = [
+  'Calculating revenue leakage from inactive patients...',
+  'Analyzing your no-show and cancellation impact...',
+  'Estimating treatment follow-up recovery potential...',
+  'Evaluating your online reputation and new patient pipeline...',
+  'Building your custom revenue recovery plan...'
+];
+
+function showProcessing() {
+  showScreen('screen-processing');
+  submitAudit();
+
+  let idx = 0;
+  const rotEl = document.getElementById('processing-rotating-text');
+  rotEl.textContent = PROCESSING_LINES[0];
+  const interval = setInterval(() => {
+    idx = (idx + 1) % PROCESSING_LINES.length;
+    rotEl.style.opacity = '0';
+    setTimeout(() => {
+      rotEl.textContent = PROCESSING_LINES[idx];
+      rotEl.style.opacity = '1';
+    }, 200);
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(interval);
+    buildResults();
+    showScreen('screen-results');
+  }, 3000);
+}
+
+// ══════════════════════════════════════════
+// REVENUE CALCULATION ENGINE
+// ══════════════════════════════════════════
+
+const SPECIALTY_MULT = {
+  'General Dentistry': 1.0,
+  'Oral Surgery': 1.8,
+  'Orthodontics': 1.3,
+  'Periodontics / Endodontics': 1.4,
+  'Pediatric Dentistry': 0.8,
+  'Plastic Surgery': 3.0,
+  'Dermatology': 1.5,
+  'Ophthalmology / Optometry': 1.2,
+  'Med Spa / Aesthetics': 2.0,
+  'Chiropractic': 0.7,
+  'OB/GYN': 1.3,
+  'Veterinary': 0.9,
+  'Other Specialty Practice': 1.2
+};
+
+const LOCATION_MULT = {
+  '1 location': 1.0,
+  '2 locations': 1.8,
+  '3-5 locations': 3.5,
+  '6+ locations': 6.0
+};
+
+const NEW_PATIENTS_MAP = {
+  'Fewer than 15': 12,
+  '15-30': 22,
+  '31-60': 45,
+  '61-100': 80,
+  'More than 100': 130
+};
+
+const INACTIVE_MAP = {
+  'Not sure \u2014 probably not many': 150,
+  'Maybe a few hundred': 350,
+  'Probably 500-1,000': 750,
+  'Over 1,000 \u2014 it\'s a big number': 1200,
+  'I honestly have no idea': 500
+};
+
+const NOSHOW_MAP = {
+  'Under 5% \u2014 we rarely have no-shows': 0.04,
+  '5-10% \u2014 a few per week': 0.08,
+  '10-20% \u2014 it\'s a real problem': 0.15,
+  'Over 20% \u2014 we lose significant chair time': 0.25,
+  'I don\'t track it': 0.15
+};
+
+const PROVIDER_VISIT_MULT = {
+  '1 (solo practitioner)': 4,
+  '2-3': 8,
+  '4-6': 15,
+  '7+': 25
+};
+
+function calculateRevenue() {
+  const specMult = SPECIALTY_MULT[answers.specialty] || 1.2;
+  const locMult = LOCATION_MULT[answers.locations] || 1.0;
+  const monthlyNew = NEW_PATIENTS_MAP[answers.new_patients] || 22;
+  const inactiveCount = INACTIVE_MAP[answers.inactive_patients] || 500;
+  const noshowRate = NOSHOW_MAP[answers.noshow_rate] || 0.15;
+  const visitMult = PROVIDER_VISIT_MULT[answers.providers] || 8;
+
+  // ── CATEGORY 1: Inactive Patient Reactivation ──
+  const followupFactor = {
+    'We have a system that follows up automatically': 0.6,
+    'Someone on staff tries to call, but it\'s inconsistent': 0.8,
+    'We mention it at the visit but rarely follow up after': 1.0,
+    'Nothing \u2014 if they don\'t schedule, we wait until their next visit': 1.0
+  }[answers.treatment_followup] || 1.0;
+
+  const inactiveBase = inactiveCount * 400 * specMult * 0.15 * followupFactor * locMult;
+  const inactive = { low: Math.round(inactiveBase * 0.8), high: Math.round(inactiveBase * 1.2) };
+
+  // ── CATEGORY 2: Unscheduled Treatment Revenue ──
+  const improvementRate = {
+    'We have a system that follows up automatically': 0.05,
+    'Someone on staff tries to call, but it\'s inconsistent': 0.10,
+    'We mention it at the visit but rarely follow up after': 0.15,
+    'Nothing \u2014 if they don\'t schedule, we wait until their next visit': 0.20
+  }[answers.treatment_followup] || 0.15;
+
+  const unschedBase = monthlyNew * 12 * 800 * specMult * improvementRate * locMult;
+  const unsched = { low: Math.round(unschedBase * 0.7), high: Math.round(unschedBase * 1.0) };
+
+  // ── CATEGORY 3: No-Show Revenue Loss ──
+  const reminderFactor = {
+    'Automated system (text, email, or both) sends reminders automatically': 0.20,
+    'Staff manually calls or texts patients before appointments': 0.35,
+    'We send one reminder but nothing more': 0.50,
+    'We don\'t have a consistent reminder process': 0.60
+  }[answers.reminder_system] || 0.50;
+
+  const monthlyVisits = monthlyNew * visitMult;
+  const noshowBase = monthlyVisits * 12 * noshowRate * 350 * specMult * reminderFactor;
+  const noshow = { low: Math.round(noshowBase * 0.8), high: Math.round(noshowBase * 1.2) };
+
+  // ── CATEGORY 4: Reputation & New Patient Gap ──
+  const reviewGap = {
+    'Under 25': 8,
+    '25-75': 5,
+    '75-150': 3,
+    '150-300': 1,
+    '300+': 0.5
+  }[answers.review_count] || 5;
+
+  const reviewSysMult = {
+    'We have an automated system that sends review requests after visits': 0.5,
+    'Staff sometimes asks verbally but there\'s no system': 1.0,
+    'We\'ve tried a few things but nothing consistent': 1.2,
+    'We don\'t actively ask for reviews': 1.5
+  }[answers.review_system] || 1.0;
+
+  const websiteFactor = {
+    'Within the last year': 1.0,
+    '1-3 years ago': 1.1,
+    '3-5 years ago': 1.3,
+    'More than 5 years ago': 1.5,
+    'I honestly don\'t know': 1.4
+  }[answers.website_age] || 1.3;
+
+  const afterHoursFactor = {
+    'They can book online 24/7 through our scheduling system': 1.0,
+    'They get a voicemail and we call back next business day': 1.3,
+    'They see a contact form but can\'t actually book': 1.4,
+    'Nothing \u2014 if we\'re closed, they have to try again tomorrow': 1.6
+  }[answers.after_hours] || 1.3;
+
+  let additionalMonthly = reviewGap * reviewSysMult * websiteFactor * afterHoursFactor;
+  // Cap additional patients at 50% of current monthly new patients — can't triple patient flow overnight
+  const maxAdditional = monthlyNew * 0.5;
+  additionalMonthly = Math.min(additionalMonthly, maxAdditional);
+  const repBase = additionalMonthly * 1200 * specMult * 12 * locMult;
+  const reputation = { low: Math.round(repBase * 0.6), high: Math.round(repBase * 1.0) };
+
+  // ── TOTALS ──
+  let totalLow = inactive.low + unsched.low + noshow.low + reputation.low;
+  let totalHigh = inactive.high + unsched.high + noshow.high + reputation.high;
+
+  // Round to nearest $1,000
+  totalLow = Math.round(totalLow / 1000) * 1000;
+  totalHigh = Math.round(totalHigh / 1000) * 1000;
+
+  // Floor
+  totalLow = Math.max(totalLow, 15000);
+  totalHigh = Math.max(totalHigh, Math.round(totalLow * 1.3));
+
+  return {
+    inactive, unsched, noshow, reputation,
+    totalLow, totalHigh
+  };
+}
+
+function formatDollars(n) {
+  if (n >= 1000) return '$' + Math.round(n / 1000).toLocaleString() + ',000';
+  return '$' + n.toLocaleString();
+}
+
+function formatRange(low, high) {
+  return formatDollars(low) + ' \u2013 ' + formatDollars(high);
+}
+
+// ══════════════════════════════════════════
+// BUILD RESULTS
+// ══════════════════════════════════════════
+function buildResults() {
+  const rev = calculateRevenue();
+  const specialty = answers.specialty || 'your specialty';
+
+  // ── Dollar headline ──
+  document.getElementById('r-headline').innerHTML =
+    'Your practice is leaving approximately <span class="gold">' + formatRange(rev.totalLow, rev.totalHigh) + '/year</span> on the table';
+
+  // ── Context line ──
+  document.getElementById('r-context').textContent =
+    'Based on your responses as a ' + specialty + ' practice with ' + (answers.providers || '1') + ' provider(s) at ' + (answers.locations || '1 location') + '.';
+
+  // ── Revenue breakdown cards ──
+  const categories = [
+    {
+      title: 'Inactive Patient Reactivation',
+      low: rev.inactive.low, high: rev.inactive.high,
+      desc: 'You have an estimated ' + (INACTIVE_MAP[answers.inactive_patients] || 500).toLocaleString() + ' patients who haven\'t been seen in 6+ months. A systematic reactivation campaign typically recovers 15% of these patients.',
+      tags: ['Patient Follow-Up Engine']
+    },
+    {
+      title: 'Unscheduled Treatment Recovery',
+      low: rev.unsched.low, high: rev.unsched.high,
+      desc: 'Based on ' + (NEW_PATIENTS_MAP[answers.new_patients] || 22) + ' new patients/month and your current follow-up process, treatment acceptance could improve with automated follow-up sequences.',
+      tags: ['Patient Follow-Up Engine']
+    },
+    {
+      title: 'No-Show & Cancellation Recovery',
+      low: rev.noshow.low, high: rev.noshow.high,
+      desc: 'At a ' + (answers.noshow_rate || '~15%').replace(/ \u2014.*/, '') + ' no-show rate, automated confirmations and smart reminders typically reduce no-shows by 40-60%.',
+      tags: ['No-Show Killer']
+    },
+    {
+      title: 'New Patient Acquisition Gap',
+      low: rev.reputation.low, high: rev.reputation.high,
+      desc: 'With ' + (answers.review_count || 'limited') + ' Google reviews and your current website and after-hours setup, your practice is likely losing potential new patients to competitors with stronger online presence.',
+      tags: ['Review Agent', 'White Coat Website', 'Sarah AI']
+    }
+  ];
+
+  const oppsGrid = document.getElementById('r-opps-grid');
+  oppsGrid.innerHTML = '';
+
+  categories.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'opp-card';
+    card.innerHTML = `
+      <div class="opp-title">${cat.title}</div>
+      <div class="opp-dollars">${formatRange(cat.low, cat.high)}/year</div>
+      <div class="opp-desc">${cat.desc}</div>
+      <div class="opp-tags">${cat.tags.map(t => `<span class="opp-tag">${t}</span>`).join('')}</div>
+    `;
+    oppsGrid.appendChild(card);
+  });
+
+  // ── Determine HIGH IMPACT products ──
+  const ranked = categories.slice().sort((a, b) => b.high - a.high);
+  const topCatTitles = ranked.slice(0, 2).map(c => c.title);
+
+  // Map categories to product keys
+  const catToProducts = {
+    'Inactive Patient Reactivation': ['followup-engine'],
+    'Unscheduled Treatment Recovery': ['followup-engine'],
+    'No-Show & Cancellation Recovery': ['noshow-killer'],
+    'New Patient Acquisition Gap': ['review-agent', 'white-coat-website', 'sarah-ai']
+  };
+
+  const highImpactKeys = new Set();
+  topCatTitles.forEach(title => {
+    (catToProducts[title] || []).forEach(k => highImpactKeys.add(k));
+  });
+
+  // Force high-impact based on specific answers
+  const afterHoursAnswer = answers.after_hours || '';
+  if (afterHoursAnswer !== 'They can book online 24/7 through our scheduling system') {
+    highImpactKeys.add('sarah-ai');
+  }
+  const websiteAge = answers.website_age || '';
+  if (websiteAge === '3-5 years ago' || websiteAge === 'More than 5 years ago' || websiteAge === 'I honestly don\'t know') {
+    highImpactKeys.add('white-coat-website');
+  }
+  const reviewCount = answers.review_count || '';
+  if (reviewCount === 'Under 25') {
+    highImpactKeys.add('review-agent');
+  }
+
+  // ── Solution package list ──
+  const products = [
+    { key: 'white-coat-website', name: 'White Coat Website', desc: 'A premium practice website that converts visitors into booked patients. Looks like it cost $20,000 — built in 2 weeks.' },
+    { key: 'sarah-ai', name: 'Sarah \u2014 AI Patient Intake', desc: 'Your AI front desk that never sleeps. Books appointments, answers questions, captures every lead \u2014 24/7, including after hours and weekends.' },
+    { key: 'followup-engine', name: 'Patient Follow-Up Engine', desc: 'Automated reactivation for inactive patients, recall reminders for overdue visits, and treatment follow-up sequences \u2014 all in one system.' },
+    { key: 'review-agent', name: 'Review & Reputation Agent', desc: 'Automatically requests Google reviews after every visit. Filters unhappy patients to your office manager instead of Google.' },
+    { key: 'noshow-killer', name: 'No-Show Killer', desc: 'Smart confirmation and reminder sequences between booking and visit. Texts at 48 hours, 24 hours, and day-of \u2014 dramatically reduces empty chairs.' },
+    { key: 'dashboard', name: 'Practice Command Center', desc: 'One dashboard to see everything: appointments, reviews, campaigns, patient communication, and agent performance. Your staff opens one screen.' }
+  ];
+
+  const packageList = document.getElementById('r-package-list');
+  packageList.innerHTML = '';
+
+  products.forEach(p => {
+    const isHigh = highImpactKeys.has(p.key);
+    const item = document.createElement('div');
+    item.className = 'package-item';
+    item.innerHTML = `
+      <div class="package-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="package-info">
+        <div class="package-name">
+          ${p.name}
+          ${isHigh ? '<span class="high-impact-badge">High Impact for Your Practice</span>' : ''}
+        </div>
+        <div class="package-desc">${p.desc}</div>
+      </div>
+    `;
+    packageList.appendChild(item);
+  });
+
+  // ── CTA personalization ──
+  const largestCat = ranked[0].title;
+  const ctaMessages = {
+    'Inactive Patient Reactivation': 'Your biggest opportunity is recovering inactive patients. In your call, Tom will show you exactly how the Follow-Up Engine reactivates patients who haven\'t been seen in months \u2014 and what the first 90 days look like.',
+    'Unscheduled Treatment Recovery': 'Your biggest opportunity is capturing unscheduled treatment. Tom will show you how automated follow-up sequences convert treatment plans into booked appointments \u2014 without your staff chasing patients by phone.',
+    'No-Show & Cancellation Recovery': 'Your biggest opportunity is eliminating no-shows. Tom will walk you through how the No-Show Killer typically cuts cancellations by 40-60% in the first 60 days.',
+    'New Patient Acquisition Gap': 'Your biggest opportunity is strengthening your online presence to attract more new patients. Tom will show you how the right website combined with a review system compounds growth month over month.'
+  };
+  document.getElementById('r-cta-sub').textContent = ctaMessages[largestCat] || ctaMessages['Inactive Patient Reactivation'];
+
+  // Large practice qualifier
+  if (rev.totalHigh > 300000) {
+    const ctx = document.getElementById('r-context');
+    ctx.textContent += ' Based on your multi-location operation, these numbers reflect aggregate opportunity across all locations.';
+  }
+
+  // Well-optimized practice
+  if (rev.totalHigh < 25000) {
+    document.getElementById('r-cta-headline').textContent = 'Your Practice Is Already Well-Optimized. Let\'s Find the Remaining Edge.';
+    document.getElementById('r-cta-sub').textContent = 'Your practice is already ahead of most. The remaining opportunity may be smaller, but a 30-minute conversation can identify whether there are efficiency gains even in your strongest areas.';
+  }
+}
+
+// ══════════════════════════════════════════
+// SUBMIT TO SERVER
+// ══════════════════════════════════════════
+async function submitAudit() {
+  const rev = calculateRevenue();
+  try {
+    await fetch('/api/submit-practice-audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: userEmail,
+        specialty: answers.specialty || '',
+        locations: answers.locations || '',
+        providers: answers.providers || '',
+        new_patients: answers.new_patients || '',
+        inactive_patients: answers.inactive_patients || '',
+        treatment_followup: answers.treatment_followup || '',
+        noshow_rate: answers.noshow_rate || '',
+        review_count: answers.review_count || '',
+        review_system: answers.review_system || '',
+        after_hours: answers.after_hours || '',
+        reminder_system: answers.reminder_system || '',
+        website_age: answers.website_age || '',
+        website_booking: answers.website_booking || '',
+        revenue_low: rev.totalLow,
+        revenue_high: rev.totalHigh,
+        revenue_inactive: rev.inactive,
+        revenue_unsched: rev.unsched,
+        revenue_noshow: rev.noshow,
+        revenue_reputation: rev.reputation
+      })
+    });
+  } catch (e) {
+    console.log('Submission error:', e);
+  }
+}
+
+// ══════════════════════════════════════════
+// SCREEN SWITCHER
+// ══════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Allow Enter key on email gate
+document.getElementById('email-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
+</script>
+
+<footer style="text-align: center; padding: 24px 20px; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); font-size: 0.75rem; letter-spacing: 0.05em;">
+  &copy; 2026 Point Zero AI LLC &middot; Tom Zgainer &middot; All rights reserved &middot; Proprietary methodology
+</footer>
+
+</body>
+</html>
