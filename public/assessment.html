@@ -691,7 +691,7 @@ const QUESTIONS = [
     section: 'YOUR LEADS & CLIENTS',
     text: 'When a new lead or inquiry comes in after hours or on weekends, what happens?',
     type: 'single',
-    options: ['They can book or buy online 24/7', 'We get back to them next business day', 'It depends \u2014 sometimes fast, sometimes days', 'Honestly, some probably fall through the cracks']
+    options: ['They can book or buy online 24/7', 'We get back to them next business day', 'I\'m sure we\'re losing business opportunities']
   },
   {
     id: 'follow_up',
@@ -956,7 +956,7 @@ function detectGaps() {
 
   // 1. Lead Response Gap
   if (answers.lead_response && answers.lead_response !== 'They can book or buy online 24/7') {
-    const isHigh = answers.lead_response.includes('fall through');
+    const isHigh = answers.lead_response.includes('losing business');
     gaps.push({
       title: 'Lead Response Gap',
       severity: isHigh ? 'high' : 'medium',
@@ -1138,7 +1138,7 @@ function buildResults() {
   }
 
   // HIPAA
-  const hipaaIndustries = ['Healthcare / Medical', 'Dental', 'Legal'];
+  const hipaaIndustries = ['Healthcare / Medical', 'Dental'];
   const hipaaEl = document.getElementById('r-hipaa');
   if (hipaaIndustries.includes(answers.industry)) {
     hipaaEl.style.display = 'block';
