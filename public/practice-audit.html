@@ -867,10 +867,10 @@ const QUESTIONS = [
     hint: 'Your best guess is fine',
     type: 'single',
     options: [
-      'Not sure \u2014 probably not many',
-      'Maybe a few hundred',
-      'Probably 500-1,000',
-      'Over 1,000 \u2014 it\'s a big number',
+      'Not many',
+      '10-50',
+      '51-150',
+      '150+',
       'I honestly have no idea'
     ]
   },
@@ -1192,11 +1192,11 @@ const NEW_PATIENTS_MAP = {
 };
 
 const INACTIVE_MAP = {
-  'Not sure \u2014 probably not many': 150,
-  'Maybe a few hundred': 350,
-  'Probably 500-1,000': 750,
-  'Over 1,000 \u2014 it\'s a big number': 1200,
-  'I honestly have no idea': 500
+  'Not many': 20,
+  '10-50': 30,
+  '51-150': 100,
+  '150+': 200,
+  'I honestly have no idea': 75
 };
 
 const NOSHOW_MAP = {
@@ -1218,7 +1218,7 @@ function calculateRevenue() {
   const specMult = SPECIALTY_MULT[answers.specialty] || 1.2;
   const locMult = LOCATION_MULT[answers.locations] || 1.0;
   const monthlyNew = NEW_PATIENTS_MAP[answers.new_patients] || 22;
-  const inactiveCount = INACTIVE_MAP[answers.inactive_patients] || 500;
+  const inactiveCount = INACTIVE_MAP[answers.inactive_patients] || 75;
   const noshowRate = NOSHOW_MAP[answers.noshow_rate] || 0.15;
   const visitMult = PROVIDER_VISIT_MULT[answers.providers] || 8;
 
@@ -1341,7 +1341,7 @@ function buildResults() {
     {
       title: 'Inactive Patient Reactivation',
       low: rev.inactive.low, high: rev.inactive.high,
-      desc: 'You have an estimated ' + (INACTIVE_MAP[answers.inactive_patients] || 500).toLocaleString() + ' patients who haven\'t been seen in 6+ months. A systematic reactivation campaign typically recovers 15% of these patients.',
+      desc: 'You have an estimated ' + (INACTIVE_MAP[answers.inactive_patients] || 75).toLocaleString() + ' patients who haven\'t been seen in 6+ months. A systematic reactivation campaign typically recovers 15% of these patients.',
       tags: ['Patient Follow-Up Engine']
     },
     {
