@@ -183,7 +183,9 @@ app.post('/api/submit-assessment', async (req, res) => {
         { id: GHL_FIELDS.opps_html,    field_value: oppsHtml },
         { id: GHL_FIELDS.summary,      field_value: summary || '' },
         { id: GHL_FIELDS.cta_sub,      field_value: cta_sub || '' },
-        { id: GHL_FIELDS.hipaa_note,   field_value: hipaa_note || '' },
+        { id: GHL_FIELDS.hipaa_note,   field_value: hipaa_note
+            ? `<div style="padding:16px 18px;background:rgba(255,255,255,0.03);border-left:3px solid rgba(201,164,71,0.35);border-radius:3px;margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.6;">${esc(hipaa_note)}</div>`
+            : '' },
         { id: GHL_FIELDS.details_html, field_value: detailsHtml }
       ]
     });
