@@ -210,61 +210,7 @@ app.post('/api/submit-practice-audit', async (req, res) => {
       revenue_inactive, revenue_unsched, revenue_noshow, revenue_reputation
     } = req.body;
 
-    const apiKey = process.env.MAILCHIMP_API_KEY;
-    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
-
-    // Determine revenue tier tag
-    let revTier = 'Rev-Under-50K';
-    if (revenue_high >= 200000) revTier = 'Rev-Over-200K';
-    else if (revenue_high >= 100000) revTier = 'Rev-100K-200K';
-    else if (revenue_high >= 50000) revTier = 'Rev-50K-100K';
-
     const revenueStr = '$' + Math.round((revenue_low || 0) / 1000) + 'K-$' + Math.round((revenue_high || 0) / 1000) + 'K';
-
-    if (apiKey && audienceId) {
-      const dc = apiKey.split('-').pop();
-
-      const data = JSON.stringify({
-        email_address: email,
-        status: 'subscribed',
-        merge_fields: {
-          SPECIALTY: specialty || '',
-          REVENUE: revenueStr,
-          LOCATIONS: locations || '',
-          PROVIDERS: providers || '',
-          NEWPATS: new_patients || '',
-          NOSHOWRT: noshow_rate || '',
-          REVIEWS: review_count || ''
-        },
-        tags: [
-          'Practice-Audit',
-          specialty ? specialty.replace(/\s+/g, '-').replace(/\//g, '-') : 'Other',
-          revTier
-        ]
-      });
-
-      const options = {
-        hostname: `${dc}.api.mailchimp.com`,
-        path: `/3.0/lists/${audienceId}/members`,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
-          'Content-Length': Buffer.byteLength(data)
-        }
-      };
-
-      const mcReq = https.request(options, (mcRes) => {
-        let body = '';
-        mcRes.on('data', chunk => body += chunk);
-        mcRes.on('end', () => {
-          console.log('Mailchimp practice-audit status:', mcRes.statusCode);
-        });
-      });
-      mcReq.on('error', (e) => console.error('Mailchimp practice-audit error:', e));
-      mcReq.write(data);
-      mcReq.end();
-    }
 
     // ── NOTIFY TOM ──
     const fmtRange = (obj) => {
