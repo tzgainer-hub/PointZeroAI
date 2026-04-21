@@ -42,7 +42,20 @@ function sendResendEmail({ to, subject, html }) {
 }
 
 // ── GHL HELPER ──
-function createGhlContact({ email, firstName, lastName, phone, tags }) {
+// Assessment custom field IDs (created 2026-04-21 in sub-account Hu8eqsCdRaXeRd7PcnCy)
+const GHL_FIELDS = {
+  gap_count:    'sSoEtgILtlYsg2KGkbnr',
+  top_gap:      'fiHi6VoEihasRTfAwsXR',
+  industry:     'kp6VBvk4lCEukorX6whP',
+  headline:     '4L6boKkM0nthdZevL7Pr',
+  opps_html:    'NUWk6e3t5WXRfyoXMjQk',
+  summary:      'OwbW5fr3DH5CppvEClc1',
+  cta_sub:      'xwa2yCdGyq1yk40tS7VZ',
+  hipaa_note:   'phx4iyLYCC6owmPcXSEo',
+  details_html: 'v1Xy64Vb24ZHJqbbN585'
+};
+
+function createGhlContact({ email, firstName, lastName, phone, tags, customFields }) {
   return new Promise((resolve, reject) => {
     const token = process.env.GHL_API_TOKEN;
     const locationId = process.env.GHL_LOCATION_ID;
@@ -54,7 +67,8 @@ function createGhlContact({ email, firstName, lastName, phone, tags }) {
       firstName: firstName || '',
       lastName: lastName || '',
       phone: phone || '',
-      tags: tags || []
+      tags: tags || [],
+      customFields: customFields || []
     });
 
     const options = {
@@ -83,6 +97,12 @@ function createGhlContact({ email, firstName, lastName, phone, tags }) {
     req.end();
   });
 }
+
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -100,44 +120,72 @@ app.get('/practice-audit', (req, res) => res.sendFile(path.join(__dirname, 'publ
 app.post('/api/submit-assessment', async (req, res) => {
   try {
     console.log('Assessment submission received:', req.body.email);
-    const { email, gaps, top_gap, all_gaps, industry, hours_lost, lead_response, follow_up, dormant_clients, reviews, goal, tasks } = req.body;
+    const {
+      email, gaps, top_gap, all_gaps, gaps_detail,
+      industry, hours_lost, lead_response, follow_up, dormant_clients, reviews, goal, tasks,
+      headline, summary, cta_sub, hipaa_note
+    } = req.body;
 
     const goalStr = Array.isArray(goal) ? goal.join(', ') : (goal || '');
+    const gapCount = gaps || 0;
+    const gapList = Array.isArray(gaps_detail) ? gaps_detail : [];
+
+    // Build opps_html (prospect email — the gap cards)
+    let oppsHtml;
+    if (gapList.length === 0) {
+      oppsHtml = `<div style="padding:20px;background:#0f2547;border-left:4px solid #c9a447;border-radius:4px;margin:16px 0;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;">No Major Gaps Detected</div>
+        <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
+      </div>`;
+    } else {
+      oppsHtml = gapList.map(g => {
+        const sevColor = g.severity === 'high' ? '#c9a447' : 'rgba(255,255,255,0.12)';
+        const sevTextColor = g.severity === 'high' ? '#1a1000' : 'rgba(255,255,255,0.7)';
+        const sevLabel = g.severity === 'high' ? 'High Priority' : 'Moderate';
+        return `<div style="padding:20px;background:#0f2547;border:1px solid rgba(201,164,71,0.15);border-radius:4px;margin:12px 0;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:#fff;">${esc(g.title)}</span>
+            <span style="background:${sevColor};color:${sevTextColor};font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:3px;">${sevLabel}</span>
+          </div>
+          <div style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:8px;">${esc(g.desc)}</div>
+          <div style="font-size:0.85rem;color:#c9a447;line-height:1.5;">${esc(g.fix)}</div>
+        </div>`;
+      }).join('');
+    }
+
+    // Build details_html (Tom's notification — full answer dump)
+    const detailsHtml = `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+      <tr><td style="padding:6px 0;color:#aab;width:140px;">Gaps Found</td><td style="padding:6px 0;font-weight:600;color:#c9a447;">${gapCount}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Top Gap</td><td style="padding:6px 0;font-weight:600;">${esc(top_gap || 'None')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">All Gaps</td><td style="padding:6px 0;">${esc(all_gaps || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Industry</td><td style="padding:6px 0;">${esc(industry || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Hours Lost/Wk</td><td style="padding:6px 0;">${esc(hours_lost || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Lead Response</td><td style="padding:6px 0;">${esc(lead_response || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Follow-Up</td><td style="padding:6px 0;">${esc(follow_up || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Dormant Clients</td><td style="padding:6px 0;">${esc(dormant_clients || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Reviews</td><td style="padding:6px 0;">${esc(reviews || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Goals</td><td style="padding:6px 0;">${esc(goalStr || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Tasks Eating Time</td><td style="padding:6px 0;">${esc(tasks || '—')}</td></tr>
+    </table>`;
 
     await createGhlContact({
       email,
       tags: [
         'assessment',
-        `gaps-${gaps || 0}`,
+        `gaps-${gapCount}`,
         industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
+      ],
+      customFields: [
+        { id: GHL_FIELDS.gap_count,    field_value: String(gapCount) },
+        { id: GHL_FIELDS.top_gap,      field_value: top_gap || 'None' },
+        { id: GHL_FIELDS.industry,     field_value: industry || '' },
+        { id: GHL_FIELDS.headline,     field_value: headline || '' },
+        { id: GHL_FIELDS.opps_html,    field_value: oppsHtml },
+        { id: GHL_FIELDS.summary,      field_value: summary || '' },
+        { id: GHL_FIELDS.cta_sub,      field_value: cta_sub || '' },
+        { id: GHL_FIELDS.hipaa_note,   field_value: hipaa_note || '' },
+        { id: GHL_FIELDS.details_html, field_value: detailsHtml }
       ]
-    });
-
-    // ── NOTIFY TOM ──
-    await sendResendEmail({
-      to: 'tomz@pointzeroai.com',
-      subject: `\uD83C\uDFAF New Assessment: ${email} \u2014 ${gaps || 0} gaps found \u2014 ${industry || 'Unknown'}`,
-      html: `
-        <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;background:#0c1e3c;color:#fff;padding:32px;border-radius:8px;">
-          <h2 style="color:#c9a447;margin-top:0;">New Business Gap Assessment</h2>
-          <table style="width:100%;border-collapse:collapse;">
-            <tr><td style="padding:8px 0;color:#aab;width:140px;">Email</td><td style="padding:8px 0;font-weight:600;">${email}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Gaps Found</td><td style="padding:8px 0;font-weight:600;color:#c9a447;">${gaps || 0}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Top Gap</td><td style="padding:8px 0;font-weight:600;">${top_gap || 'None'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">All Gaps</td><td style="padding:8px 0;">${all_gaps || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Industry</td><td style="padding:8px 0;">${industry || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Hours Lost/Wk</td><td style="padding:8px 0;">${hours_lost || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Lead Response</td><td style="padding:8px 0;">${lead_response || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Follow-Up</td><td style="padding:8px 0;">${follow_up || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Dormant Clients</td><td style="padding:8px 0;">${dormant_clients || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Reviews</td><td style="padding:8px 0;">${reviews || '\u2014'}</td></tr>
-            <tr><td style="padding:8px 0;color:#aab;">Goals</td><td style="padding:8px 0;">${goalStr || '\u2014'}</td></tr>
-          </table>
-          <div style="margin-top:24px;">
-            <a href="https://calendly.com/tomz-pointzeroai/30min" style="background:#c9a447;color:#0c1e3c;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:700;">Schedule a Call</a>
-          </div>
-        </div>
-      `
     });
 
     res.json({ ok: true });

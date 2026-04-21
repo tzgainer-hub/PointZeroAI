@@ -634,7 +634,7 @@
     <div class="cta-headline" id="r-cta-headline">You Now Know Where the Gaps Are. The Strategy Call Is Where We Close Them.</div>
     <p class="cta-sub" id="r-cta-sub">In 30 minutes, Tom will walk you through exactly how to close your highest-priority gaps — for your business, your clients, your workflow. He's worked inside 8,000+ businesses. This isn't theory.</p>
     <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta">BOOK YOUR FREE 30-MINUTE CALL &rarr;</a>
-    <p class="cta-email-note" style="margin-top:20px;">Check your inbox — your full results are on their way. Or email <a href="mailto:onboarding@pointzeroai.com" style="color: var(--gold);">onboarding@pointzeroai.com</a> with any questions first.</p>
+    <p class="cta-email-note" style="margin-top:20px;">Check your inbox — your full results are on their way. Or email <a href="mailto:support@pointzeroai.com" style="color: var(--gold);">support@pointzeroai.com</a> with any questions first.</p>
   </div>
 </div>
 
@@ -1053,33 +1053,85 @@ function detectGaps() {
   return gaps;
 }
 
-// ── BUILD RESULTS ──
-function buildResults() {
+// ── COMPOSE RESULTS (shared by on-page render + server submit) ──
+function composeResults() {
   const gaps = detectGaps();
   const gapCount = gaps.length;
+  const highGaps = gaps.filter(g => g.severity === 'high');
+  const highCount = highGaps.length;
   const industry = answers.industry || 'your industry';
   const size = answers.size || '';
   const hours = answers.hours_lost || '';
   const goals = Array.isArray(answers.goal) ? answers.goal : (answers.goal ? [answers.goal] : []);
 
-  // Headline
+  const headlineHtml = gapCount === 0
+    ? 'Your business is <span class="gold">well-optimized</span>. We didn\'t find any major gaps.'
+    : 'We found <span class="gold">' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + '</span> in your business that ' + (gapCount > 1 ? 'are' : 'is') + ' costing you time and clients every month.';
+
+  const headlineText = gapCount === 0
+    ? 'Your business is well-optimized. We didn\'t find any major gaps.'
+    : 'We found ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' in your business that ' + (gapCount > 1 ? 'are' : 'is') + ' costing you time and clients every month.';
+
+  const contextText = 'Based on your responses as a ' + industry + ' business' + (size ? ' with ' + size.toLowerCase() : '') + '.';
+
+  let summary;
   if (gapCount === 0) {
-    document.getElementById('r-headline').innerHTML = 'Your business is <span class="gold">well-optimized</span>. We didn\'t find any major gaps.';
+    summary = 'Your business is running tighter than most. A strategy call can still uncover efficiency gains and scaling opportunities \u2014 but you\'re in a strong position.';
+  } else if (hours) {
+    const hoursPhrase = hours.includes('More than 10')
+      ? 'You\'re losing more than 10 hours a week to manual work.'
+      : hours.includes('5')
+        ? 'You\'re losing 5\u201310 hours a week to tasks that should be automated.'
+        : 'You\'re spending hours each week on work that doesn\'t need your attention.';
+    summary = hoursPhrase + ' Combined with ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' in how you capture, follow up with, and retain clients' + (highCount > 0 ? ' \u2014 ' + highCount + ' of them high priority \u2014' : ',') + ' you\'re leaving significant revenue on the table every month.';
   } else {
-    document.getElementById('r-headline').innerHTML = 'We found <span class="gold">' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + '</span> in your business that ' + (gapCount > 1 ? 'are' : 'is') + ' costing you time and clients every month.';
+    summary = 'With ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' identified, your business has clear opportunities to capture more leads, retain more clients, and reclaim lost time.';
   }
 
-  // Context
-  document.getElementById('r-context').textContent = 'Based on your responses as a ' + industry + ' business' + (size ? ' with ' + size.toLowerCase() : '') + '.';
+  let ctaSub = 'In 30 minutes, Tom will walk you through exactly how to close your highest-priority gaps \u2014 for your business, your clients, your workflow. He\'s worked inside 8,000+ businesses. This isn\'t theory.';
+  if (highGaps.length > 0) {
+    const ctaMessages = {
+      'Lead Response Gap': 'Your biggest gap is in lead response. Tom will show you how to capture every lead instantly \u2014 even at 2am on a Sunday \u2014 so you never lose another prospect to a slow reply.',
+      'Follow-Up Gap': 'Your biggest gap is in follow-up. Tom will walk you through building a follow-up system that runs on autopilot \u2014 so no prospect ever falls through the cracks again.',
+      'Client Retention Gap': 'Your biggest gap is client retention. Tom will show you how to systematically reactivate past clients \u2014 people who already trust you and are the easiest revenue you\'ll ever recover.',
+      'Reputation Gap': 'Your biggest gap is reputation. Tom will show you how to build a review system that runs automatically \u2014 so your online presence grows without anyone on your team thinking about it.',
+      'Website Gap': 'Your biggest gap is your website. Tom will show you what a modern, conversion-focused site looks like for your industry \u2014 and how fast one can be built.',
+      'Communication Gap': 'Your biggest gap is communication. Tom will show you how to centralize client conversations so nothing falls through \u2014 and your team always knows what\'s next.',
+      'Time Recovery Gap': 'Your biggest gap is time. Tom will identify the 3\u20135 tasks eating your week and show you exactly how to automate them \u2014 so you get those hours back permanently.'
+    };
+    ctaSub = ctaMessages[highGaps[0].title] || ctaSub;
+  }
 
-  // Gap cards
+  let toolsBody = 'The specific tools and systems that close these gaps depend on your business, your team, and your workflow. That\'s what the strategy call is for \u2014 30 minutes, built entirely around your situation.';
+  const goalsSummary = goals.filter(g => g !== 'All of the above' && g !== 'Additional');
+  if (goalsSummary.length > 0 && gapCount > 0) {
+    const goalsText = goalsSummary.length === 1
+      ? goalsSummary[0].toLowerCase()
+      : goalsSummary.slice(0, 2).map(g => g.toLowerCase()).join(' and ');
+    toolsBody = 'You said your top priority is to ' + goalsText + '. Every gap above is standing between you and that goal. The strategy call is 30 minutes built entirely around closing them \u2014 for your business, your team, and your workflow.';
+  }
+
+  const hipaaIndustries = ['Healthcare / Medical', 'Dental'];
+  const hipaaNote = hipaaIndustries.includes(answers.industry)
+    ? 'Note for ' + answers.industry + ' professionals: All recommended tools and systems can be configured for HIPAA-compliant use. During your strategy call, Tom will walk you through compliant implementation specific to your practice.'
+    : '';
+
+  return { gaps, gapCount, highGaps, headlineHtml, headlineText, contextText, summary, ctaSub, toolsBody, hipaaNote };
+}
+
+// ── BUILD RESULTS (on-page render) ──
+function buildResults() {
+  const r = composeResults();
+
+  document.getElementById('r-headline').innerHTML = r.headlineHtml;
+  document.getElementById('r-context').textContent = r.contextText;
+
   const oppsGrid = document.getElementById('r-opps-grid');
   oppsGrid.innerHTML = '';
-
-  if (gapCount === 0) {
+  if (r.gapCount === 0) {
     oppsGrid.innerHTML = '<div style="grid-column: 1/-1; padding: 24px; background: var(--navy-card); border-left: 4px solid var(--gold);"><div class="opp-title">No Major Gaps Detected</div><div class="opp-desc">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what\'s already working.</div></div>';
   } else {
-    gaps.forEach(gap => {
+    r.gaps.forEach(gap => {
       const card = document.createElement('div');
       card.className = 'opp-card';
       card.innerHTML = `
@@ -1094,55 +1146,14 @@ function buildResults() {
     });
   }
 
-  // Total summary
-  const highCount = gaps.filter(g => g.severity === 'high').length;
-  let totalText = '';
-  if (gapCount === 0) {
-    totalText = 'Your business is running tighter than most. A strategy call can still uncover efficiency gains and scaling opportunities \u2014 but you\'re in a strong position.';
-  } else if (hours) {
-    const hoursPhrase = hours.includes('More than 10')
-      ? 'You\'re losing more than 10 hours a week to manual work.'
-      : hours.includes('5')
-        ? 'You\'re losing 5\u201310 hours a week to tasks that should be automated.'
-        : 'You\'re spending hours each week on work that doesn\'t need your attention.';
-    totalText = hoursPhrase + ' Combined with ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' in how you capture, follow up with, and retain clients' + (highCount > 0 ? ' \u2014 ' + highCount + ' of them high priority \u2014' : ',') + ' you\'re leaving significant revenue on the table every month.';
-  } else {
-    totalText = 'With ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' identified, your business has clear opportunities to capture more leads, retain more clients, and reclaim lost time.';
-  }
-  document.getElementById('r-total').textContent = totalText;
+  document.getElementById('r-total').textContent = r.summary;
+  document.getElementById('r-cta-sub').textContent = r.ctaSub;
+  document.getElementById('r-tools-body').textContent = r.toolsBody;
 
-  // CTA personalization
-  const highGaps = gaps.filter(g => g.severity === 'high');
-  if (highGaps.length > 0) {
-    const topGap = highGaps[0];
-    const ctaMessages = {
-      'Lead Response Gap': 'Your biggest gap is in lead response. Tom will show you how to capture every lead instantly \u2014 even at 2am on a Sunday \u2014 so you never lose another prospect to a slow reply.',
-      'Follow-Up Gap': 'Your biggest gap is in follow-up. Tom will walk you through building a follow-up system that runs on autopilot \u2014 so no prospect ever falls through the cracks again.',
-      'Client Retention Gap': 'Your biggest gap is client retention. Tom will show you how to systematically reactivate past clients \u2014 people who already trust you and are the easiest revenue you\'ll ever recover.',
-      'Reputation Gap': 'Your biggest gap is reputation. Tom will show you how to build a review system that runs automatically \u2014 so your online presence grows without anyone on your team thinking about it.',
-      'Website Gap': 'Your biggest gap is your website. Tom will show you what a modern, conversion-focused site looks like for your industry \u2014 and how fast one can be built.',
-      'Communication Gap': 'Your biggest gap is communication. Tom will show you how to centralize client conversations so nothing falls through \u2014 and your team always knows what\'s next.',
-      'Time Recovery Gap': 'Your biggest gap is time. Tom will identify the 3\u20135 tasks eating your week and show you exactly how to automate them \u2014 so you get those hours back permanently.'
-    };
-    document.getElementById('r-cta-sub').textContent = ctaMessages[topGap.title] || 'In 30 minutes, Tom will walk you through exactly how to close your highest-priority gaps \u2014 for your business, your clients, your workflow.';
-  }
-
-  // Goals personalization
-  const goalsSummary = goals.filter(g => g !== 'All of the above' && g !== 'Additional');
-  if (goalsSummary.length > 0 && gapCount > 0) {
-    const goalsText = goalsSummary.length === 1
-      ? goalsSummary[0].toLowerCase()
-      : goalsSummary.slice(0, 2).map(g => g.toLowerCase()).join(' and ');
-    const toolsBody = document.getElementById('r-tools-body');
-    toolsBody.textContent = 'You said your top priority is to ' + goalsText + '. Every gap above is standing between you and that goal. The strategy call is 30 minutes built entirely around closing them \u2014 for your business, your team, and your workflow.';
-  }
-
-  // HIPAA
-  const hipaaIndustries = ['Healthcare / Medical', 'Dental'];
   const hipaaEl = document.getElementById('r-hipaa');
-  if (hipaaIndustries.includes(answers.industry)) {
+  if (r.hipaaNote) {
     hipaaEl.style.display = 'block';
-    hipaaEl.textContent = 'Note for ' + answers.industry + ' professionals: All recommended tools and systems can be configured for HIPAA-compliant use. During your strategy call, Tom will walk you through compliant implementation specific to your practice.';
+    hipaaEl.textContent = r.hipaaNote;
   } else {
     hipaaEl.style.display = 'none';
   }
@@ -1150,17 +1161,17 @@ function buildResults() {
 
 // ── SUBMIT ──
 async function submitAssessment() {
-  const gaps = detectGaps();
-  const highGaps = gaps.filter(g => g.severity === 'high');
+  const r = composeResults();
   try {
     await fetch('/api/submit-assessment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: userEmail,
-        gaps: gaps.length,
-        top_gap: highGaps.length > 0 ? highGaps[0].title : (gaps.length > 0 ? gaps[0].title : 'None'),
-        all_gaps: gaps.map(g => g.title + ' (' + g.severity + ')').join(', '),
+        gaps: r.gapCount,
+        top_gap: r.highGaps.length > 0 ? r.highGaps[0].title : (r.gapCount > 0 ? r.gaps[0].title : 'None'),
+        all_gaps: r.gaps.map(g => g.title + ' (' + g.severity + ')').join(', '),
+        gaps_detail: r.gaps,
         industry: answers.industry || '',
         hours_lost: answers.hours_lost || '',
         lead_response: answers.lead_response || '',
@@ -1168,7 +1179,11 @@ async function submitAssessment() {
         dormant_clients: answers.dormant_clients || '',
         reviews: answers.reviews || '',
         goal: answers.goal || '',
-        tasks: (answers.tasks || []).join(', ')
+        tasks: (answers.tasks || []).join(', '),
+        headline: r.headlineText,
+        summary: r.summary,
+        cta_sub: r.ctaSub,
+        hipaa_note: r.hipaaNote
       })
     });
   } catch (e) {
