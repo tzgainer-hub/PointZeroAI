@@ -7,10 +7,10 @@ const app = express();
 function sendResendEmail({ to, subject, html }) {
   return new Promise((resolve, reject) => {
     const resendKey = process.env.RESEND_API_KEY;
-    if (!resendKey) { resolve(); return; }
+    if (!resendKey) { console.log('RESEND_API_KEY missing'); resolve(); return; }
 
     const data = JSON.stringify({
-      from: 'Point Zero AI <onboarding@pointzeroai.com>',
+      from: 'Point Zero AI <support@pointzeroai.com>',
       to: [to],
       subject,
       html
@@ -40,6 +40,49 @@ function sendResendEmail({ to, subject, html }) {
     req.end();
   });
 }
+
+// ── GHL HELPER ──
+function createGhlContact({ email, firstName, lastName, phone, tags }) {
+  return new Promise((resolve, reject) => {
+    const token = process.env.GHL_API_TOKEN;
+    const locationId = process.env.GHL_LOCATION_ID;
+    if (!token || !locationId) { console.log('GHL env vars missing'); resolve(); return; }
+
+    const data = JSON.stringify({
+      locationId,
+      email,
+      firstName: firstName || '',
+      lastName: lastName || '',
+      phone: phone || '',
+      tags: tags || []
+    });
+
+    const options = {
+      hostname: 'services.leadconnectorhq.com',
+      path: '/contacts/upsert',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Version': '2021-07-28',
+        'Accept': 'application/json',
+        'Content-Length': Buffer.byteLength(data)
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let body = '';
+      res.on('data', chunk => body += chunk);
+      res.on('end', () => {
+        console.log('GHL status:', res.statusCode, body.slice(0, 300));
+        resolve();
+      });
+    });
+    req.on('error', (e) => { console.error('GHL error:', e); resolve(); });
+    req.write(data);
+    req.end();
+  });
+}
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -59,53 +102,16 @@ app.post('/api/submit-assessment', async (req, res) => {
     console.log('Assessment submission received:', req.body.email);
     const { email, gaps, top_gap, all_gaps, industry, hours_lost, lead_response, follow_up, dormant_clients, reviews, goal, tasks } = req.body;
 
-    const apiKey = process.env.MAILCHIMP_API_KEY;
-    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
-
     const goalStr = Array.isArray(goal) ? goal.join(', ') : (goal || '');
 
-    if (apiKey && audienceId) {
-      const dc = apiKey.split('-').pop();
-
-      const data = JSON.stringify({
-        email_address: email,
-        status: 'subscribed',
-        merge_fields: {
-          SCORE: String(gaps || '0'),
-          LEVEL: top_gap || 'None',
-          INDUSTRY: industry || '',
-          HOURS: hours_lost || '',
-          GOAL: goalStr
-        },
-        tags: [
-          'Assessment',
-          `Gaps-${gaps || 0}`,
-          industry ? industry.replace(/\s+/g, '-') : 'Other'
-        ]
-      });
-
-      const options = {
-        hostname: `${dc}.api.mailchimp.com`,
-        path: `/3.0/lists/${audienceId}/members`,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
-          'Content-Length': Buffer.byteLength(data)
-        }
-      };
-
-      const mcReq = https.request(options, (mcRes) => {
-        let body = '';
-        mcRes.on('data', chunk => body += chunk);
-        mcRes.on('end', () => {
-          console.log('Mailchimp assessment status:', mcRes.statusCode);
-        });
-      });
-      mcReq.on('error', (e) => console.error('Mailchimp assessment error:', e));
-      mcReq.write(data);
-      mcReq.end();
-    }
+    await createGhlContact({
+      email,
+      tags: [
+        'assessment',
+        `gaps-${gaps || 0}`,
+        industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
+      ]
+    });
 
     // ── NOTIFY TOM ──
     await sendResendEmail({
