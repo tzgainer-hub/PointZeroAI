@@ -121,7 +121,8 @@ app.post('/api/submit-assessment', async (req, res) => {
   try {
     console.log('Assessment submission received:', req.body.email);
     const {
-      email, gaps, top_gap, all_gaps, gaps_detail,
+      email, phone, sms_consent,
+      gaps, top_gap, all_gaps, gaps_detail,
       industry, hours_lost, lead_response, follow_up, dormant_clients, reviews, goal, tasks,
       headline, summary, cta_sub, hipaa_note
     } = req.body;
@@ -154,8 +155,11 @@ app.post('/api/submit-assessment', async (req, res) => {
     }
 
     // Build details_html (Tom's notification — full answer dump)
+    const smsOptInDisplay = (sms_consent && phone) ? 'YES — consented at ' + new Date().toISOString() : (phone ? 'Phone provided, SMS not opted in' : '—');
     const detailsHtml = `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
-      <tr><td style="padding:6px 0;color:#aab;width:140px;">Gaps Found</td><td style="padding:6px 0;font-weight:600;color:#c9a447;">${gapCount}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;width:140px;">Phone</td><td style="padding:6px 0;font-weight:600;">${esc(phone || '—')}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">SMS Opt-In</td><td style="padding:6px 0;font-weight:600;color:${(sms_consent && phone) ? '#c9a447' : '#aab'};">${esc(smsOptInDisplay)}</td></tr>
+      <tr><td style="padding:6px 0;color:#aab;">Gaps Found</td><td style="padding:6px 0;font-weight:600;color:#c9a447;">${gapCount}</td></tr>
       <tr><td style="padding:6px 0;color:#aab;">Top Gap</td><td style="padding:6px 0;font-weight:600;">${esc(top_gap || 'None')}</td></tr>
       <tr><td style="padding:6px 0;color:#aab;">All Gaps</td><td style="padding:6px 0;">${esc(all_gaps || '—')}</td></tr>
       <tr><td style="padding:6px 0;color:#aab;">Industry</td><td style="padding:6px 0;">${esc(industry || '—')}</td></tr>
@@ -168,13 +172,17 @@ app.post('/api/submit-assessment', async (req, res) => {
       <tr><td style="padding:6px 0;color:#aab;">Tasks Eating Time</td><td style="padding:6px 0;">${esc(tasks || '—')}</td></tr>
     </table>`;
 
+    const contactTags = [
+      'assessment',
+      `gaps-${gapCount}`,
+      industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
+    ];
+    if (sms_consent && phone) contactTags.push('sms-opted-in');
+
     await createGhlContact({
       email,
-      tags: [
-        'assessment',
-        `gaps-${gapCount}`,
-        industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
-      ],
+      phone: phone || '',
+      tags: contactTags,
       customFields: [
         { id: GHL_FIELDS.gap_count,    field_value: String(gapCount) },
         { id: GHL_FIELDS.top_gap,      field_value: top_gap || 'None' },
