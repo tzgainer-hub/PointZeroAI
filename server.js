@@ -103,9 +103,58 @@ function esc(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
+
+// ── TEAM HUB AUTH ──
+// Single shared password gate covering /sales-hub, /delivery-hub, /partner-hub, /team.
+// Set HUB_PASSWORD and HUB_COOKIE_SECRET in Railway env vars before deploy.
+const crypto = require('crypto');
+const HUB_PROTECTED = ['/sales-hub', '/delivery-hub', '/partner-hub', '/team'];
+
+function hubAuthToken() {
+  const secret = process.env.HUB_COOKIE_SECRET || '';
+  if (!secret) return '';
+  return crypto.createHmac('sha256', secret).update('pzai-team-v1').digest('hex');
+}
+
+function parseCookies(header) {
+  const out = {};
+  if (!header) return out;
+  header.split(/;\s*/).forEach(p => {
+    const i = p.indexOf('=');
+    if (i > 0) out[p.slice(0, i)] = decodeURIComponent(p.slice(i + 1));
+  });
+  return out;
+}
+
+function hubIsAuthed(req) {
+  if (!process.env.HUB_PASSWORD || !process.env.HUB_COOKIE_SECRET) return false;
+  const tok = parseCookies(req.headers.cookie)['pzai_team'];
+  if (!tok) return false;
+  const expected = hubAuthToken();
+  if (!expected || tok.length !== expected.length) return false;
+  try { return crypto.timingSafeEqual(Buffer.from(tok), Buffer.from(expected)); }
+  catch { return false; }
+}
+
+function isHubProtectedPath(p) {
+  return HUB_PROTECTED.some(prefix =>
+    p === prefix || p === prefix + '.html' || p.startsWith(prefix + '/')
+  );
+}
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Hub gate — must run before express.static so /sales-hub.html etc. require auth
+app.use((req, res, next) => {
+  if (!isHubProtectedPath(req.path)) return next();
+  if (hubIsAuthed(req)) return next();
+  const dest = encodeURIComponent(req.originalUrl);
+  return res.redirect(`/team-login?next=${dest}`);
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
@@ -115,6 +164,43 @@ app.get('/masterclass', (req, res) => res.sendFile(path.join(__dirname, 'public'
 app.get('/ai-business-stack', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-business-stack.html')));
 app.get('/assessment', (req, res) => res.sendFile(path.join(__dirname, 'public', 'assessment.html')));
 app.get('/practice-audit', (req, res) => res.sendFile(path.join(__dirname, 'public', 'practice-audit.html')));
+
+// ── TEAM HUB ROUTES (gated) ──
+app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));
+app.get('/sales-hub', (req, res) => res.sendFile(path.join(__dirname, 'public', 'sales-hub.html')));
+app.get('/delivery-hub', (req, res) => res.sendFile(path.join(__dirname, 'public', 'delivery-hub.html')));
+app.get('/partner-hub', (req, res) => res.sendFile(path.join(__dirname, 'public', 'partner-hub.html')));
+
+// ── LOGIN (NOT gated) ──
+app.get('/team-login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team-login.html')));
+
+app.post('/api/team-login', (req, res) => {
+  const { password, next: nextPath } = req.body || {};
+  if (!process.env.HUB_PASSWORD || !process.env.HUB_COOKIE_SECRET) {
+    return res.status(500).json({ ok: false, error: 'Server not configured (HUB_PASSWORD / HUB_COOKIE_SECRET missing).' });
+  }
+  if (!password || password !== process.env.HUB_PASSWORD) {
+    return res.status(401).json({ ok: false, error: 'Wrong password.' });
+  }
+  const tok = hubAuthToken();
+  const isProd = process.env.NODE_ENV === 'production' || req.headers['x-forwarded-proto'] === 'https';
+  const maxAgeSec = 30 * 24 * 60 * 60; // 30 days
+  res.setHeader('Set-Cookie', [
+    `pzai_team=${tok}`,
+    `Max-Age=${maxAgeSec}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+    isProd ? 'Secure' : ''
+  ].filter(Boolean).join('; '));
+  let redirect = (typeof nextPath === 'string' && nextPath.startsWith('/')) ? nextPath : '/team';
+  res.json({ ok: true, redirect });
+});
+
+app.post('/api/team-logout', (req, res) => {
+  res.setHeader('Set-Cookie', 'pzai_team=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax');
+  res.json({ ok: true });
+});
 
 // ── ASSESSMENT SUBMIT ──
 app.post('/api/submit-assessment', async (req, res) => {

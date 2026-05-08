@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Zero AI · Team Hub</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B1F3A; --bg-deep: #081628; --surface: #0F2746; --surface-2: #162F54;
+    --border: #1F3A60; --border-soft: #14294a;
+    --gold: #B89B5E; --gold-bright: #D4B872; --gold-dim: #8A744A;
+    --text: #F4F1EA; --text-2: #B5BFD0; --text-3: #7A8AA3;
+    --shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.6; min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(184,155,94,0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at bottom right, rgba(28,56,106,0.4) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 960px; margin: 0 auto;
+    padding: 80px 32px 100px;
+  }
+  .brand-mark {
+    font-family: 'Fraunces', serif; font-size: 11px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; font-weight: 500;
+  }
+  h1 {
+    font-family: 'Fraunces', serif; font-size: 56px; font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.05; margin: 12px 0 14px;
+  }
+  .lede {
+    font-size: 18px; color: var(--text-2); max-width: 640px;
+    line-height: 1.55; margin-bottom: 56px;
+  }
+  .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
+  @media (max-width: 880px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    display: block;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 32px 30px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-left-color: var(--gold-bright); }
+  .card-num {
+    font-family: 'Fraunces', serif; font-size: 13px;
+    color: var(--gold); letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600;
+    color: var(--text); margin-bottom: 8px; line-height: 1.15;
+  }
+  .card-aud {
+    font-size: 12px; color: var(--gold-bright);
+    text-transform: uppercase; letter-spacing: 0.15em;
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .card-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+  .card-arrow {
+    margin-top: 20px; font-family: 'Fraunces', serif;
+    font-size: 14px; color: var(--gold-bright);
+    border-bottom: 1px solid var(--gold-dim);
+    display: inline-block; padding-bottom: 1px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; align-items: center;
+    margin-top: 64px; padding-top: 28px;
+    border-top: 1px solid var(--border-soft);
+    flex-wrap: wrap;
+  }
+  .meta-item { font-size: 13px; color: var(--text-3); }
+  .meta-item strong { color: var(--text-2); font-weight: 600; }
+  .logout {
+    margin-left: auto;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-3); padding: 7px 14px; border-radius: 4px;
+    font-size: 12px; cursor: pointer; font-family: inherit;
+    letter-spacing: 0.05em;
+  }
+  .logout:hover { color: var(--gold-bright); border-color: var(--gold-dim); }
+  .footer-line {
+    margin-top: 36px; font-size: 12px; color: var(--text-3);
+    font-style: italic; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand-mark">Point Zero AI</div>
+  <h1>The Team Hub.</h1>
+  <p class="lede">Three operating playbooks for the people who run Point Zero AI: closers, builders, and our support partner. Pick the one for the job in front of you.</p>
+
+  <div class="cards">
+
+    <a class="card" href="/sales-hub">
+      <div class="card-num">01 &middot; Sell</div>
+      <div class="card-title">Sales Hub</div>
+      <div class="card-aud">For closers</div>
+      <p class="card-desc">Pricing, packages, prospect tiers, cold call scripts, discovery system, demo flow, objection handlers, proposals, the Red Zone.</p>
+      <div class="card-arrow">Open Sales Hub &rarr;</div>
+    </a>
+
+    <a class="card" href="/delivery-hub">
+      <div class="card-num">02 &middot; Build</div>
+      <div class="card-title">Delivery Hub</div>
+      <div class="card-aud">For builders</div>
+      <p class="card-desc">From signed deal to launched system. Onboarding, asset collection, site build, Sophia config, testing, integrations, launch, partner handoff.</p>
+      <div class="card-arrow">Open Delivery Hub &rarr;</div>
+    </a>
+
+    <a class="card" href="/partner-hub">
+      <div class="card-num">03 &middot; Run</div>
+      <div class="card-title">Partner Hub</div>
+      <div class="card-aud">For the support partner</div>
+      <p class="card-desc">The partnership model, support scope, Care plans, the responsibility split, escalation rules, monthly reporting, white coat BAA flow, exit process.</p>
+      <div class="card-arrow">Open Partner Hub &rarr;</div>
+    </a>
+
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-item"><strong>Internal use only.</strong> &nbsp;noindex / nofollow / password-gated.</div>
+    <button class="logout" id="logout-btn">Log out</button>
+  </div>
+
+  <div class="footer-line">Point Zero AI &middot; Team Hub &middot; v1.0</div>
+
+</div>
+
+<script>
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    try {
+      await fetch('/api/team-logout', { method: 'POST' });
+    } catch {}
+    window.location.href = '/team-login';
+  });
+</script>
+</body>
+</html>

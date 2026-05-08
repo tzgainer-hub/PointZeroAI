@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Zero AI · Team Login</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-dark:  #0c1e3c;
+    --navy-mid:   #152847;
+    --navy-light: #1e3a5f;
+    --gold:       #c9a447;
+    --gold-light: #e8c46a;
+    --white:      #ffffff;
+    --text-muted: #8a9bb5;
+    --border:     rgba(255, 255, 255, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--navy-dark);
+    color: var(--white);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 36px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  }
+  .brand {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  input[type="password"] {
+    width: 100%;
+    background: var(--navy-dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white);
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input[type="password"]:focus {
+    border-color: var(--gold);
+  }
+  button {
+    width: 100%;
+    margin-top: 16px;
+    background: var(--gold);
+    color: var(--navy-dark);
+    border: none;
+    border-radius: 6px;
+    padding: 13px 18px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button:hover { background: var(--gold-light); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .error {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: rgba(220, 100, 80, 0.1);
+    border-left: 2px solid #d46355;
+    border-radius: 3px;
+    color: #f5b8af;
+    font-size: 13px;
+    display: none;
+  }
+  .error.show { display: block; }
+  .footer-line {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">Point Zero AI</div>
+  <h1>Team Hub Access</h1>
+  <p class="sub">Enter the team password to view sales, delivery, and partner playbooks.</p>
+
+  <form id="login-form" autocomplete="off">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required autofocus />
+    <button id="submit-btn" type="submit">Continue</button>
+    <div class="error" id="error-box"></div>
+  </form>
+
+  <div class="footer-line">Internal use only.</div>
+</div>
+
+<script>
+  const form = document.getElementById('login-form');
+  const errBox = document.getElementById('error-box');
+  const btn = document.getElementById('submit-btn');
+  const params = new URLSearchParams(window.location.search);
+  const next = params.get('next') || '/team';
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errBox.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    try {
+      const res = await fetch('/api/team-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: document.getElementById('password').value,
+          next: next
+        })
+      });
+      const body = await res.json();
+      if (res.ok && body.ok) {
+        window.location.href = body.redirect || '/team';
+      } else {
+        errBox.textContent = body.error || 'Login failed.';
+        errBox.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Continue';
+      }
+    } catch (err) {
+      errBox.textContent = 'Connection error. Try again.';
+      errBox.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Continue';
+    }
+  });
+</script>
+</body>
+</html>

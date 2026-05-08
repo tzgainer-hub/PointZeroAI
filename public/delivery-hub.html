@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Zero AI · Delivery Hub</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B1F3A;
+    --bg-deep: #081628;
+    --surface: #0F2746;
+    --surface-2: #162F54;
+    --surface-3: #1C386A;
+    --border: #1F3A60;
+    --border-soft: #14294a;
+    --gold: #B89B5E;
+    --gold-bright: #D4B872;
+    --gold-dim: #8A744A;
+    --text: #F4F1EA;
+    --text-2: #B5BFD0;
+    --text-3: #7A8AA3;
+    --red: #C56F5C;
+    --green: #6B9D7C;
+    --shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.6;
+    min-height: 100vh; -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(184,155,94,0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at bottom right, rgba(28,56,106,0.4) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+  .app { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; position: relative; z-index: 1; }
+  .sidebar { background: var(--bg-deep); border-right: 1px solid var(--border); padding: 32px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .brand { padding: 0 28px 28px; border-bottom: 1px solid var(--border-soft); }
+  .brand-mark { font-family: 'Fraunces', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; }
+  .brand-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; margin-top: 6px; line-height: 1.1; }
+  .brand-sub { font-size: 13px; color: var(--text-3); margin-top: 6px; font-style: italic; }
+  .nav { padding: 20px 0; }
+  .nav-section { font-family: 'Fraunces', serif; font-size: 10px; letter-spacing: 0.25em; color: var(--text-3); text-transform: uppercase; padding: 16px 28px 8px; font-weight: 500; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 28px; color: var(--text-2); cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s ease; font-size: 14.5px; font-weight: 500; }
+  .nav-item:hover { background: var(--surface); color: var(--text); }
+  .nav-item.active { background: linear-gradient(90deg, rgba(184,155,94,0.1) 0%, transparent 100%); color: var(--gold-bright); border-left-color: var(--gold); }
+  .nav-num { font-family: 'Fraunces', serif; font-size: 11px; color: var(--text-3); font-weight: 600; width: 18px; }
+  .nav-item.active .nav-num { color: var(--gold); }
+  .nav-cross { padding: 16px 28px 0; border-top: 1px solid var(--border-soft); margin-top: 16px; }
+  .nav-cross-link { display: block; font-size: 12px; color: var(--text-3); padding: 4px 0; }
+  .nav-cross-link:hover { color: var(--gold-bright); }
+  .main { padding: 56px 64px 80px; max-width: 1100px; }
+  .panel { display: none; animation: fadeIn 0.35s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .panel-eyebrow { font-family: 'Fraunces', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .panel-title { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .panel-lede { font-size: 17px; color: var(--text-2); max-width: 720px; margin-bottom: 40px; line-height: 1.55; }
+  .panel-rule { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+  h2 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text); }
+  h2:first-child { margin-top: 0; }
+  h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 24px 0 10px; color: var(--gold-bright); letter-spacing: 0; }
+  p { margin-bottom: 14px; color: var(--text-2); }
+  p strong { color: var(--text); font-weight: 600; }
+  em { color: var(--gold-bright); font-style: italic; }
+  ul { margin: 8px 0 16px 22px; }
+  ul li { color: var(--text-2); margin-bottom: 6px; }
+  ul li::marker { color: var(--gold); }
+  a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+  a:hover { color: var(--gold); border-color: var(--gold); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; margin: 16px 0; box-shadow: var(--shadow); }
+  .card-gold { border-left: 3px solid var(--gold); background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); }
+  .card-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--gold-bright); margin-bottom: 8px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 16px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 16px 0; }
+  @media (max-width: 1100px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); }
+  th { font-family: 'Manrope', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { color: var(--text-2); }
+  td strong { color: var(--text); }
+  .steps { counter-reset: step; margin: 24px 0; }
+  .step { counter-increment: step; position: relative; padding: 14px 0 14px 56px; border-bottom: 1px solid var(--border-soft); }
+  .step:last-child { border-bottom: 0; }
+  .step::before { content: counter(step); position: absolute; left: 0; top: 16px; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--gold-dim); color: var(--gold-bright); border-radius: 50%; display: grid; place-items: center; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+  .step-meta { font-size: 12px; color: var(--text-3); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+  .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
+  @media (max-width: 1100px) { .metric-row { grid-template-columns: 1fr 1fr; } }
+  .metric { background: var(--surface); border: 1px solid var(--border); padding: 16px 18px; border-radius: 4px; }
+  .metric-label { font-size: 10px; letter-spacing: 0.2em; color: var(--text-3); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .metric-value { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; color: var(--gold-bright); line-height: 1; }
+  .metric-sub { font-size: 12px; color: var(--text-3); margin-top: 6px; }
+  .callout { padding: 18px 22px; border-left: 3px solid var(--gold); background: rgba(184,155,94,0.06); margin: 18px 0; border-radius: 0 4px 4px 0; }
+  .callout-warn { border-left-color: var(--red); background: rgba(197,111,92,0.06); }
+  .callout-good { border-left-color: var(--green); background: rgba(107,157,124,0.06); }
+  .callout p { margin: 0; color: var(--text); }
+  .callout-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px; display: block; }
+  .callout-warn .callout-label { color: var(--red); }
+  .callout-good .callout-label { color: var(--green); }
+  code { background: var(--bg-deep); border: 1px solid var(--border-soft); padding: 1px 6px; border-radius: 3px; font-size: 13px; color: var(--gold-bright); font-family: 'SF Mono', Menlo, monospace; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--surface-3); }
+  .footer-line { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-3); font-size: 12px; font-style: italic; text-align: center; }
+  .checklist { list-style: none; margin: 12px 0; padding: 0; }
+  .checklist li { padding-left: 28px; position: relative; margin-bottom: 8px; color: var(--text-2); }
+  .checklist li::before { content: '☐'; position: absolute; left: 0; top: 0; color: var(--gold); font-size: 16px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">Point Zero AI</div>
+      <div class="brand-name">Delivery Hub</div>
+      <div class="brand-sub">From signed deal to launched system</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">Start Here</div>
+      <div class="nav-item active" data-target="welcome"><span class="nav-num">01</span>Welcome</div>
+      <div class="nav-item" data-target="onboarding"><span class="nav-num">02</span>Client Onboarding</div>
+
+      <div class="nav-section">Build the System</div>
+      <div class="nav-item" data-target="assets"><span class="nav-num">03</span>Asset Collection</div>
+      <div class="nav-item" data-target="sitebuild"><span class="nav-num">04</span>Site Build</div>
+      <div class="nav-item" data-target="sophia"><span class="nav-num">05</span>Sophia Configuration</div>
+      <div class="nav-item" data-target="testing"><span class="nav-num">06</span>Sophia Testing</div>
+      <div class="nav-item" data-target="integrations"><span class="nav-num">07</span>Integrations</div>
+
+      <div class="nav-section">Launch &amp; Handoff</div>
+      <div class="nav-item" data-target="launch"><span class="nav-num">08</span>Launch Checklist</div>
+      <div class="nav-item" data-target="handoff"><span class="nav-num">09</span>Partner Handoff</div>
+      <div class="nav-item" data-target="qc"><span class="nav-num">10</span>Quality Control</div>
+
+      <div class="nav-section">Boundaries</div>
+      <div class="nav-item" data-target="neversay"><span class="nav-num">11</span>Never Say</div>
+      <div class="nav-item" data-target="neverbuild"><span class="nav-num">12</span>Never Build</div>
+
+      <div class="nav-section">Reference</div>
+      <div class="nav-item" data-target="resources"><span class="nav-num">13</span>Resources</div>
+    </nav>
+    <div class="nav-cross">
+      <a class="nav-cross-link" href="/team">↗ Team Index</a>
+      <a class="nav-cross-link" href="/sales-hub">↗ Sales Hub</a>
+      <a class="nav-cross-link" href="/partner-hub">↗ Partner Hub</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- 01 WELCOME -->
+    <section class="panel active" id="welcome">
+      <div class="panel-eyebrow">Section 01</div>
+      <h1 class="panel-title">From Signed Deal to Launched System.</h1>
+      <p class="panel-lede">This hub is for the builder. It picks up where the Sales Hub ends &mdash; the moment a contract is signed &mdash; and walks the client all the way to a partner-handed-off system. If you're building, this is your runbook.</p>
+
+      <h2>What this hub covers</h2>
+      <p>Every step between contract signing and partner handoff lives here. The sales rep gets the client. The build team delivers a launched, working system. The partner takes over for the long run. <strong>If you don't know what to do next, the answer is in this hub.</strong></p>
+
+      <h2>The build, in eight beats</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">Day 0</div>
+          <div class="step-title">Contract signed in DocuSign</div>
+          <p>50% setup invoice goes out same day. Build clock starts the moment it's paid.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 1&ndash;2</div>
+          <div class="step-title">Onboarding kickoff call</div>
+          <p>60 min. Set expectations, hand over asset checklist, lock launch date. (Section 02.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 2&ndash;7</div>
+          <div class="step-title">Asset collection window</div>
+          <p>Client delivers logo, photos, services, hours, FAQs. Build clock pauses on missing assets. (Section 03.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 5&ndash;14</div>
+          <div class="step-title">Site build</div>
+          <p>Template, copy, mobile QA, AEO/FAQ structure. (Section 04.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 10&ndash;18</div>
+          <div class="step-title">Sophia setup &amp; testing</div>
+          <p>Voice, intake script, booking flow. Test against five scenarios. (Sections 05&ndash;06.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 14&ndash;20</div>
+          <div class="step-title">Integrations</div>
+          <p>Phone provisioning, calendar, CRM, GHL workflows. (Section 07.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 18&ndash;22</div>
+          <div class="step-title">Launch</div>
+          <p>Pre-launch QA. Domain switch. First production call test. Client final approval. (Section 08.)</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 22&ndash;52</div>
+          <div class="step-title">Partner handoff &amp; QC window</div>
+          <p>Knowledge transfer to partner. 30-day quality control window before full hand-off. (Sections 09&ndash;10.)</p>
+        </div>
+      </div>
+
+      <h2>The Sons Test</h2>
+      <p>Every page in this hub passes one test: <strong>could a smart 27-year-old build a launched client system from scratch using only this hub?</strong> If a step requires "ask Tom," it gets rewritten until it doesn't.</p>
+
+      <hr class="panel-rule">
+      <p style="font-size: 13px; color: var(--text-3); font-style: italic;">If the build goes sideways, the answer is here. If it isn't, flag it &mdash; and the hub gets updated.</p>
+    </section>
+
+    <!-- 02 ONBOARDING -->
+    <section class="panel" id="onboarding">
+      <div class="panel-eyebrow">Section 02</div>
+      <h1 class="panel-title">Client Onboarding.</h1>
+      <p class="panel-lede">The 60-minute kickoff call sets the tone for the whole build. Done well, it cuts asset-collection time in half and pre-empts 80% of "wait, I thought you were going to..." moments.</p>
+
+      <h2>Same day as contract signing</h2>
+      <ul>
+        <li><strong>Send the welcome email</strong> (template in Section 13). Confirms the kickoff call, attaches the asset checklist, sets expectations on the build clock.</li>
+        <li><strong>Send the 50% setup invoice.</strong> Build clock does not start until paid.</li>
+        <li><strong>Add client to CRM</strong> with all assessment data, discovery intake form, and the proposal copy.</li>
+        <li><strong>Schedule the kickoff call</strong> within 48 hours of contract signing.</li>
+      </ul>
+
+      <h2>The 60-minute kickoff agenda</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">0:00 &mdash; 0:10</div>
+          <div class="step-title">Welcome &amp; expectations</div>
+          <p>Confirm: the build packet (PDF), the launch date, the partner-handoff structure, who their day-to-day contact is during build.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">0:10 &mdash; 0:25</div>
+          <div class="step-title">Stakeholder map</div>
+          <p>Who decides? Who provides assets? Who tests? Who signs off on launch? Get names and emails for each.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">0:25 &mdash; 0:40</div>
+          <div class="step-title">Asset checklist walk-through</div>
+          <p>Open the asset checklist (Section 03). Confirm a delivery date for each item. Identify which assets will be hardest to gather.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">0:40 &mdash; 0:50</div>
+          <div class="step-title">Sophia voice tuning</div>
+          <p>Get a sense of the brand voice. Formal? Warm? Get one or two voice samples (recordings of the owner talking to a customer if available).</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">0:50 &mdash; 1:00</div>
+          <div class="step-title">Launch date lock + next steps</div>
+          <p>Confirm launch target. Set next check-in (Day 7). Send recap email with action items.</p>
+        </div>
+      </div>
+
+      <h2>The build packet (PDF, sent at kickoff)</h2>
+      <ul>
+        <li>Build timeline with key dates</li>
+        <li>Asset checklist with deadlines</li>
+        <li>Builder contact info + business-hours response window</li>
+        <li>Partner handoff structure (Partner-Served clients only)</li>
+        <li>What's in scope vs. what's an upgrade</li>
+        <li>How change requests work after launch (handled by partner)</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">If they push past business hours</span>
+        <p>If a client expects you to be on call evenings/weekends, fix the expectation now. Builder support is business hours. Emergencies post-launch route to partner. <em>"I'm not the right person for late-night fixes &mdash; that's what your partner Care plan is for."</em></p>
+      </div>
+    </section>
+
+    <!-- 03 ASSETS -->
+    <section class="panel" id="assets">
+      <div class="panel-eyebrow">Section 03</div>
+      <h1 class="panel-title">Asset Collection.</h1>
+      <p class="panel-lede">Builds slip when assets slip. The fix is a hard checklist with hard deadlines and a paused-clock rule.</p>
+
+      <h2>The asset checklist (sent at kickoff)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Brand &amp; visuals</h3>
+          <ul class="checklist">
+            <li>Logo (PNG + SVG if available, transparent background)</li>
+            <li>Brand color codes (hex) or existing site reference</li>
+            <li>10&ndash;20 photos (work, team, location). High-res, no stock.</li>
+            <li>Existing site URL / login (if applicable)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Business basics</h3>
+          <ul class="checklist">
+            <li>Legal business name + DBA</li>
+            <li>Service areas (cities, ZIPs, radius)</li>
+            <li>Hours (with after-hours/emergency policy)</li>
+            <li>Phone, address, GBP listing URL</li>
+            <li>License numbers, certifications, awards</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Services &amp; pricing</h3>
+          <ul class="checklist">
+            <li>Service list (categories + descriptions)</li>
+            <li>Pricing approach (flat / range / quote)</li>
+            <li>Specialties / niche services</li>
+            <li>What they explicitly do NOT do</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>FAQs &amp; voice</h3>
+          <ul class="checklist">
+            <li>Top 10 questions customers actually ask</li>
+            <li>How they typically answer each (their words)</li>
+            <li>Voice sample (recording of owner on a real call, if available)</li>
+            <li>Tone preference (formal / warm / direct)</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Where it goes</h2>
+      <p>Each client gets a folder in the shared drive: <code>/clients/[business-name]/</code> with subfolders for <code>brand/</code>, <code>photos/</code>, <code>copy/</code>, <code>sophia/</code>, <code>contracts/</code>. <strong>Nothing lives in email.</strong></p>
+
+      <h2>The paused-clock rule</h2>
+      <div class="callout-warn callout">
+        <span class="callout-label">If assets are late</span>
+        <p>If a client misses an asset deadline by 48 hours, the build clock pauses. The launch date moves out by the same amount of time. <em>"Build clock paused as of [date]. We'll restart the moment we receive [missing items]."</em> Send by email. Document in CRM. Don't absorb the slip silently.</p>
+      </div>
+
+      <h2>Asset receipt protocol</h2>
+      <ul>
+        <li>Confirm receipt within 4 business hours</li>
+        <li>Flag missing items immediately, in writing</li>
+        <li>If a photo is unusable (low res, watermarked), say so &mdash; don't try to make it work</li>
+        <li>Do not ask the client to "send a few more photos when you get a chance" &mdash; ask for specific shots with deadlines</li>
+      </ul>
+    </section>
+
+    <!-- 04 SITE BUILD -->
+    <section class="panel" id="sitebuild">
+      <div class="panel-eyebrow">Section 04</div>
+      <h1 class="panel-title">Site Build.</h1>
+      <p class="panel-lede">Build environment, template selection, copy, mobile QA, AEO/FAQ structure. No surprises &mdash; every build follows the same skeleton.</p>
+
+      <h2>Template selection by package</h2>
+      <table>
+        <tr><th>Package</th><th>Approach</th><th>Skeleton</th></tr>
+        <tr><td><strong>Smart Site Refresh</strong></td><td>Keep existing structure. Rebuild copy and lead-capture surface.</td><td>5 sections: hero, services, about, lead form, footer.</td></tr>
+        <tr><td><strong>Smart Site + Sophia</strong></td><td>New site or focused rebuild. Sophia-aware design.</td><td>7 sections: hero, services, areas, why us, FAQ, lead form, footer.</td></tr>
+        <tr><td><strong>Full Response System</strong></td><td>Full rebuild. Complete information architecture.</td><td>10+ sections: hero, services (per-service pages), locations, about, team, reviews, FAQ, contact, blog/AEO, footer.</td></tr>
+      </table>
+
+      <h2>Copy guidelines</h2>
+      <ul>
+        <li><strong>Lead with the customer's job.</strong> Not "We provide quality plumbing." → "Slow drain? We're 22 minutes away."</li>
+        <li><strong>Specific over generic.</strong> "$0 dispatch fee, weekends included" beats "competitive pricing."</li>
+        <li><strong>Service area in headlines.</strong> Local proof = trust + local SEO.</li>
+        <li><strong>Real photos, real reviews.</strong> No stock images of strangers in white coats.</li>
+        <li><strong>One CTA per fold.</strong> Call, book, or contact &mdash; pick one for each section.</li>
+        <li><strong>Avoid jargon.</strong> If the owner wouldn't say it on a job site, don't put it on the page.</li>
+      </ul>
+
+      <h2>Mobile-first checklist</h2>
+      <ul class="checklist">
+        <li>Tap targets at least 48&times;48px</li>
+        <li>Click-to-call button visible above the fold on mobile</li>
+        <li>Forms have one input per row on mobile</li>
+        <li>Hero image &lt; 200KB after compression</li>
+        <li>Lighthouse mobile performance score 80+</li>
+        <li>No horizontal scroll on any breakpoint</li>
+      </ul>
+
+      <h2>AEO / FAQ structure</h2>
+      <p>Every site ships with an FAQ section structured for answer engines (ChatGPT, Perplexity, Google AI Overviews). <strong>Question as a real question. Answer in 1&ndash;3 sentences. Nothing else.</strong></p>
+      <ul>
+        <li>Service-specific FAQ on each service page (5&ndash;7 Qs)</li>
+        <li>Site-wide FAQ on /faq with 15&ndash;25 Qs</li>
+        <li>Schema markup: <code>FAQPage</code> JSON-LD on every FAQ section</li>
+        <li>Service area FAQs ("Do you serve [city]?") with specific answers</li>
+      </ul>
+
+      <h2>Pre-launch site QA</h2>
+      <ul class="checklist">
+        <li>All forms submit and route to test inbox</li>
+        <li>All click-to-call buttons dial the right number</li>
+        <li>Sitemap + robots.txt deployed</li>
+        <li>Google Analytics + GBP linked</li>
+        <li>Contact info matches GBP exactly (NAP consistency)</li>
+        <li>No 404s on any internal link</li>
+        <li>Mobile + desktop visual review on 3 real devices</li>
+        <li>Open Graph image + meta description set per page</li>
+      </ul>
+    </section>
+
+    <!-- 05 SOPHIA CONFIG -->
+    <section class="panel" id="sophia">
+      <div class="panel-eyebrow">Section 05</div>
+      <h1 class="panel-title">Sophia Configuration.</h1>
+      <p class="panel-lede">Voice, intake script, booking flow, lead routing. Sophia is configured per-client &mdash; the template is the floor, not the ceiling.</p>
+
+      <h2>Voice tuning</h2>
+      <ul>
+        <li><strong>Voice selection</strong> matches the brand. Warm-female default for most service businesses. Match accent to region where reasonable.</li>
+        <li><strong>Pace</strong> 1.0&times; default. Slow to 0.95&times; for older customer base, never faster than 1.05&times;.</li>
+        <li><strong>Greeting</strong> includes business name + a single qualifying signal: <em>"Hi, you've reached [Business]. Thanks for calling. Are you calling about a new job, or about an existing job we're already working on?"</em></li>
+      </ul>
+
+      <h2>The intake script (template)</h2>
+      <div class="card card-gold">
+        <div class="card-title">5-question Sophia intake (default)</div>
+        <ul>
+          <li><strong>Q1 &mdash; Trade-specific lead qualifier.</strong> Plumbing: "What's going on with your plumbing?" Locksmith: "What kind of lock issue?" HVAC: "Heating, cooling, or both?"</li>
+          <li><strong>Q2 &mdash; Address / service area.</strong> "What's the address so I can let our team know where to go?"</li>
+          <li><strong>Q3 &mdash; Urgency.</strong> "Is this an emergency, or can it wait until our next available slot?"</li>
+          <li><strong>Q4 &mdash; Best contact.</strong> "What's the best phone number for our team to reach you?"</li>
+          <li><strong>Q5 &mdash; Booking.</strong> Read available slots from calendar. "I have [time A] or [time B] open. Which works?"</li>
+        </ul>
+      </div>
+
+      <h2>Booking flow</h2>
+      <ul>
+        <li><strong>Calendar source:</strong> Calendly (default) or GHL calendar (if integrated). One source of truth.</li>
+        <li><strong>Slot windows:</strong> Match owner's defined hours. Emergency window (24/7) routes differently &mdash; see Q3.</li>
+        <li><strong>Confirmation:</strong> SMS to customer + email to owner with full transcript and booking details, within 60 seconds of hangup.</li>
+        <li><strong>Failure mode:</strong> If Sophia can't book (no slots, customer drops off, etc.), the call summary still goes to the owner with the lead info captured.</li>
+      </ul>
+
+      <h2>Lead routing</h2>
+      <ul>
+        <li><strong>Standard call</strong> → calendar booking + summary email/SMS to owner</li>
+        <li><strong>Emergency call</strong> → immediate SMS to owner's emergency line + booking attempt</li>
+        <li><strong>Existing customer / not-a-lead</strong> → message taken, summary to owner, no calendar booking</li>
+        <li><strong>Spam / wrong number</strong> → discarded, no notification</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">Hard rule</span>
+        <p>Sophia's intake script is configured to be <strong>transparent and professional</strong>. She does not deny being an AI agent if directly asked. The product is <em>"the call gets handled and the booking happens"</em> &mdash; not <em>"the customer thinks she's human."</em></p>
+      </div>
+    </section>
+
+    <!-- 06 TESTING -->
+    <section class="panel" id="testing">
+      <div class="panel-eyebrow">Section 06</div>
+      <h1 class="panel-title">Sophia Testing.</h1>
+      <p class="panel-lede">Sophia ships only after she handles five test scenarios cleanly. No exceptions. Test calls are recorded, reviewed, and signed off before launch.</p>
+
+      <h2>The five required test scenarios</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">Test 1 &middot; Happy path</div>
+          <div class="step-title">Standard new lead, business hours</div>
+          <p>Customer with a typical issue, calls during open hours, books a regular slot. Sophia should: greet, qualify, capture address, capture phone, book, confirm. Total time under 4 minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Test 2 &middot; Emergency</div>
+          <div class="step-title">After-hours emergency</div>
+          <p>Customer with an urgent issue at 11pm. Sophia should: recognize emergency cue, capture lead info quickly, trigger emergency SMS to owner, give customer realistic next-step expectation.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Test 3 &middot; Existing customer</div>
+          <div class="step-title">Calling about a job in progress</div>
+          <p>Customer says "I'm calling about the job at 123 Maple, the technician was supposed to come back today." Sophia should: not try to book a new appointment, capture message, route to owner without calendar action.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Test 4 &middot; Confused / unclear</div>
+          <div class="step-title">Customer rambles or is unclear</div>
+          <p>Customer talks for 90 seconds without clearly stating the issue. Sophia should: politely interrupt, restate to confirm understanding, re-ask Q1.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Test 5 &middot; Out-of-area</div>
+          <div class="step-title">Lead outside service area</div>
+          <p>Customer in a city the business doesn't serve. Sophia should: confirm address early, politely decline, end call cleanly &mdash; not book a job that can't be served.</p>
+        </div>
+      </div>
+
+      <h2>Sign-off criteria (all 5 must pass)</h2>
+      <ul class="checklist">
+        <li>Sophia greeted with correct business name</li>
+        <li>Captured address accurately</li>
+        <li>Captured phone number accurately (read back to customer)</li>
+        <li>Routed to correct outcome (booking / message / decline)</li>
+        <li>Summary email arrived within 60 seconds with full transcript</li>
+        <li>SMS confirmation went to customer if booked</li>
+        <li>No false "I'm a real person" claims if asked directly</li>
+        <li>Total call time under 5 minutes for happy path</li>
+      </ul>
+
+      <h2>Common failure modes</h2>
+      <ul>
+        <li><strong>Sophia can't hear address numbers clearly.</strong> Fix: tune phone number/audio routing, slow read-back pace.</li>
+        <li><strong>Sophia books outside business hours.</strong> Fix: tighten calendar availability, double-check time-zone settings.</li>
+        <li><strong>Sophia doesn't end gracefully.</strong> Fix: add explicit close prompt; default to "Anything else I can help with? &mdash; Have a great day."</li>
+        <li><strong>Customer interrupts and Sophia talks over.</strong> Fix: enable barge-in handling in voice config.</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">No launch without sign-off</span>
+        <p>If Sophia fails any of the five, she does not launch. The launch date moves. Tell the client immediately. <em>Never</em> launch a Sophia who can't handle Test 2 (emergency) cleanly &mdash; that's the call that pays for the system.</p>
+      </div>
+    </section>
+
+    <!-- 07 INTEGRATIONS -->
+    <section class="panel" id="integrations">
+      <div class="panel-eyebrow">Section 07</div>
+      <h1 class="panel-title">Integrations.</h1>
+      <p class="panel-lede">Phone provisioning, calendar sync, CRM connection, GHL workflows. The plumbing that makes Sophia's outputs land in the right places.</p>
+
+      <h2>Phone number provisioning</h2>
+      <ul>
+        <li><strong>Default:</strong> provision a new local number via Twilio matching the business's area code.</li>
+        <li><strong>Forwarding:</strong> client's existing main line forwards to the Twilio number after-hours (or 24/7, depending on package).</li>
+        <li><strong>SMS-capable:</strong> all numbers must be 10DLC-registered before SMS confirmations go out. Plan for 1&ndash;2 weeks for 10DLC approval.</li>
+        <li><strong>Ownership:</strong> the number stays in our Twilio account during service. On cancellation, we port it to the client (or partner) at cost.</li>
+      </ul>
+
+      <h2>Calendar integration</h2>
+      <table>
+        <tr><th>Calendar source</th><th>Use when</th><th>Setup</th></tr>
+        <tr><td><strong>Calendly</strong></td><td>Default. Owner already uses it or wants minimal setup.</td><td>Connect via Sophia's calendar API. Test slot read.</td></tr>
+        <tr><td><strong>GHL Calendar</strong></td><td>Client is on GHL or wants a single platform.</td><td>Configure availability, link to Sophia voice flow.</td></tr>
+        <tr><td><strong>Google Calendar (direct)</strong></td><td>Owner wants slots straight from their personal calendar. Use sparingly.</td><td>OAuth connection. Treat client's privacy carefully.</td></tr>
+      </table>
+
+      <h2>CRM integration</h2>
+      <p>Most service-business clients are on one of: ServiceTitan, Jobber, Housecall Pro, or "nothing structured." Default play:</p>
+      <ul>
+        <li><strong>If they have a CRM:</strong> push Sophia leads into a "Sophia Inbound" stage. Don't auto-merge with existing customers &mdash; let the owner approve.</li>
+        <li><strong>If they don't:</strong> send leads to GHL (our managed CRM). Set up the basic pipeline.</li>
+        <li><strong>Reporting:</strong> weekly digest email with new leads, booked jobs, lost calls.</li>
+      </ul>
+
+      <h2>GHL workflow stack (default 6 workflows)</h2>
+      <p>Every Partner-Served client gets these 6 GHL workflows pre-configured at handoff. Partner takes ownership post-launch.</p>
+      <table>
+        <tr><th>Workflow</th><th>Trigger</th><th>What it does</th></tr>
+        <tr><td><strong>Lead Capture</strong></td><td>New Sophia lead</td><td>Adds to CRM, tags by source, notifies owner</td></tr>
+        <tr><td><strong>Booking Confirmation</strong></td><td>Booked slot</td><td>SMS + email confirmation to customer</td></tr>
+        <tr><td><strong>Follow-Up #1</strong></td><td>24h after lead, no booking</td><td>Reminder SMS / email</td></tr>
+        <tr><td><strong>Follow-Up #2</strong></td><td>3d after lead, no booking</td><td>Second-touch email</td></tr>
+        <tr><td><strong>Follow-Up #3</strong></td><td>7d after lead, no booking</td><td>Final-touch email, mark cold</td></tr>
+        <tr><td><strong>Review Request</strong></td><td>Job marked complete</td><td>SMS asking for Google review</td></tr>
+      </table>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">10DLC upfront</span>
+        <p>If the build includes any SMS workflow, register the 10DLC campaign at Day 1 of build. It takes 1&ndash;2 weeks for carrier approval. <em>Don't promise SMS confirmations on a launch date that doesn't account for 10DLC.</em></p>
+      </div>
+    </section>
+
+    <!-- 08 LAUNCH -->
+    <section class="panel" id="launch">
+      <div class="panel-eyebrow">Section 08</div>
+      <h1 class="panel-title">Launch Checklist.</h1>
+      <p class="panel-lede">Go-live runbook. Run it in this order. Don't skip steps because they "feel done."</p>
+
+      <h2>T-minus 7 days</h2>
+      <ul class="checklist">
+        <li>Site QA complete (Section 04 checklist)</li>
+        <li>Sophia testing complete &amp; signed off (Section 06)</li>
+        <li>10DLC SMS approved (if applicable)</li>
+        <li>All integrations tested in production mode</li>
+        <li>Final invoice sent (50% on launch, due before launch)</li>
+        <li>Client preview link sent for sign-off</li>
+      </ul>
+
+      <h2>T-minus 48 hours</h2>
+      <ul class="checklist">
+        <li>Final client sign-off received in writing</li>
+        <li>Launch invoice paid</li>
+        <li>Partner pre-handoff briefing complete (Partner-Served only)</li>
+        <li>Client notified of exact go-live time</li>
+      </ul>
+
+      <h2>Launch day</h2>
+      <ul class="checklist">
+        <li>DNS / domain switch executed</li>
+        <li>Old site retired (or 301 redirected)</li>
+        <li>Phone forwarding activated</li>
+        <li>First production call test &mdash; live, real number, real Sophia</li>
+        <li>SMS confirmation tested end-to-end</li>
+        <li>Email summary tested end-to-end</li>
+        <li>GBP profile updated with new site URL (if changed)</li>
+        <li>Launch announcement email to client (with first-week monitoring schedule)</li>
+      </ul>
+
+      <h2>T-plus 24 hours</h2>
+      <ul class="checklist">
+        <li>Verify any inbound calls handled correctly</li>
+        <li>Check error logs / failed integrations</li>
+        <li>Send client end-of-day-1 status report</li>
+        <li>Begin partner handoff documentation</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">Never launch on Friday</span>
+        <p>Default launch days: Tuesday or Wednesday. Avoids the "something broke at 5pm Friday and now it's broken all weekend" trap. The first 48 hours need attention.</p>
+      </div>
+    </section>
+
+    <!-- 09 HANDOFF -->
+    <section class="panel" id="handoff">
+      <div class="panel-eyebrow">Section 09</div>
+      <h1 class="panel-title">Partner Handoff.</h1>
+      <p class="panel-lede">The launched system transfers to the support partner under a documented handoff package. This is where Tom steps out of the support chair.</p>
+
+      <h2>The handoff package</h2>
+      <p>Delivered to the partner within 5 business days of launch. Stored in <code>/clients/[business-name]/handoff/</code>. Lives forever.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Build artifacts</h3>
+          <ul>
+            <li>Site source / CMS access</li>
+            <li>Sophia configuration export</li>
+            <li>Twilio number + account access (read-only)</li>
+            <li>Calendar / CRM credentials (read-write for partner)</li>
+            <li>GHL workflow exports</li>
+            <li>Domain / DNS records</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Operating docs</h3>
+          <ul>
+            <li>Client-specific Sophia notes (voice tuning, edge cases)</li>
+            <li>Service-area + pricing reference</li>
+            <li>Stakeholder map (who decides what, who pays)</li>
+            <li>Active integrations list</li>
+            <li>Known issues / quirks discovered during build</li>
+            <li>30-day QC plan (Section 10)</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Partner kickoff meeting</h2>
+      <p>30 minutes, scheduled within 3 days of launch. Builder + partner + Tom (oversight). Agenda:</p>
+      <ul>
+        <li>Walk-through of handoff package</li>
+        <li>Live demo of the system in production</li>
+        <li>Partner asks questions; builder answers</li>
+        <li>Confirm partner's first client touchpoint date (within 7 days of launch)</li>
+        <li>Confirm escalation rules (Section 10)</li>
+      </ul>
+
+      <h2>Client introduction email</h2>
+      <p>Sent by builder + cc partner, within 24 hours of partner kickoff. Template:</p>
+      <div class="card card-gold">
+        <div class="card-title">Subject: Welcome to your support partner</div>
+        <p style="font-style: italic; color: var(--text-2);">[Client name] &mdash; great launch this week. Now that the system is live, ongoing support transfers to [Partner name] at [Partner company]. They've already received your full system documentation and will be your day-to-day contact for any updates, questions, or troubleshooting going forward. Their email is [partner email] and their support line is [partner phone]. They'll reach out within the next 7 days to introduce themselves directly. &mdash; [Builder]</p>
+      </div>
+
+      <h2>White Coat Path A &mdash; the BAA gate</h2>
+      <div class="callout-warn callout">
+        <span class="callout-label">Do not hand off without it</span>
+        <p>For Path A (HIPAA-touching) builds, partner signs the BAA <em>before</em> the system goes live. If the BAA is not signed at handoff, the build pauses. <strong>Tom does not sign the BAA. Point Zero AI does not sign the BAA.</strong> No exceptions, no temporary workarounds.</p>
+      </div>
+
+      <h2>Tom-Direct clients (the 10) &mdash; modified handoff</h2>
+      <p>For Tom-Direct clients, the system stays under Tom for support. The handoff package still gets created (so a future move to partner is possible), but the partner kickoff meeting is skipped. Tom is the named support contact in the client introduction email.</p>
+    </section>
+
+    <!-- 10 QC -->
+    <section class="panel" id="qc">
+      <div class="panel-eyebrow">Section 10</div>
+      <h1 class="panel-title">Quality Control.</h1>
+      <p class="panel-lede">First 30 days post-launch are the QC window. Builder still has visibility, partner is taking primary support. After day 30, full transfer.</p>
+
+      <h2>The 30-day QC schedule</h2>
+      <table>
+        <tr><th>Day</th><th>Builder action</th><th>Partner action</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>End-of-day status to client</td><td>Internal review of handoff package</td></tr>
+        <tr><td><strong>Day 3</strong></td><td>Pull call logs, spot-check</td><td>Send client introduction email</td></tr>
+        <tr><td><strong>Day 7</strong></td><td>Joint check-in call (builder + partner + client)</td><td>First check-in with client, document any issues</td></tr>
+        <tr><td><strong>Day 14</strong></td><td>Pull call logs, spot-check second time</td><td>Routine support, weekly status to client</td></tr>
+        <tr><td><strong>Day 21</strong></td><td>Builder steps back; partner is primary</td><td>Full client ownership</td></tr>
+        <tr><td><strong>Day 30</strong></td><td>Final QC review with Tom + partner</td><td>Confirm Care plan billing has started</td></tr>
+      </table>
+
+      <h2>Spot-check criteria (Day 3 + Day 14)</h2>
+      <ul class="checklist">
+        <li>Listen to 5 random calls from past week</li>
+        <li>Verify all bookings landed on correct calendar slot</li>
+        <li>Verify all SMS / email confirmations went out</li>
+        <li>Check error logs for failed integrations</li>
+        <li>Verify lead-to-job conversion in CRM</li>
+        <li>Flag any "Sophia did something weird" patterns</li>
+      </ul>
+
+      <h2>Escalation rules</h2>
+      <p>Most issues post-launch route to partner. A short list comes back to builder + Tom:</p>
+      <ul>
+        <li><strong>Customer complaint about Sophia's accuracy</strong> → partner handles. Loops in builder if pattern emerges (3+ in a week).</li>
+        <li><strong>System outage &gt; 30 minutes</strong> → partner notifies builder + Tom immediately.</li>
+        <li><strong>Client asks for scope expansion</strong> → partner refers to builder; builder writes upgrade quote (not free).</li>
+        <li><strong>Client threatens cancellation</strong> → partner notifies Tom directly within 24 hours.</li>
+        <li><strong>Legal / compliance issue surfaces</strong> → partner notifies Tom immediately. Builder pauses any related work.</li>
+        <li><strong>Partner not delivering</strong> → Tom escalates to partner principal. Replacement process in Partner Hub.</li>
+      </ul>
+
+      <div class="callout-good callout">
+        <span class="callout-label">The handoff is real</span>
+        <p>After Day 30, builder is out unless escalated. The point of the partner model is that the builder doesn't become the long-tail support. <em>If Tom or the builder is still doing weekly client work past Day 30, the handoff failed.</em></p>
+      </div>
+    </section>
+
+    <!-- 11 NEVER SAY -->
+    <section class="panel" id="neversay">
+      <div class="panel-eyebrow">Section 11</div>
+      <h1 class="panel-title">Never Say.</h1>
+      <p class="panel-lede">Language that creates legal, support, or expectation traps. If a builder writes any of these in an email, slack, or contract, edit before sending.</p>
+
+      <h2>Sophia &amp; AI transparency</h2>
+      <ul>
+        <li><strong>"The customer doesn't know it's AI."</strong> &rarr; <em>"Sophia is configured to be transparent and professional."</em></li>
+        <li><strong>"She'll fool anyone."</strong> &rarr; <em>"She handles the intake cleanly; the booking is what matters."</em></li>
+        <li><strong>"We'll make her sound human."</strong> &rarr; <em>"The voice is natural and clear; transparency about what she is, when asked."</em></li>
+      </ul>
+
+      <h2>HIPAA / compliance</h2>
+      <ul>
+        <li><strong>"We sign a BAA."</strong> &rarr; <em>"Our HIPAA-certified support partner signs the BAA at handover."</em></li>
+        <li><strong>"All our agents are HIPAA-compliant."</strong> &rarr; <em>"PHI-touching workflows route to a partner-led Path A build with BAA in place."</em></li>
+        <li><strong>"Don't worry about compliance, we'll handle it."</strong> &rarr; never. Compliance has owners, in writing, with contracts.</li>
+        <li><strong>"It's HIPAA-ready out of the box."</strong> &rarr; never. HIPAA is not a feature flag; it's a contractual structure.</li>
+      </ul>
+
+      <h2>Scope &amp; support</h2>
+      <ul>
+        <li><strong>"Sure, we can add that."</strong> &rarr; <em>"That's an upgrade &mdash; let me get you a scope and quote."</em></li>
+        <li><strong>"Don't worry, we'll figure it out."</strong> &rarr; <em>"Let me document this and come back with a clear plan tomorrow."</em></li>
+        <li><strong>"You can call me anytime."</strong> &rarr; <em>"Business hours support during build; ongoing support is your partner Care plan."</em></li>
+        <li><strong>"Lifetime support included."</strong> &rarr; never. Care is month-to-month, post-launch.</li>
+        <li><strong>"Unlimited revisions."</strong> &rarr; never. Every Care tier has change-volume bands.</li>
+      </ul>
+
+      <h2>Promises about results</h2>
+      <ul>
+        <li><strong>"Sophia will pay for herself in month one."</strong> &rarr; <em>"Most clients see the system pay for itself within the first month from a single booked job &mdash; but it depends on volume and conversion."</em></li>
+        <li><strong>"Guaranteed leads."</strong> &rarr; never. We deliver a system; conversion is downstream of many factors.</li>
+        <li><strong>"You'll book more jobs."</strong> &rarr; <em>"You'll capture every after-hours and missed-call lead, which is the difference most clients see."</em></li>
+      </ul>
+    </section>
+
+    <!-- 12 NEVER BUILD -->
+    <section class="panel" id="neverbuild">
+      <div class="panel-eyebrow">Section 12</div>
+      <h1 class="panel-title">Never Build.</h1>
+      <p class="panel-lede">Features and configurations that are off the table, regardless of how much the client wants them. The Red Zone for builders.</p>
+
+      <h2>PHI &amp; HIPAA-adjacent (Path B clients)</h2>
+      <ul>
+        <li><strong>No PHI collection</strong> in any form, intake, or Sophia flow on a Path B build.</li>
+        <li><strong>No insurance verification</strong> agent or workflow.</li>
+        <li><strong>No patient recall agent.</strong></li>
+        <li><strong>No "is this an emergency / is this serious"</strong> medical-triage logic.</li>
+        <li><strong>No diagnosis-adjacent intake</strong> ("describe your symptoms" type flows).</li>
+        <li><strong>No file uploads of medical records</strong> through any form we build.</li>
+      </ul>
+
+      <h2>Regulated advice</h2>
+      <ul>
+        <li>No legal advice agents (contract review, document drafting, "is this enforceable")</li>
+        <li>No financial advice agents (investment recs, tax advice, securities-adjacent)</li>
+        <li>No medical diagnosis or triage agents</li>
+        <li>No insurance claims advice agents</li>
+        <li>No mental-health or crisis intervention agents</li>
+      </ul>
+
+      <h2>Scope &amp; ergonomics</h2>
+      <ul>
+        <li><strong>No 24/7 builder availability promise.</strong> Build hours are business hours.</li>
+        <li><strong>No "we'll integrate with [obscure vendor]"</strong> without scope and quote first.</li>
+        <li><strong>No dropping site features at the client's last-minute request</strong> when those features are why the system works.</li>
+        <li><strong>No multi-location builds</strong> on standard pricing &mdash; that's Custom (Section 03 of Sales Hub).</li>
+        <li><strong>No "white label this so it looks like a different company"</strong> &mdash; we're building Point Zero AI systems.</li>
+      </ul>
+
+      <h2>Client behaviors that pause the build</h2>
+      <ul>
+        <li><strong>Client misses asset deadline by 48+ hours</strong> &rarr; build clock pauses, launch slips.</li>
+        <li><strong>Client demands launch on Friday</strong> &rarr; politely decline. Reschedule.</li>
+        <li><strong>Client asks for scope expansion mid-build</strong> &rarr; document, quote, change order. Build does not absorb new scope silently.</li>
+        <li><strong>Client refuses Sophia testing sign-off</strong> &rarr; no launch. Document, escalate to Tom.</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">When in doubt</span>
+        <p><em>If a build request makes you reach for a creative workaround &mdash; that's the moment to check this list. The boundary exists precisely because reasonable-sounding asks become bad businesses one yes at a time.</em></p>
+      </div>
+    </section>
+
+    <!-- 13 RESOURCES -->
+    <section class="panel" id="resources">
+      <div class="panel-eyebrow">Section 13</div>
+      <h1 class="panel-title">Resources.</h1>
+      <p class="panel-lede">Templates, links, and cross-references for the build process.</p>
+
+      <h2>The other hubs</h2>
+      <table>
+        <tr><th>Hub</th><th>URL</th><th>When to use</th></tr>
+        <tr><td><strong>Sales Hub</strong></td><td><a href="/sales-hub" target="_blank">/sales-hub</a></td><td>Pricing, packages, tier definitions, what was sold</td></tr>
+        <tr><td><strong>Partner Hub</strong></td><td><a href="/partner-hub" target="_blank">/partner-hub</a></td><td>Partner scope, escalation, BAA flow, rev-share</td></tr>
+        <tr><td><strong>Team Index</strong></td><td><a href="/team" target="_blank">/team</a></td><td>Landing page for all three hubs</td></tr>
+      </table>
+
+      <h2>External tools</h2>
+      <table>
+        <tr><th>Tool</th><th>Use</th></tr>
+        <tr><td><strong>Twilio</strong></td><td>Phone provisioning, 10DLC registration</td></tr>
+        <tr><td><strong>GoHighLevel (GHL)</strong></td><td>CRM, workflows, calendar (default platform)</td></tr>
+        <tr><td><strong>Calendly</strong></td><td>Calendar integration when GHL isn't used</td></tr>
+        <tr><td><strong>Lighthouse / PageSpeed</strong></td><td>Mobile performance QA</td></tr>
+        <tr><td><strong>Google Search Console</strong></td><td>Submit sitemap post-launch, monitor indexing</td></tr>
+        <tr><td><strong>Google Business Profile</strong></td><td>Update website URL on launch, NAP consistency</td></tr>
+      </table>
+
+      <h2>Build deliverable file structure</h2>
+      <p>Every client gets the same folder structure on the shared drive:</p>
+      <pre style="background: var(--bg-deep); padding: 16px 20px; border-radius: 4px; font-size: 13px; color: var(--text-2); overflow-x: auto;">
+/clients/[business-name]/
+  ├── brand/         (logo, colors, fonts)
+  ├── photos/        (raw + cropped)
+  ├── copy/          (draft + final text)
+  ├── sophia/        (config exports, test recordings)
+  ├── integrations/  (credentials, exports)
+  ├── contracts/     (signed agreements)
+  └── handoff/       (partner package, delivered post-launch)
+</pre>
+
+      <h2>Key build numbers</h2>
+      <div class="metric-row">
+        <div class="metric"><div class="metric-label">Refresh build time</div><div class="metric-value">10&ndash;14</div><div class="metric-sub">business days</div></div>
+        <div class="metric"><div class="metric-label">+ Sophia build time</div><div class="metric-value">2&ndash;4</div><div class="metric-sub">weeks</div></div>
+        <div class="metric"><div class="metric-label">Full system build time</div><div class="metric-value">4&ndash;6</div><div class="metric-sub">weeks</div></div>
+        <div class="metric"><div class="metric-label">QC window</div><div class="metric-value">30</div><div class="metric-sub">days post-launch</div></div>
+      </div>
+
+      <hr class="panel-rule">
+      <div class="footer-line">
+        Point Zero AI &middot; Delivery Hub &middot; v1.0 &middot; Built for the team. Update as the system evolves.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.nav-item');
+  const panels = document.querySelectorAll('.panel');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.target;
+      items.forEach(i => i.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const active = document.querySelector('.nav-item.active');
+    const list = Array.from(items);
+    const idx = list.indexOf(active);
+    if (e.key === 'ArrowDown' || e.key === 'j') { e.preventDefault(); const next = list[Math.min(idx + 1, list.length - 1)]; if (next) next.click(); }
+    else if (e.key === 'ArrowUp' || e.key === 'k') { e.preventDefault(); const prev = list[Math.max(idx - 1, 0)]; if (prev) prev.click(); }
+  });
+</script>
+</body>
+</html>

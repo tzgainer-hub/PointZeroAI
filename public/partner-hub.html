@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Zero AI · Partner Hub</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B1F3A; --bg-deep: #081628; --surface: #0F2746; --surface-2: #162F54; --surface-3: #1C386A;
+    --border: #1F3A60; --border-soft: #14294a;
+    --gold: #B89B5E; --gold-bright: #D4B872; --gold-dim: #8A744A;
+    --text: #F4F1EA; --text-2: #B5BFD0; --text-3: #7A8AA3;
+    --red: #C56F5C; --green: #6B9D7C;
+    --shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Manrope', system-ui, sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at top left, rgba(184,155,94,0.08) 0%, transparent 40%), radial-gradient(ellipse at bottom right, rgba(28,56,106,0.4) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+  .app { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; position: relative; z-index: 1; }
+  .sidebar { background: var(--bg-deep); border-right: 1px solid var(--border); padding: 32px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .brand { padding: 0 28px 28px; border-bottom: 1px solid var(--border-soft); }
+  .brand-mark { font-family: 'Fraunces', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; }
+  .brand-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; margin-top: 6px; line-height: 1.1; }
+  .brand-sub { font-size: 13px; color: var(--text-3); margin-top: 6px; font-style: italic; }
+  .nav { padding: 20px 0; }
+  .nav-section { font-family: 'Fraunces', serif; font-size: 10px; letter-spacing: 0.25em; color: var(--text-3); text-transform: uppercase; padding: 16px 28px 8px; font-weight: 500; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 28px; color: var(--text-2); cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s ease; font-size: 14.5px; font-weight: 500; }
+  .nav-item:hover { background: var(--surface); color: var(--text); }
+  .nav-item.active { background: linear-gradient(90deg, rgba(184,155,94,0.1) 0%, transparent 100%); color: var(--gold-bright); border-left-color: var(--gold); }
+  .nav-num { font-family: 'Fraunces', serif; font-size: 11px; color: var(--text-3); font-weight: 600; width: 18px; }
+  .nav-item.active .nav-num { color: var(--gold); }
+  .nav-cross { padding: 16px 28px 0; border-top: 1px solid var(--border-soft); margin-top: 16px; }
+  .nav-cross-link { display: block; font-size: 12px; color: var(--text-3); padding: 4px 0; }
+  .nav-cross-link:hover { color: var(--gold-bright); }
+  .main { padding: 56px 64px 80px; max-width: 1100px; }
+  .panel { display: none; animation: fadeIn 0.35s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .panel-eyebrow { font-family: 'Fraunces', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .panel-title { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .panel-lede { font-size: 17px; color: var(--text-2); max-width: 720px; margin-bottom: 40px; line-height: 1.55; }
+  .panel-rule { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+  h2 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; margin: 44px 0 16px; color: var(--text); }
+  h2:first-child { margin-top: 0; }
+  h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; margin: 24px 0 10px; color: var(--gold-bright); letter-spacing: 0; }
+  p { margin-bottom: 14px; color: var(--text-2); }
+  p strong { color: var(--text); font-weight: 600; }
+  em { color: var(--gold-bright); font-style: italic; }
+  ul { margin: 8px 0 16px 22px; }
+  ul li { color: var(--text-2); margin-bottom: 6px; }
+  ul li::marker { color: var(--gold); }
+  a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+  a:hover { color: var(--gold); border-color: var(--gold); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; margin: 16px 0; box-shadow: var(--shadow); }
+  .card-gold { border-left: 3px solid var(--gold); background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); }
+  .card-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--gold-bright); margin-bottom: 8px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 16px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 16px 0; }
+  @media (max-width: 1100px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  th { font-family: 'Manrope', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { color: var(--text-2); }
+  td strong { color: var(--text); }
+  .steps { counter-reset: step; margin: 24px 0; }
+  .step { counter-increment: step; position: relative; padding: 14px 0 14px 56px; border-bottom: 1px solid var(--border-soft); }
+  .step:last-child { border-bottom: 0; }
+  .step::before { content: counter(step); position: absolute; left: 0; top: 16px; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--gold-dim); color: var(--gold-bright); border-radius: 50%; display: grid; place-items: center; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; }
+  .step-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+  .step-meta { font-size: 12px; color: var(--text-3); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+  .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
+  @media (max-width: 1100px) { .metric-row { grid-template-columns: 1fr 1fr; } }
+  .metric { background: var(--surface); border: 1px solid var(--border); padding: 16px 18px; border-radius: 4px; }
+  .metric-label { font-size: 10px; letter-spacing: 0.2em; color: var(--text-3); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .metric-value { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; color: var(--gold-bright); line-height: 1; }
+  .metric-sub { font-size: 12px; color: var(--text-3); margin-top: 6px; }
+  .callout { padding: 18px 22px; border-left: 3px solid var(--gold); background: rgba(184,155,94,0.06); margin: 18px 0; border-radius: 0 4px 4px 0; }
+  .callout-warn { border-left-color: var(--red); background: rgba(197,111,92,0.06); }
+  .callout-good { border-left-color: var(--green); background: rgba(107,157,124,0.06); }
+  .callout p { margin: 0; color: var(--text); }
+  .callout-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px; display: block; }
+  .callout-warn .callout-label { color: var(--red); }
+  .callout-good .callout-label { color: var(--green); }
+  code { background: var(--bg-deep); border: 1px solid var(--border-soft); padding: 1px 6px; border-radius: 3px; font-size: 13px; color: var(--gold-bright); font-family: 'SF Mono', Menlo, monospace; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--surface-3); }
+  .footer-line { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-3); font-size: 12px; font-style: italic; text-align: center; }
+  .matrix { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .matrix th { background: var(--surface); }
+  .matrix .partner-yes { color: var(--gold-bright); font-weight: 600; }
+  .matrix .pzai-yes { color: #8FBA9F; font-weight: 600; }
+  .matrix .neither { color: var(--red); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">Point Zero AI</div>
+      <div class="brand-name">Partner Hub</div>
+      <div class="brand-sub">For our implementation support partner</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">Start Here</div>
+      <div class="nav-item active" data-target="welcome"><span class="nav-num">01</span>Welcome</div>
+      <div class="nav-item" data-target="model"><span class="nav-num">02</span>The Partnership Model</div>
+
+      <div class="nav-section">What You Own</div>
+      <div class="nav-item" data-target="scope"><span class="nav-num">03</span>Support Scope</div>
+      <div class="nav-item" data-target="care"><span class="nav-num">04</span>Care Plans</div>
+      <div class="nav-item" data-target="split"><span class="nav-num">05</span>Partner vs PZAI Split</div>
+
+      <div class="nav-section">How It Runs</div>
+      <div class="nav-item" data-target="onboarding"><span class="nav-num">06</span>Receiving a Client</div>
+      <div class="nav-item" data-target="comms"><span class="nav-num">07</span>Client Communication</div>
+      <div class="nav-item" data-target="escalation"><span class="nav-num">08</span>Escalation Rules</div>
+      <div class="nav-item" data-target="reporting"><span class="nav-num">09</span>Monthly Reporting</div>
+
+      <div class="nav-section">Compliance</div>
+      <div class="nav-item" data-target="hipaa"><span class="nav-num">10</span>White Coat &amp; BAA Flow</div>
+      <div class="nav-item" data-target="redzone"><span class="nav-num">11</span>The Red Zone</div>
+
+      <div class="nav-section">Partnership Health</div>
+      <div class="nav-item" data-target="commitments"><span class="nav-num">12</span>Partner Commitments</div>
+      <div class="nav-item" data-target="exit"><span class="nav-num">13</span>Exit / Replacement</div>
+
+      <div class="nav-section">Reference</div>
+      <div class="nav-item" data-target="resources"><span class="nav-num">14</span>Resources</div>
+    </nav>
+    <div class="nav-cross">
+      <a class="nav-cross-link" href="/team">↗ Team Index</a>
+      <a class="nav-cross-link" href="/sales-hub">↗ Sales Hub</a>
+      <a class="nav-cross-link" href="/delivery-hub">↗ Delivery Hub</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- 01 WELCOME -->
+    <section class="panel active" id="welcome">
+      <div class="panel-eyebrow">Section 01</div>
+      <h1 class="panel-title">Welcome, Partner.</h1>
+      <p class="panel-lede">This hub is for our implementation support partner. It is the operating doc &mdash; what you own, what we own, how clients move from build to ongoing service, what's in scope, and what isn't. If a question comes up, the answer is here.</p>
+
+      <h2>What this partnership is</h2>
+      <p>Point Zero AI designs, builds, and launches smart response systems for service businesses. <strong>Once a system goes live, you take over the ongoing relationship</strong> &mdash; monthly support, edits, monitoring, agent QA, integrations maintenance. Clients sign a Care plan directly with you. You bill the client. You pay Point Zero AI a 15&ndash;20% referral/oversight slice on the monthly recurring revenue.</p>
+
+      <h2>What this partnership is not</h2>
+      <ul>
+        <li><strong>Not a referral firehose.</strong> We don't dump every lead. We screen, build, and hand over launched, working systems.</li>
+        <li><strong>Not white-label.</strong> Clients know Point Zero AI built the system and you support it. Two named brands. Clean handoff.</li>
+        <li><strong>Not subcontracting.</strong> The client signs with you directly. Your contract. Your billing. Your accountability.</li>
+        <li><strong>Not unlimited.</strong> Care plans have defined scope and change-volume bands. Out-of-scope work routes back to PZAI as upgrade quotes.</li>
+      </ul>
+
+      <h2>Who's responsible for what (one-line version)</h2>
+      <div class="callout">
+        <span class="callout-label">The whole model in one sentence</span>
+        <p><em>"Point Zero AI builds and launches the system. The partner runs and maintains it. The client signs two contracts &mdash; one for the build (PZAI), one for ongoing care (partner)."</em></p>
+      </div>
+
+      <h2>Why this works</h2>
+      <ul>
+        <li><strong>For the client:</strong> Specialty matters. The team that designs the system isn't the right team to fix buttons at 8pm. You are.</li>
+        <li><strong>For you:</strong> Recurring revenue without sales overhead. We bring the clients to you with systems already configured.</li>
+        <li><strong>For Point Zero AI:</strong> Clean separation of build and run. We stay focused on what we're good at; you do the same.</li>
+      </ul>
+    </section>
+
+    <!-- 02 MODEL -->
+    <section class="panel" id="model">
+      <div class="panel-eyebrow">Section 02</div>
+      <h1 class="panel-title">The Partnership Model.</h1>
+      <p class="panel-lede">How money, contracts, and accountability flow.</p>
+
+      <h2>Contract structure</h2>
+      <p>Every Partner-Served client signs <strong>two separate contracts</strong>:</p>
+      <div class="grid-2">
+        <div class="card card-gold">
+          <div class="card-title">Build Agreement &mdash; with Point Zero AI</div>
+          <ul>
+            <li>Setup fee ($3,500&ndash;$15,000+ depending on package)</li>
+            <li>Build scope, timeline, deliverables</li>
+            <li>30-day satisfaction guarantee on the launched build</li>
+            <li>Build clock and asset-deadline rules</li>
+            <li>Ends at: launch + partner handoff</li>
+          </ul>
+        </div>
+        <div class="card card-gold">
+          <div class="card-title">Care Agreement &mdash; with Partner</div>
+          <ul>
+            <li>Monthly fee ($497&ndash;$1,497 by tier)</li>
+            <li>Defined support scope (Section 03)</li>
+            <li>Change-request volume bands</li>
+            <li>Month-to-month after initial 90-day term</li>
+            <li>30-day cancellation notice</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Money flow</h2>
+      <table>
+        <tr><th>Stream</th><th>Who collects</th><th>Who pays whom</th></tr>
+        <tr><td><strong>Setup fee</strong></td><td>PZAI bills client (50% on signing, 50% on launch)</td><td>Client &rarr; PZAI. Partner is not party to this.</td></tr>
+        <tr><td><strong>Monthly Care</strong></td><td>Partner bills client directly on auto-pay</td><td>Client &rarr; Partner. Partner remits 15&ndash;20% slice to PZAI monthly.</td></tr>
+        <tr><td><strong>Upgrade fees</strong> (post-launch scope expansions)</td><td>PZAI bills client</td><td>Client &rarr; PZAI. Partner is consulted on scope but doesn't bill.</td></tr>
+        <tr><td><strong>Strategy reviews</strong></td><td>PZAI bills client (quarterly / monthly / annual)</td><td>Client &rarr; PZAI. Optional product, not part of Care.</td></tr>
+      </table>
+
+      <h2>The PZAI slice on Care</h2>
+      <p>Partner pays Point Zero AI a percentage of every Care plan's monthly recurring revenue. Default tier: <strong>15% on Basic ($497/mo), 18% on Growth ($997/mo), 20% on Pro ($1,497/mo).</strong> Adjustable based on partner volume and tenure (negotiated in the partner agreement).</p>
+
+      <table>
+        <tr><th>Care plan</th><th>Client pays partner</th><th>PZAI slice (default)</th><th>Partner net</th></tr>
+        <tr><td><strong>Basic</strong></td><td>$497/mo</td><td>$74.55 (15%)</td><td>$422.45/mo</td></tr>
+        <tr><td><strong>Growth</strong></td><td>$997/mo</td><td>$179.46 (18%)</td><td>$817.54/mo</td></tr>
+        <tr><td><strong>Pro</strong></td><td>$1,497/mo</td><td>$299.40 (20%)</td><td>$1,197.60/mo</td></tr>
+      </table>
+
+      <h2>Slice payment cadence</h2>
+      <ul>
+        <li>Partner remits the slice <strong>monthly</strong>, by the 10th of the following month</li>
+        <li>Payment method: ACH or partner-preferred (specified in partner agreement)</li>
+        <li>Backed by: monthly reporting (Section 09) showing active Care clients and their tiers</li>
+        <li>Late payments: 5-day grace, then 1.5%/mo interest, escalation if &gt;30 days</li>
+      </ul>
+
+      <h2>Client ownership</h2>
+      <div class="callout-warn callout">
+        <span class="callout-label">Hard rule</span>
+        <p>The client relationship belongs to <strong>both</strong> Point Zero AI and the partner. Partner does not solicit clients to leave PZAI's ecosystem. PZAI does not bypass partner to offer support directly. Both sides honor the model. (Specifics in the partner agreement, not just here.)</p>
+      </div>
+    </section>
+
+    <!-- 03 SCOPE -->
+    <section class="panel" id="scope">
+      <div class="panel-eyebrow">Section 03</div>
+      <h1 class="panel-title">Support Scope.</h1>
+      <p class="panel-lede">What's included in a Care plan, in writing. If the client asks for something outside this list, it's an upgrade &mdash; quoted by Point Zero AI.</p>
+
+      <h2>What every Care plan includes (regardless of tier)</h2>
+      <ul>
+        <li><strong>Sophia agent monitoring.</strong> Spot-check call logs at minimum cadence by tier (Section 04).</li>
+        <li><strong>System uptime monitoring.</strong> Alerts if site, Sophia, or critical integrations go down.</li>
+        <li><strong>Calendar / CRM sync health.</strong> Ensure bookings land where they should.</li>
+        <li><strong>Email + SMS confirmation delivery.</strong> Ensure customer-facing notifications keep firing.</li>
+        <li><strong>Bug fixes &amp; small content updates.</strong> Within the change-volume band for the tier.</li>
+        <li><strong>Monthly performance report</strong> to the client.</li>
+        <li><strong>Business-hours support response window</strong> (defined per tier).</li>
+        <li><strong>Quarterly handover sync with PZAI</strong> &mdash; surfacing patterns, upgrade opportunities, escalations.</li>
+      </ul>
+
+      <h2>What's not in scope (upgrade quotes go to PZAI)</h2>
+      <ul>
+        <li>New site sections, new pages, redesigns</li>
+        <li>New AI agents or major Sophia retraining (vs. tuning)</li>
+        <li>New CRM platforms or integrations</li>
+        <li>Multi-location expansion</li>
+        <li>Net-new automations / workflows</li>
+        <li>Custom reporting beyond monthly digest</li>
+        <li>Migration to different hosting / platforms</li>
+        <li>SEO content campaigns / blog production</li>
+        <li>Anything the client describes as "a new project"</li>
+      </ul>
+
+      <div class="callout">
+        <span class="callout-label">The simple test</span>
+        <p><em>If a request would have been quoted as an Upgrade Fee in the original Sales Hub (Section 03), it's an upgrade &mdash; not a Care request. Send it back to PZAI for scoping.</em></p>
+      </div>
+
+      <h2>Change-volume bands by tier</h2>
+      <table>
+        <tr><th>Tier</th><th>Monthly change requests</th><th>Definition of "change"</th></tr>
+        <tr><td><strong>Basic ($497)</strong></td><td>Up to 2 small changes / mo</td><td>Hours, contact info, copy edits, photo swaps, FAQ tweak</td></tr>
+        <tr><td><strong>Growth ($997)</strong></td><td>Up to 5 small changes / mo</td><td>Same as above + Sophia voice tuning, calendar adjustments</td></tr>
+        <tr><td><strong>Pro ($1,497)</strong></td><td>Up to 10 small changes / mo</td><td>Same as above + priority response, deeper monthly digest</td></tr>
+      </table>
+      <p>Beyond the volume band: bill the client at $150/hr (or partner's rate) OR refer to PZAI for an upgrade quote on bigger work.</p>
+    </section>
+
+    <!-- 04 CARE -->
+    <section class="panel" id="care">
+      <div class="panel-eyebrow">Section 04</div>
+      <h1 class="panel-title">The Three Care Plans.</h1>
+      <p class="panel-lede">What partner delivers at each tier. The differences are real &mdash; not just price tiers with the same scope.</p>
+
+      <div class="card card-gold">
+        <div class="card-title">Basic Care &mdash; $497 / month</div>
+        <p><strong>For:</strong> Small businesses with stable systems, light support needs.</p>
+        <ul>
+          <li><strong>Sophia call review:</strong> Spot-check 5 calls / week</li>
+          <li><strong>Response window:</strong> Within 1 business day for non-emergencies</li>
+          <li><strong>Change requests:</strong> 2 small changes / month</li>
+          <li><strong>Monthly report:</strong> Standard digest (calls, bookings, lost calls, top issues)</li>
+          <li><strong>Quarterly review with PZAI:</strong> Yes</li>
+        </ul>
+        <p><strong>Partner net:</strong> $422.45 / mo / client (after 15% PZAI slice)</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">Growth Care &mdash; $997 / month</div>
+        <p><strong>For:</strong> Active service businesses, regular tuning and edits.</p>
+        <ul>
+          <li><strong>Sophia call review:</strong> Listen to 10&ndash;15 calls / week, document patterns</li>
+          <li><strong>Response window:</strong> Within 4 business hours for non-emergencies</li>
+          <li><strong>Change requests:</strong> 5 small changes / month</li>
+          <li><strong>Voice / agent tuning:</strong> Quarterly proactive review and tuning</li>
+          <li><strong>Monthly report:</strong> Enhanced digest with trends, recommendations</li>
+          <li><strong>Quarterly review with PZAI:</strong> Yes, with upgrade-opportunity flagging</li>
+        </ul>
+        <p><strong>Partner net:</strong> $817.54 / mo / client (after 18% PZAI slice)</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">Pro Care &mdash; $1,497 / month</div>
+        <p><strong>For:</strong> Multi-location or high-volume clients; mission-critical systems.</p>
+        <ul>
+          <li><strong>Sophia call review:</strong> Daily spot-check, full transcript review weekly</li>
+          <li><strong>Response window:</strong> Within 1 business hour for non-emergencies; 30 min for system-down</li>
+          <li><strong>Change requests:</strong> 10 small changes / month</li>
+          <li><strong>Voice / agent tuning:</strong> Monthly proactive tuning</li>
+          <li><strong>Monthly report:</strong> Premium digest with deep analysis, conversion tracking</li>
+          <li><strong>Quarterly review with PZAI:</strong> Yes, with strategic-upgrade roadmap</li>
+          <li><strong>Direct line to senior partner staff</strong></li>
+        </ul>
+        <p><strong>Partner net:</strong> $1,197.60 / mo / client (after 20% PZAI slice)</p>
+      </div>
+
+      <div class="callout">
+        <span class="callout-label">Tier upgrades after launch</span>
+        <p>Clients can move between tiers with 30 days' notice. New tier takes effect the following billing month. PZAI is notified of all tier moves in the monthly report (Section 09).</p>
+      </div>
+    </section>
+
+    <!-- 05 SPLIT -->
+    <section class="panel" id="split">
+      <div class="panel-eyebrow">Section 05</div>
+      <h1 class="panel-title">Partner vs PZAI Split.</h1>
+      <p class="panel-lede">When a question arises about a launched client, who handles it? The matrix below is the source of truth.</p>
+
+      <h2>Responsibility matrix</h2>
+      <table class="matrix">
+        <tr><th>Activity</th><th>Partner</th><th>PZAI</th></tr>
+        <tr><td><strong>Sophia voice tuning (within original scope)</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>Site copy edits / photo swaps</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>Calendar / CRM sync issues</strong></td><td class="partner-yes">Owns</td><td>Escalation only</td></tr>
+        <tr><td><strong>Phone / Twilio billing &amp; provisioning</strong></td><td class="partner-yes">Owns (with admin access)</td><td>—</td></tr>
+        <tr><td><strong>Monthly performance report</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>Client billing for Care</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>Day-to-day client comms</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>Bug fixes (within scope)</strong></td><td class="partner-yes">Owns</td><td>—</td></tr>
+        <tr><td><strong>New site pages / sections</strong></td><td>Refers to PZAI</td><td class="pzai-yes">Quotes &amp; builds</td></tr>
+        <tr><td><strong>New agent / major Sophia retraining</strong></td><td>Refers to PZAI</td><td class="pzai-yes">Quotes &amp; builds</td></tr>
+        <tr><td><strong>Multi-location expansion</strong></td><td>Refers to PZAI</td><td class="pzai-yes">Quotes &amp; builds</td></tr>
+        <tr><td><strong>Strategic upgrades / system redesign</strong></td><td>Refers to PZAI</td><td class="pzai-yes">Quotes &amp; builds</td></tr>
+        <tr><td><strong>Strategy reviews (Quarterly / Monthly / Annual)</strong></td><td>—</td><td class="pzai-yes">Owns</td></tr>
+        <tr><td><strong>Sales / new client acquisition</strong></td><td>—</td><td class="pzai-yes">Owns</td></tr>
+        <tr><td><strong>Sales Hub / Delivery Hub maintenance</strong></td><td>—</td><td class="pzai-yes">Owns</td></tr>
+        <tr><td><strong>Partner agreement renewal / rev-share negotiation</strong></td><td>—</td><td class="pzai-yes">Owns</td></tr>
+        <tr><td><strong>HIPAA / BAA on Path A clients</strong></td><td class="partner-yes">Signs &amp; owns BAA</td><td>—</td></tr>
+        <tr><td><strong>Legal advice / contract drafting for clients</strong></td><td class="neither">Neither (refer)</td><td class="neither">Neither (refer)</td></tr>
+      </table>
+
+      <h2>Quick decision tree</h2>
+      <ol>
+        <li><strong>Is the request about something we built and launched?</strong> If no, it's not in scope &mdash; refer client to whoever did build it.</li>
+        <li><strong>Is it within the Care plan scope (Section 03)?</strong> If yes, partner owns. If no, go to step 3.</li>
+        <li><strong>Is it a defined upgrade item (new pages, new agents, etc.)?</strong> If yes, refer to PZAI for an upgrade quote.</li>
+        <li><strong>Is it a strategic / advisory question?</strong> If yes, that's a Strategy Review &mdash; PZAI billable.</li>
+        <li><strong>Is it a legal / compliance issue?</strong> Stop. Notify Tom immediately. Don't improvise.</li>
+      </ol>
+    </section>
+
+    <!-- 06 ONBOARDING -->
+    <section class="panel" id="onboarding">
+      <div class="panel-eyebrow">Section 06</div>
+      <h1 class="panel-title">Receiving a New Client.</h1>
+      <p class="panel-lede">The handoff process from PZAI build team to partner. Six steps, all happen within 7 days of launch.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">Day -7 (pre-launch)</div>
+          <div class="step-title">Pre-handoff briefing</div>
+          <p>PZAI build lead schedules a 15-min briefing with partner. Shares: client context, Sophia config nuances, integrations status, anticipated quirks. Partner asks questions; nothing is in writing yet but partner understands what's coming.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch day</div>
+          <div class="step-title">Launch announcement</div>
+          <p>Partner is cc'd on PZAI's launch communication to the client. Partner does not yet engage &mdash; PZAI is still primary.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch + 3 days</div>
+          <div class="step-title">Handoff package delivered</div>
+          <p>PZAI delivers the full handoff package (build artifacts + operating docs) to <code>/clients/[business-name]/handoff/</code> in shared drive. Partner reviews. Flags anything missing within 24 hours.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch + 5 days</div>
+          <div class="step-title">Partner kickoff meeting</div>
+          <p>30 min. Builder + partner + Tom (oversight). Walk-through of handoff package + live demo + Q&amp;A. Partner confirms takeover date.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch + 7 days</div>
+          <div class="step-title">Client introduction email</div>
+          <p>Builder sends the introduction email (template in Section 07), cc'ing partner. This is when the client formally learns who their day-to-day contact is going forward.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch + 14 days</div>
+          <div class="step-title">First partner check-in with client</div>
+          <p>Partner schedules a 20-min intro call with the client. Goal: confirm partner is responsive, surface any early issues, set expectation on monthly reports and response times.</p>
+        </div>
+      </div>
+
+      <h2>What partner receives in the handoff package</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Build artifacts</h3>
+          <ul>
+            <li>Site source / CMS access (admin)</li>
+            <li>Sophia configuration export</li>
+            <li>Twilio number + account access (admin)</li>
+            <li>Calendar / CRM credentials</li>
+            <li>GHL workflow exports (default 6)</li>
+            <li>Domain / DNS records</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Operating docs</h3>
+          <ul>
+            <li>Client-specific Sophia notes (voice tuning, edge cases)</li>
+            <li>Service-area + pricing reference</li>
+            <li>Stakeholder map (decision-maker, payer, tester)</li>
+            <li>Active integrations list</li>
+            <li>Known quirks discovered during build</li>
+            <li>30-day QC plan handed off to partner</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">If the handoff package is incomplete</span>
+        <p>If something is missing, flag it within 24 hours of receipt. Don't assume "we'll figure it out later." Missing handoff items at Day 30 become support tickets the partner can't answer.</p>
+      </div>
+    </section>
+
+    <!-- 07 COMMS -->
+    <section class="panel" id="comms">
+      <div class="panel-eyebrow">Section 07</div>
+      <h1 class="panel-title">Client Communication.</h1>
+      <p class="panel-lede">How partner talks to clients. Templates for first email, monthly report, and common touchpoints.</p>
+
+      <h2>Template: Client introduction email (sent by PZAI builder, cc partner)</h2>
+      <div class="card card-gold">
+        <div class="card-title">Subject: Welcome to your support partner</div>
+        <p style="font-style: italic; color: var(--text-2);">[Client name] &mdash; great launch this week. Now that the system is live, ongoing support transfers to <strong>[Partner Name]</strong> at <strong>[Partner Company]</strong>. They've already received your full system documentation and will be your day-to-day contact for any updates, questions, or troubleshooting going forward.<br><br>Their support email is <strong>[partner-email]</strong> and their support line is <strong>[partner-phone]</strong>. They'll reach out within the next 7 days to introduce themselves directly.<br><br>For strategic upgrades, expansions, or anything outside ongoing support, you can still reach out to me directly. &mdash; [Builder Name], Point Zero AI</p>
+      </div>
+
+      <h2>Template: Partner first-touch email (within 7 days of intro email)</h2>
+      <div class="card card-gold">
+        <div class="card-title">Subject: Hi from [Partner Name] &mdash; your support partner for [System]</div>
+        <p style="font-style: italic; color: var(--text-2);">Hi [Client first name] &mdash; congrats on the launch. I'm [Partner name] at [Partner company], and I'll be your day-to-day support contact for [system] going forward.<br><br>A few things to know:<br>&bull; My email <strong>[partner-email]</strong> is the fastest way to reach me. Response time on your tier is [X business hours].<br>&bull; You'll get a monthly report from me with call volumes, bookings, and any patterns I'm seeing.<br>&bull; If you ever need a change to your site, your Sophia setup, or your integrations, just email me and I'll handle it.<br>&bull; If you want to expand the system &mdash; new pages, new agents, multi-location &mdash; I'll loop in Point Zero AI for the build side.<br><br>Want to do a quick 20-minute intro call this week so I can walk you through what your monthly experience looks like? Here's my calendar: <strong>[partner-calendar-link]</strong><br><br>&mdash; [Partner name]</p>
+      </div>
+
+      <h2>Template: Monthly performance report</h2>
+      <p>Sent by partner to client on the 5th of each month, covering the prior month. Partner-branded but follows this structure:</p>
+      <ul>
+        <li><strong>Headline numbers:</strong> total calls, booked jobs, missed calls, after-hours volume</li>
+        <li><strong>Sophia performance:</strong> avg call length, qualification accuracy, booking rate</li>
+        <li><strong>System health:</strong> uptime %, integration status, any incidents</li>
+        <li><strong>Changes made this month:</strong> what partner did (within Care scope)</li>
+        <li><strong>Recommendations:</strong> 1&ndash;3 observations or upgrade suggestions (route upgrades to PZAI)</li>
+        <li><strong>Next month focus:</strong> 1 thing partner is watching</li>
+      </ul>
+
+      <h2>Tone &amp; voice</h2>
+      <ul>
+        <li><strong>Professional but warm.</strong> Service-business owners trust people, not departments.</li>
+        <li><strong>Direct, not jargon-heavy.</strong> "Sophia missed 3 calls last week" beats "agent latency anomaly."</li>
+        <li><strong>No promises about outcomes</strong> (lead volume, conversion). Speak only to what partner controls.</li>
+        <li><strong>Refer up to PZAI</strong> on any strategic question. Don't freelance the answer.</li>
+      </ul>
+    </section>
+
+    <!-- 08 ESCALATION -->
+    <section class="panel" id="escalation">
+      <div class="panel-eyebrow">Section 08</div>
+      <h1 class="panel-title">Escalation Rules.</h1>
+      <p class="panel-lede">When to bring Point Zero AI in. Most things partner handles directly. These five categories always escalate.</p>
+
+      <h2>Always-escalate list</h2>
+      <table>
+        <tr><th>Trigger</th><th>Who to notify</th><th>Window</th></tr>
+        <tr><td><strong>System outage &gt; 30 minutes</strong></td><td>Tom + builder</td><td>Within the outage window, not after</td></tr>
+        <tr><td><strong>Client threatens cancellation</strong></td><td>Tom directly</td><td>Within 24 hours of the conversation</td></tr>
+        <tr><td><strong>Legal / compliance issue surfaces</strong></td><td>Tom immediately, before responding to client</td><td>Same day. Pause client comms until aligned.</td></tr>
+        <tr><td><strong>Pattern of complaints (3+ in a week)</strong></td><td>Tom + builder</td><td>Within 48 hours of the pattern emerging</td></tr>
+        <tr><td><strong>Out-of-scope request</strong></td><td>PZAI sales for upgrade quote</td><td>Within 1 business day of the client asking</td></tr>
+      </table>
+
+      <h2>White Coat / HIPAA escalations</h2>
+      <div class="callout-warn callout">
+        <span class="callout-label">Special rules</span>
+        <p>For Path A (HIPAA-touching) clients, additional escalation triggers apply:</p>
+        <ul style="margin-top: 8px;">
+          <li><strong>Any suspected PHI breach or near-miss</strong> &rarr; Tom + your compliance officer immediately. Document the incident before doing anything else.</li>
+          <li><strong>Client requests changes that would touch PHI</strong> &rarr; review against BAA before agreeing.</li>
+          <li><strong>BAA renewal / amendment</strong> &rarr; partner-side; loop in Tom for awareness.</li>
+        </ul>
+      </div>
+
+      <h2>What partner handles without escalation</h2>
+      <ul>
+        <li>Routine support requests within Care scope</li>
+        <li>Sophia tuning within original configuration</li>
+        <li>Single-customer complaints that aren't pattern-forming</li>
+        <li>Calendar / CRM hiccups recoverable within an hour</li>
+        <li>Standard change requests within volume bands</li>
+        <li>Monthly reporting and quarterly check-ins</li>
+      </ul>
+
+      <h2>How to escalate</h2>
+      <ul>
+        <li><strong>Channel:</strong> email Tom at <code>tomz@pointzeroai.com</code> with subject prefix <code>[ESCALATION]</code></li>
+        <li><strong>Severity tag:</strong> <code>[P1]</code> outage / legal / compliance / cancellation threat &middot; <code>[P2]</code> pattern / out-of-scope &middot; <code>[P3]</code> FYI</li>
+        <li><strong>Body:</strong> client name, what happened, what you've done so far, what you need from PZAI</li>
+        <li><strong>For P1:</strong> follow up with text to Tom's mobile if no email reply within 1 hour during business hours</li>
+      </ul>
+    </section>
+
+    <!-- 09 REPORTING -->
+    <section class="panel" id="reporting">
+      <div class="panel-eyebrow">Section 09</div>
+      <h1 class="panel-title">Monthly Reporting to PZAI.</h1>
+      <p class="panel-lede">One report per month from partner to PZAI. Due by the 10th, covering the prior month. This is how the partnership stays healthy.</p>
+
+      <h2>Monthly report structure</h2>
+      <table>
+        <tr><th>Section</th><th>Content</th></tr>
+        <tr><td><strong>Active client count</strong></td><td>Total clients on each Care tier (Basic / Growth / Pro)</td></tr>
+        <tr><td><strong>Tier moves</strong></td><td>Upgrades, downgrades, cancellations &mdash; with one-line reason for each</td></tr>
+        <tr><td><strong>New clients onboarded</strong></td><td>From handoff this month</td></tr>
+        <tr><td><strong>Client churn</strong></td><td>Cancellations and churn reasons (free-text)</td></tr>
+        <tr><td><strong>Aggregate health metrics</strong></td><td>Average response time, total tickets, avg tickets per client</td></tr>
+        <tr><td><strong>Patterns surfaced</strong></td><td>Anything seen across multiple clients (e.g., "Sophia struggling with [X] dialect"). Drives PZAI roadmap.</td></tr>
+        <tr><td><strong>Upgrade opportunities</strong></td><td>Clients ready for upsell. PZAI sales picks these up.</td></tr>
+        <tr><td><strong>Slice payment</strong></td><td>Confirmation of slice paid for the month, with itemized breakdown by client</td></tr>
+      </table>
+
+      <h2>Quarterly review</h2>
+      <p>In addition to monthly reports, partner and Tom meet quarterly (60 min). Agenda:</p>
+      <ul>
+        <li>Review monthly reports for the quarter</li>
+        <li>Discuss any partnership friction or process issues</li>
+        <li>Roadmap alignment (what's PZAI building, what's partner seeing)</li>
+        <li>Pricing / rev-share check-in (annually, not quarterly, but raise here if needed)</li>
+        <li>Strategic clients of note (Tom-Direct shifting to partner, partner clients PZAI wants visibility on)</li>
+      </ul>
+
+      <div class="callout">
+        <span class="callout-label">Why this matters</span>
+        <p><em>The monthly report is how Tom knows the partnership is alive and healthy. Skipped reports are an early warning sign that something's wrong. Two missed monthly reports without notice triggers a partnership health conversation.</em></p>
+      </div>
+    </section>
+
+    <!-- 10 HIPAA -->
+    <section class="panel" id="hipaa">
+      <div class="panel-eyebrow">Section 10</div>
+      <h1 class="panel-title">White Coat &amp; BAA Flow.</h1>
+      <p class="panel-lede">For dental, medical, and healthcare clients on Path A (HIPAA-touching builds). Path B clients are zero-PHI &mdash; this section doesn't apply to them.</p>
+
+      <h2>The hard rule, restated</h2>
+      <div class="callout-warn callout">
+        <span class="callout-label">Tom does not sign BAAs. Point Zero AI does not sign BAAs.</span>
+        <p>For any HIPAA-touching build, the <strong>partner</strong> signs the Business Associate Agreement and assumes the compliance role. PZAI builds the system to your compliance specifications. The contract structure exists to keep PZAI out of the BAA chain entirely.</p>
+      </div>
+
+      <h2>Path A workflow</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">Sales call</div>
+          <div class="step-title">Closer flags Path A intent</div>
+          <p>If a healthcare prospect specifically wants HIPAA-touching features, closer notes Path A in the proposal. PZAI sales confirms with partner that you have BAA capacity for this client.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Pre-build</div>
+          <div class="step-title">Partner signs BAA with client</div>
+          <p>Before any PHI-touching build starts, partner and client execute the BAA. PZAI does not start building until the BAA is in place. <em>This is a hard gate, not a paperwork formality.</em></p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Build phase</div>
+          <div class="step-title">PZAI builds to compliance spec</div>
+          <p>PZAI builds the system following the partner's HIPAA-compliant infrastructure requirements: encrypted data at rest, encrypted in transit, access logging, audit trails, segregated environments, etc.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Pre-launch</div>
+          <div class="step-title">Compliance review</div>
+          <p>Partner runs a compliance review of the built system. Sign-off is a precondition for launch.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Launch + handoff</div>
+          <div class="step-title">Partner takes operational ownership</div>
+          <p>Partner runs the live system under the BAA. PZAI transfers all PHI-touching access and credentials to partner. PZAI staff retain no access to PHI. Partner-only.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Ongoing</div>
+          <div class="step-title">Annual BAA renewal &amp; audit</div>
+          <p>Partner manages the BAA lifecycle: renewals, amendments, breach notifications, periodic compliance audits. PZAI is not a party to any of this.</p>
+        </div>
+      </div>
+
+      <h2>What PZAI commits to on Path A</h2>
+      <ul>
+        <li>Build to partner's stated infrastructure requirements</li>
+        <li>Document data flows and any PHI touchpoints in the build</li>
+        <li>Hand over all access and credentials at launch</li>
+        <li>Retain no PHI access post-launch</li>
+        <li>Notify partner of any planned upgrades or changes that would touch PHI</li>
+      </ul>
+
+      <h2>What partner commits to on Path A</h2>
+      <ul>
+        <li>Sign the BAA with the client before build starts</li>
+        <li>Provide a written compliance spec for the build</li>
+        <li>Run the compliance review pre-launch</li>
+        <li>Operate the live system under the BAA, including breach response</li>
+        <li>Carry appropriate professional liability / cyber insurance</li>
+        <li>Notify PZAI of any compliance incident affecting build artifacts</li>
+      </ul>
+
+      <div class="callout-warn callout">
+        <span class="callout-label">If partner can't sign a BAA</span>
+        <p>If partner does not have BAA capacity (no compliance program, no insurance, no infrastructure), Path A clients cannot be sold &mdash; only Path B (marketing-only, zero PHI). PZAI sales is informed of partner's BAA capacity at all times. <em>"We can do HIPAA" is a binary capability, not a maybe.</em></p>
+      </div>
+    </section>
+
+    <!-- 11 REDZONE -->
+    <section class="panel" id="redzone">
+      <div class="panel-eyebrow">Section 11</div>
+      <h1 class="panel-title">The Red Zone (Partner Edition).</h1>
+      <p class="panel-lede">What partner does not do, even if a client asks. The boundaries that keep the partnership clean.</p>
+
+      <h2>Out of scope, period</h2>
+      <ul>
+        <li><strong>No PHI handling on Path B clients.</strong> If a Path B client asks for a PHI feature, refer back to PZAI &mdash; not as an upgrade quote, but as a path-conversion conversation.</li>
+        <li><strong>No legal / financial / medical advice agents.</strong> Same red lines as PZAI's Sales Hub Section 11.</li>
+        <li><strong>No solicitation of clients away from the PZAI ecosystem.</strong> Partner does not pitch competing services to PZAI-originated clients.</li>
+        <li><strong>No subcontracting without PZAI awareness.</strong> If partner uses subcontractors for support work, PZAI is informed and contractors honor the same rules.</li>
+        <li><strong>No undercutting upgrades.</strong> If a client asks for new pages or agents, partner refers to PZAI &mdash; doesn't quietly build them at a discount.</li>
+        <li><strong>No after-hours / 24/7 availability promises</strong> beyond what's in the Care plan.</li>
+      </ul>
+
+      <h2>Language partner doesn't use with clients</h2>
+      <ul>
+        <li><strong>"I'll talk to Tom about it."</strong> &rarr; <em>"I'll bring this back to Point Zero AI for a scope and quote."</em></li>
+        <li><strong>"We can do that for free."</strong> &rarr; <em>"That's outside the Care plan, but I can get you a quick scope from PZAI."</em></li>
+        <li><strong>"Just text me."</strong> &rarr; <em>"Email's the best way to reach me &mdash; I respond within [X business hours]."</em></li>
+        <li><strong>"I'll handle the legal side."</strong> &rarr; never. Refer to client's own counsel.</li>
+      </ul>
+
+      <h2>Things partner doesn't volunteer</h2>
+      <ul>
+        <li><strong>Pricing on builds, agents, or upgrades.</strong> That's PZAI's lane.</li>
+        <li><strong>Opinions on PZAI's strategy or roadmap.</strong> Surface observations in monthly reports; not in client conversations.</li>
+        <li><strong>Discount offers or extensions.</strong> All commercial terms come from PZAI.</li>
+      </ul>
+
+      <div class="callout">
+        <span class="callout-label">When in doubt</span>
+        <p><em>"I'd like to confirm the right answer with Point Zero AI &mdash; I'll come back to you within one business day."</em> No client expects an instant answer to every question. Buying time to align is professional, not weak.</p>
+      </div>
+    </section>
+
+    <!-- 12 COMMITMENTS -->
+    <section class="panel" id="commitments">
+      <div class="panel-eyebrow">Section 12</div>
+      <h1 class="panel-title">Partner Commitments.</h1>
+      <p class="panel-lede">What partner agrees to in exchange for the steady stream of launched clients and the recurring revenue. The non-financial side of the partner agreement.</p>
+
+      <h2>Operational commitments</h2>
+      <ul>
+        <li><strong>Business entity</strong> &mdash; partner operates as a registered business entity (LLC, S-Corp, or similar) with EIN. No sole-proprietor handshake deals.</li>
+        <li><strong>Professional email + ticket system</strong> &mdash; <code>support@</code> address with a real ticket trail, not a personal Gmail.</li>
+        <li><strong>Defined response time</strong> &mdash; matching the tier promise. Documented and tracked.</li>
+        <li><strong>Direct billing capability</strong> &mdash; partner can bill clients on auto-pay (Stripe, ACH, or similar). No "PZAI bills and I take a cut" inversions.</li>
+        <li><strong>Insurance</strong> &mdash; professional liability, cyber liability (especially for Path A), errors &amp; omissions. Levels specified in partner agreement.</li>
+        <li><strong>Documentation discipline</strong> &mdash; every client interaction is logged. Every change is documented. No tribal-knowledge support.</li>
+        <li><strong>Monthly reporting on time</strong> &mdash; due by the 10th, every month. (Section 09.)</li>
+      </ul>
+
+      <h2>Brand &amp; relationship commitments</h2>
+      <ul>
+        <li><strong>Honor the brand split</strong> &mdash; clients know PZAI built the system and partner supports it. Don't pretend otherwise in either direction.</li>
+        <li><strong>No client poaching</strong> &mdash; partner does not solicit PZAI-originated clients to migrate to partner-only services.</li>
+        <li><strong>No competing offers</strong> &mdash; partner does not pitch competitive build services to PZAI clients during the partnership.</li>
+        <li><strong>Public references</strong> &mdash; partner does not publicly claim to have built systems they only support. Partner can publicly reference the partnership with PZAI's permission.</li>
+        <li><strong>Confidentiality</strong> &mdash; client data, PZAI's hubs, internal pricing structures, and partner agreements are confidential.</li>
+      </ul>
+
+      <h2>Quality commitments</h2>
+      <ul>
+        <li><strong>Care plan delivery</strong> &mdash; partner delivers what each Care tier promises. Failure rates trigger partnership review.</li>
+        <li><strong>Client retention</strong> &mdash; partner aims for 12+ month average client retention. Below 8 months without external cause is a partnership-health conversation.</li>
+        <li><strong>Client satisfaction</strong> &mdash; partner runs a satisfaction check (NPS or equivalent) at month 3 and month 12. Shared in monthly reports.</li>
+      </ul>
+
+      <h2>What PZAI commits to partner</h2>
+      <ul>
+        <li>Bring launched, working systems &mdash; not half-baked builds</li>
+        <li>Honor the upgrade-quote pipeline &mdash; route upgrade work back through partner first</li>
+        <li>Pay slice on time, every month</li>
+        <li>Provide clear and accurate handoff packages</li>
+        <li>Loop partner in on roadmap changes that affect support</li>
+        <li>Honor the partnership in client conversations &mdash; never bypass partner for direct support work outside agreed exceptions</li>
+      </ul>
+    </section>
+
+    <!-- 13 EXIT -->
+    <section class="panel" id="exit">
+      <div class="panel-eyebrow">Section 13</div>
+      <h1 class="panel-title">Exit / Replacement Process.</h1>
+      <p class="panel-lede">Partnerships end. The question is whether they end cleanly. This section is what happens if either side decides to part ways &mdash; or if performance triggers a replacement.</p>
+
+      <h2>Voluntary partnership exit</h2>
+      <p>Either side can exit the partnership with <strong>90 days' written notice</strong>. During the 90 days:</p>
+      <ul>
+        <li>No new clients are routed to the exiting partner</li>
+        <li>Active clients continue to be served at full Care levels</li>
+        <li>PZAI identifies and onboards a replacement partner (if applicable)</li>
+        <li>Knowledge transfer plan is built and executed before the 90 days end</li>
+        <li>Slice payments continue through the notice period for clients still under partner's Care</li>
+      </ul>
+
+      <h2>Performance-triggered replacement</h2>
+      <p>PZAI may initiate a partnership-health review if any of these patterns emerge:</p>
+      <ul>
+        <li>Two consecutive months of missed monthly reports without notice</li>
+        <li>Three or more <code>[P1]</code> escalations from a single partner in a quarter that should have been handled directly</li>
+        <li>Sustained client complaint pattern (3+ clients in a quarter raising response-time or quality issues)</li>
+        <li>Slice payments late by more than 30 days</li>
+        <li>Discovery of any Red Zone violation (Section 11)</li>
+        <li>Client churn rate &gt; 20% over a rolling 6 months without external cause</li>
+      </ul>
+      <p>Partnership-health review is a conversation, not an automatic termination. The goal is to fix what's fixable. If unfixable, the 90-day exit clock starts.</p>
+
+      <h2>Client transition to a new partner</h2>
+      <p>When a client moves from one partner to another (whether by exit or replacement):</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-meta">Day 0</div>
+          <div class="step-title">PZAI informs client of transition</div>
+          <p>PZAI sends client a clear, professional explanation of the partner change. Names the new partner. Assures continuity.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 0&ndash;14</div>
+          <div class="step-title">Outgoing partner prepares handoff</div>
+          <p>Outgoing partner compiles: client-specific notes, all changes made under their tenure, open issues, integration credentials. Stored in the client's <code>/handoff/</code> folder, partner subfolder.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 14&ndash;21</div>
+          <div class="step-title">New partner onboards on the client</div>
+          <p>Same handoff process as Section 06, but with outgoing partner instead of PZAI builder as the briefing source.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 21</div>
+          <div class="step-title">Client introduction to new partner</div>
+          <p>PZAI sends transition email. Client now has new partner's contact info. Old partner steps back.</p>
+        </div>
+        <div class="step">
+          <div class="step-meta">Day 21&ndash;30</div>
+          <div class="step-title">Stability period</div>
+          <p>New partner runs the client's Care while having access to outgoing partner for clarification questions. After Day 30, transition is complete.</p>
+        </div>
+      </div>
+
+      <h2>What partner is owed at exit</h2>
+      <ul>
+        <li>All slice payments due through the notice period</li>
+        <li>30-day final reconciliation period after notice ends, for any payment trailing</li>
+        <li>Reasonable cooperation from PZAI on the transition</li>
+      </ul>
+
+      <h2>What partner owes at exit</h2>
+      <ul>
+        <li>Continued service quality through the notice period (no coast mode)</li>
+        <li>Complete handoff documentation for every active client</li>
+        <li>Return of credentials, access, and client data per the partner agreement</li>
+        <li>Confidentiality continues post-exit</li>
+        <li>Non-solicit of PZAI clients per the partner agreement (typically 12 months)</li>
+      </ul>
+
+      <div class="callout">
+        <span class="callout-label">The why behind the structure</span>
+        <p><em>The exit process is not designed to make partnerships hard to end. It's designed to make them end well, so clients don't pay the price for the partnership change. A clean exit is its own reference for future partnerships.</em></p>
+      </div>
+    </section>
+
+    <!-- 14 RESOURCES -->
+    <section class="panel" id="resources">
+      <div class="panel-eyebrow">Section 14</div>
+      <h1 class="panel-title">Resources.</h1>
+      <p class="panel-lede">Templates, links, and contacts for the partnership.</p>
+
+      <h2>The other hubs</h2>
+      <table>
+        <tr><th>Hub</th><th>URL</th><th>Use</th></tr>
+        <tr><td><strong>Sales Hub</strong></td><td><a href="/sales-hub" target="_blank">/sales-hub</a></td><td>What was sold to the client &mdash; pricing, packages, scope</td></tr>
+        <tr><td><strong>Delivery Hub</strong></td><td><a href="/delivery-hub" target="_blank">/delivery-hub</a></td><td>How the system was built &mdash; technical reference for handoff</td></tr>
+        <tr><td><strong>Team Index</strong></td><td><a href="/team" target="_blank">/team</a></td><td>Landing page for all three hubs</td></tr>
+      </table>
+
+      <h2>PZAI contacts</h2>
+      <table>
+        <tr><th>Need</th><th>Contact</th></tr>
+        <tr><td><strong>Escalations (all P1)</strong></td><td><code>tomz@pointzeroai.com</code></td></tr>
+        <tr><td><strong>Slice payment / billing</strong></td><td><code>tomz@pointzeroai.com</code></td></tr>
+        <tr><td><strong>Upgrade quotes / new scope</strong></td><td><code>support@pointzeroai.com</code></td></tr>
+        <tr><td><strong>Client introduction emails</strong></td><td>Builder cc on launch &mdash; varies by build</td></tr>
+        <tr><td><strong>Partnership questions / agreement</strong></td><td>Tom directly</td></tr>
+      </table>
+
+      <h2>Key partnership numbers</h2>
+      <div class="metric-row">
+        <div class="metric"><div class="metric-label">Slice on Basic</div><div class="metric-value">15%</div><div class="metric-sub">$74.55 / client / mo</div></div>
+        <div class="metric"><div class="metric-label">Slice on Growth</div><div class="metric-value">18%</div><div class="metric-sub">$179.46 / client / mo</div></div>
+        <div class="metric"><div class="metric-label">Slice on Pro</div><div class="metric-value">20%</div><div class="metric-sub">$299.40 / client / mo</div></div>
+        <div class="metric"><div class="metric-label">Notice period</div><div class="metric-value">90</div><div class="metric-sub">days, either side</div></div>
+      </div>
+
+      <h2>Documents (linked from partner agreement)</h2>
+      <ul>
+        <li>Master Partner Agreement (signed)</li>
+        <li>Care Plan client contract template (partner-branded)</li>
+        <li>BAA template (Path A clients)</li>
+        <li>Slice remittance schedule</li>
+        <li>Handoff package template</li>
+      </ul>
+
+      <hr class="panel-rule">
+      <div class="footer-line">
+        Point Zero AI &middot; Partner Hub &middot; v1.0 &middot; This is the partnership operating doc. Updates require both sides' awareness.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.nav-item');
+  const panels = document.querySelectorAll('.panel');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.target;
+      items.forEach(i => i.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const active = document.querySelector('.nav-item.active');
+    const list = Array.from(items);
+    const idx = list.indexOf(active);
+    if (e.key === 'ArrowDown' || e.key === 'j') { e.preventDefault(); const next = list[Math.min(idx + 1, list.length - 1)]; if (next) next.click(); }
+    else if (e.key === 'ArrowUp' || e.key === 'k') { e.preventDefault(); const prev = list[Math.max(idx - 1, 0)]; if (prev) prev.click(); }
+  });
+</script>
+</body>
+</html>
