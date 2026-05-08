@@ -138,20 +138,21 @@
       <div class="nav-item" data-target="assets"><span class="nav-num">03</span>Asset Collection</div>
       <div class="nav-item" data-target="sitebuild"><span class="nav-num">04</span>Site Build</div>
       <div class="nav-item" data-target="sophia"><span class="nav-num">05</span>Sophia Configuration</div>
-      <div class="nav-item" data-target="testing"><span class="nav-num">06</span>Sophia Testing</div>
-      <div class="nav-item" data-target="integrations"><span class="nav-num">07</span>Integrations</div>
+      <div class="nav-item" data-target="workflow-agents"><span class="nav-num">06</span>Workflow Agent Builds</div>
+      <div class="nav-item" data-target="testing"><span class="nav-num">07</span>Agent Testing</div>
+      <div class="nav-item" data-target="integrations"><span class="nav-num">08</span>Integrations</div>
 
       <div class="nav-section">Launch &amp; Handoff</div>
-      <div class="nav-item" data-target="launch"><span class="nav-num">08</span>Launch Checklist</div>
-      <div class="nav-item" data-target="handoff"><span class="nav-num">09</span>Partner Handoff</div>
-      <div class="nav-item" data-target="qc"><span class="nav-num">10</span>Quality Control</div>
+      <div class="nav-item" data-target="launch"><span class="nav-num">09</span>Launch Checklist</div>
+      <div class="nav-item" data-target="handoff"><span class="nav-num">10</span>Partner Handoff</div>
+      <div class="nav-item" data-target="qc"><span class="nav-num">11</span>Quality Control</div>
 
       <div class="nav-section">Boundaries</div>
-      <div class="nav-item" data-target="neversay"><span class="nav-num">11</span>Never Say</div>
-      <div class="nav-item" data-target="neverbuild"><span class="nav-num">12</span>Never Build</div>
+      <div class="nav-item" data-target="neversay"><span class="nav-num">12</span>Never Say</div>
+      <div class="nav-item" data-target="neverbuild"><span class="nav-num">13</span>Never Build</div>
 
       <div class="nav-section">Reference</div>
-      <div class="nav-item" data-target="resources"><span class="nav-num">13</span>Resources</div>
+      <div class="nav-item" data-target="resources"><span class="nav-num">14</span>Resources</div>
     </nav>
     <div class="nav-cross">
       <a class="nav-cross-link" href="/team">↗ Team Index</a>
@@ -195,23 +196,23 @@
         </div>
         <div class="step">
           <div class="step-meta">Day 10&ndash;18</div>
-          <div class="step-title">Sophia setup &amp; testing</div>
-          <p>Voice, intake script, booking flow. Test against five scenarios. (Sections 05&ndash;06.)</p>
+          <div class="step-title">Voice agent + workflow agents + testing</div>
+          <p>Voice agent (Sophia) configuration, intake script, booking flow. Workflow agent builds &mdash; clone the GHL templates the client bought (Quote Follow-Up, No-Show Killer, etc.) into their sub-account. Test all agents against scenarios. (Sections 05&ndash;07.)</p>
         </div>
         <div class="step">
           <div class="step-meta">Day 14&ndash;20</div>
           <div class="step-title">Integrations</div>
-          <p>Phone provisioning, calendar, CRM, GHL workflows. (Section 07.)</p>
+          <p>Phone provisioning, calendar, CRM, GHL workflows. (Section 08.)</p>
         </div>
         <div class="step">
           <div class="step-meta">Day 18&ndash;22</div>
           <div class="step-title">Launch</div>
-          <p>Pre-launch QA. Domain switch. First production call test. Client final approval. (Section 08.)</p>
+          <p>Pre-launch QA. Domain switch. First production call test. Client final approval. (Section 09.)</p>
         </div>
         <div class="step">
           <div class="step-meta">Day 22&ndash;52</div>
           <div class="step-title">Partner handoff &amp; QC window</div>
-          <p>Knowledge transfer to partner. 30-day quality control window before full hand-off. (Sections 09&ndash;10.)</p>
+          <p>Knowledge transfer to partner. 30-day quality control window before full hand-off. (Sections 10&ndash;11.)</p>
         </div>
       </div>
 
@@ -230,7 +231,7 @@
 
       <h2>Same day as contract signing</h2>
       <ul>
-        <li><strong>Send the welcome email</strong> (template in Section 13). Confirms the kickoff call, attaches the asset checklist, sets expectations on the build clock.</li>
+        <li><strong>Send the welcome email</strong> (template in Section 14). Confirms the kickoff call, attaches the asset checklist, sets expectations on the build clock.</li>
         <li><strong>Send the 50% setup invoice.</strong> Build clock does not start until paid.</li>
         <li><strong>Add client to CRM</strong> with all assessment data, discovery intake form, and the proposal copy.</li>
         <li><strong>Schedule the kickoff call</strong> within 48 hours of contract signing.</li>
@@ -449,13 +450,189 @@
       </div>
     </section>
 
-    <!-- 06 TESTING -->
-    <section class="panel" id="testing">
+    <!-- 06 WORKFLOW AGENT BUILDS -->
+    <section class="panel" id="workflow-agents">
       <div class="panel-eyebrow">Section 06</div>
-      <h1 class="panel-title">Sophia Testing.</h1>
-      <p class="panel-lede">Sophia ships only after she handles five test scenarios cleanly. No exceptions. Test calls are recorded, reviewed, and signed off before launch.</p>
+      <h1 class="panel-title">Workflow Agent Builds.</h1>
+      <p class="panel-lede">Build steps for the non-voice agents in the catalog. Voice agent (Vapi) lives in Section 05. This section covers the GHL workflow agents and the on-site chat / lead-qualification agents. <strong>Each card maps a Sales Hub catalog entry to its actual build process in GHL.</strong></p>
 
-      <h2>The five required test scenarios</h2>
+      <div class="callout">
+        <span class="callout-label">Before you start any workflow build</span>
+        <p><em>Confirm the client has a GHL sub-account provisioned (Section 08 covers GHL setup). Confirm whether the agent needs SMS &mdash; if yes, 10DLC is submitted Day 1 of build (1&ndash;2 weeks for carrier approval). All workflow agents below are cloned from the master template sub-account into the client's sub-account &mdash; never built from scratch.</em></p>
+      </div>
+
+      <hr class="panel-rule">
+
+      <h2>Chat &amp; on-site agents</h2>
+
+      <div class="card card-gold">
+        <div class="card-title">01 &middot; Website Chat Agent</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #02. Standalone $1,500 + Care.</p>
+        <p><strong>Inputs needed from client:</strong> 10&ndash;15 most-common customer questions with their preferred answers (in their voice); business hours; click-to-call number; lead routing preference (email or GHL contact).</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Configure the chat agent in GHL (Conversations &rarr; Bot setup) with the client's FAQ + answers.</li>
+          <li>Set lead-capture form: name, contact, reason for contact. No medical free-text on white coat builds (per Sales Hub Section 03 Path B rule).</li>
+          <li>Generate the embed snippet.</li>
+          <li>Get CMS access from client OR email them the snippet with paste-before-<code>&lt;/body&gt;</code> instructions.</li>
+          <li>Test on mobile and desktop in production after embed.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Q with exact-match in FAQ &rarr; agent answers correctly. Q outside FAQ &rarr; agent captures lead and offers human follow-up. Mobile responsiveness on 3 real devices. No console errors on client's site.</p>
+        <p><strong>Handoff to partner:</strong> CMS login (in shared credential vault), GHL bot config export, FAQ source doc, list of common edge-case Qs the partner should review monthly.</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">02 &middot; Lead Qualification Agent</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #03. Standalone $2,500 + Care.</p>
+        <p><strong>Inputs needed from client:</strong> Qualifying criteria (scope, location, urgency, budget thresholds); ideal-fit profile; what to do with unqualified leads (auto-reply with referral, or just decline politely).</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Define the 3&ndash;5 qualifying questions (scope-of-work, service area, urgency, budget).</li>
+          <li>Configure scoring: which answers route to booking, which route to "polite decline" path.</li>
+          <li>Build the GHL workflow: trigger on inbound lead &rarr; qualifying questions (SMS, chat, or voice) &rarr; branch on answers &rarr; route to calendar OR park with a polite-decline message.</li>
+          <li>Connect to the client's calendar/CRM.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Send a qualifying lead through &mdash; should book. Send an unqualified lead &mdash; should decline politely. Edge case: lead answers ambiguously &mdash; should fall back to human.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, qualifying criteria source doc (so the partner can adjust as the client's market shifts).</p>
+      </div>
+
+      <hr class="panel-rule">
+
+      <h2>GHL workflow agents</h2>
+      <p>All built by cloning from the master template sub-account into the client's sub-account. The original templates live in Tom's master sub-account. <strong>Don't rebuild from scratch &mdash; clone, customize, deploy.</strong></p>
+
+      <div class="card card-gold">
+        <div class="card-title">03 &middot; Quote Follow-Up</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #04. Standalone $1,500 + Care. <strong>GHL template:</strong> "Follow-Up 1: Quoted, Not Booked."</p>
+        <p><strong>Inputs needed from client:</strong> What constitutes a "quote sent" event in their CRM; the email signature/voice they want for the follow-up sequence.</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Clone "Follow-Up 1: Quoted, Not Booked" template from master sub-account into client's sub-account.</li>
+          <li>Customize the 3 email touches (Day 2, Day 5, Day 10) with client's voice, services, and contact details.</li>
+          <li>If SMS upgrade: customize the matching SMS touches (requires 10DLC).</li>
+          <li>Set trigger: tag added to contact when quote sent (via CRM integration or manual tag).</li>
+          <li>Set exit conditions: contact books appointment, replies to email, or sequence completes.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Tag a test contact &rarr; emails fire on schedule. Reply to an email &rarr; sequence stops. Book an appointment &rarr; sequence stops.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, copy doc with the 3 email templates, list of required tags in CRM.</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">04 &middot; Annual Service Reminder</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #05. Standalone $1,500 + Care. <strong>GHL template:</strong> "Follow-Up 2: Annual Service Due."</p>
+        <p><strong>Inputs needed from client:</strong> Service cycle length (HVAC: 12 months, dental: 6 months, gutter: 6 months, etc.); date field in CRM that marks "last service date"; copy variants for each service type.</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Clone "Follow-Up 2: Annual Service Due" template.</li>
+          <li>Set the trigger date math: <code>last_service_date + cycle_months &minus; 4 weeks</code> = first reminder fires.</li>
+          <li>Customize 2&ndash;3 reminder touches (4 weeks out, 2 weeks out, 1 week out).</li>
+          <li>Wire booking link to client's calendar.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Backdate a test contact's service date &rarr; verify reminders fire on schedule. Click the booking link &rarr; lands on the right calendar.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, cycle-month rule doc, copy doc.</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">05 &middot; Reactivation Caller</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #06. Standalone $1,500 + Care. <strong>GHL template:</strong> "Follow-Up 3: Reactivation."</p>
+        <p><strong>Inputs needed from client:</strong> Definition of "cold" (12 months no contact? 18 months? 24?); reactivation offer copy (discount, free check-up, etc., if any); CRM segment that contains the cold list.</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Clone "Follow-Up 3: Reactivation" template.</li>
+          <li>Customize: 3-touch sequence (Touch 1: "we miss you" friendly, Touch 2: offer or reminder, Touch 3: last call).</li>
+          <li>Wire the trigger: contact tag <code>cold-12mo</code> (or whatever cold rule applies) added.</li>
+          <li>Build the cold-segment query in GHL contacts.</li>
+          <li>Schedule the segment to run quarterly (or as client prefers) to refresh the cold list.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Tag a test contact &rarr; sequence fires. Verify deliverability (spam check the email content).</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, cold-segment query doc, copy doc.</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">06 &middot; No-Show Killer</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #07. Standalone $1,500 + Care. <strong>GHL template:</strong> "No Show Killer." <strong>Requires 10DLC SMS approval.</strong></p>
+        <p><strong>Inputs needed from client:</strong> Calendar/booking source; "appointment created" trigger details; preferred SMS reminder voice.</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Submit 10DLC application Day 1 of build (1&ndash;2 weeks for approval).</li>
+          <li>Clone "No Show Killer" template.</li>
+          <li>Wire the trigger to fire on "appointment created" event in client's calendar.</li>
+          <li>Build the SMS sequence: 24h before (reminder + confirm), 2h before (final reminder + map link), post-appointment (thank-you + review-ask handoff).</li>
+          <li>Optional email fallback for clients not opted in to SMS.</li>
+          <li>Cannot launch SMS until 10DLC is approved &mdash; if approval lags, deploy email-only first and add SMS at approval.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Create a test appointment 25 hours out &rarr; verify SMS fires at 24h, 2h, and post-appointment. Verify opt-out word ("STOP") removes contact from sequence.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, 10DLC approval doc, opt-in/opt-out compliance log.</p>
+      </div>
+
+      <div class="card card-gold">
+        <div class="card-title">07 &middot; Review &amp; Reputation Agent</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #08. Standalone $1,500 + Care. <strong>GHL template:</strong> "Review &amp; Reputation Agent." <strong>Requires 10DLC SMS approval.</strong></p>
+        <p><strong>Inputs needed from client:</strong> Google Business Profile review URL; CRM event that marks "job complete"; preferred SMS voice; whether to filter (only ask happy customers) or send to all.</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Submit 10DLC if not already done for No-Show Killer.</li>
+          <li>Clone "Review &amp; Reputation Agent" template.</li>
+          <li>Wire trigger: "job complete" tag or status change in CRM.</li>
+          <li>Build SMS: same-day thank-you + Google review link. (Optional: 1-question pre-filter "How was your experience?" &mdash; only happy answers get the public review link, others get internal feedback form.)</li>
+          <li>Email fallback for non-SMS clients.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Mark a test job complete &rarr; review request fires same day. Verify the review link goes to the client's actual Google profile.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, GBP URL, filter logic doc, monthly review-velocity report template.</p>
+      </div>
+
+      <hr class="panel-rule">
+
+      <h2>Always-included infrastructure</h2>
+
+      <div class="card">
+        <div class="card-title">08 &middot; Lead Form &rarr; Email Confirmation</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #10. <em>Not sold standalone &mdash; included with any build that has a lead form.</em> <strong>GHL template:</strong> "Assessment Submission."</p>
+        <p><strong>Build steps:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>Clone "Assessment Submission" template into client sub-account.</li>
+          <li>Customize confirmation email (sent to prospect): mirror the client's brand, restate what they submitted, set expectation for next contact.</li>
+          <li>Customize internal notification email (sent to client owner): full submission detail, contact info, urgency flags.</li>
+          <li>Wire the form trigger: contact tag <code>new-lead</code> (or similar) added on submission.</li>
+        </ol>
+        <p><strong>Test cases:</strong> Submit a test form &rarr; both emails arrive within 60 seconds. Mobile-format check on confirmation email.</p>
+        <p><strong>Handoff to partner:</strong> Workflow export, copy doc for both emails.</p>
+      </div>
+
+      <hr class="panel-rule">
+
+      <h2>Custom agent builds</h2>
+
+      <div class="card">
+        <div class="card-title">09 &middot; Custom Agent (placeholder)</div>
+        <p><strong>Catalog entry:</strong> Sales Hub Section 04, Agent #09. Standalone $5,000+. Requires written scope and Tom's separate approval before building.</p>
+        <p><strong>Build approach:</strong> No template &mdash; build per spec. Document every step in a per-client build doc and add the resulting workflow as a candidate template if the pattern repeats.</p>
+        <p><em>Once 2&ndash;3 custom builds repeat the same pattern, propose adding it to the catalog as a new standard agent.</em></p>
+      </div>
+
+      <hr class="panel-rule">
+
+      <h2>Master template sub-account</h2>
+      <p>The original GHL workflow templates live in Tom's master sub-account. Builders should never re-create them from scratch &mdash; always clone. If a template is updated, the master version is updated, then the change is propagated to active client sub-accounts only with the partner's awareness (changes can break live sequences).</p>
+      <ul>
+        <li><strong>Point Zero AI sub-account</strong> &mdash; location ID <code>Hu8eqsCdRaXeRd7PcnCy</code>. Hosts the live "Assessment Submission" workflow plus draft templates for Follow-Ups, No-Show, Review.</li>
+        <li><strong>Home Services template sub-account</strong> &mdash; location ID <code>JxdBT2sTRVvL6XJbuErc</code>. Master template for home-services agent stack.</li>
+        <li><strong>Other vertical templates</strong> &mdash; spin up as new verticals come online.</li>
+      </ul>
+    </section>
+
+    <!-- 07 TESTING -->
+    <section class="panel" id="testing">
+      <div class="panel-eyebrow">Section 07</div>
+      <h1 class="panel-title">Agent Testing.</h1>
+      <p class="panel-lede">No agent ships before sign-off. Voice agent (Sophia) must pass the five test scenarios below. Workflow agents must pass the per-agent test cases listed in Section 06 (Workflow Agent Builds). Both stages are recorded, reviewed, and signed off in writing before launch.</p>
+
+      <div class="callout">
+        <span class="callout-label">Two stages of testing</span>
+        <p><em><strong>Voice agent testing</strong> (this section, below): five live-call scenarios for Sophia. <strong>Workflow agent testing</strong>: each Section 06 agent card includes its own test cases &mdash; trigger the workflow with a test contact, verify the sequence fires correctly, verify exit conditions, verify deliverability. Both stages must complete before the launch checklist (Section 09) can be opened.</em></p>
+      </div>
+
+      <h2>Voice agent &mdash; five required test scenarios</h2>
       <div class="steps">
         <div class="step">
           <div class="step-meta">Test 1 &middot; Happy path</div>
@@ -510,9 +687,9 @@
       </div>
     </section>
 
-    <!-- 07 INTEGRATIONS -->
+    <!-- 08 INTEGRATIONS -->
     <section class="panel" id="integrations">
-      <div class="panel-eyebrow">Section 07</div>
+      <div class="panel-eyebrow">Section 08</div>
       <h1 class="panel-title">Integrations.</h1>
       <p class="panel-lede">Phone provisioning, calendar sync, CRM connection, GHL workflows. The plumbing that makes Sophia's outputs land in the right places.</p>
 
@@ -558,16 +735,16 @@
       </div>
     </section>
 
-    <!-- 08 LAUNCH -->
+    <!-- 09 LAUNCH -->
     <section class="panel" id="launch">
-      <div class="panel-eyebrow">Section 08</div>
+      <div class="panel-eyebrow">Section 09</div>
       <h1 class="panel-title">Launch Checklist.</h1>
       <p class="panel-lede">Go-live runbook. Run it in this order. Don't skip steps because they "feel done."</p>
 
       <h2>T-minus 7 days</h2>
       <ul class="checklist">
         <li>Site QA complete (Section 04 checklist)</li>
-        <li>Sophia testing complete &amp; signed off (Section 06)</li>
+        <li>Agent testing complete &amp; signed off (Section 07)</li>
         <li>10DLC SMS approved (if applicable)</li>
         <li>All integrations tested in production mode</li>
         <li>Final invoice sent (50% on launch, due before launch)</li>
@@ -608,9 +785,9 @@
       </div>
     </section>
 
-    <!-- 09 HANDOFF -->
+    <!-- 10 HANDOFF -->
     <section class="panel" id="handoff">
-      <div class="panel-eyebrow">Section 09</div>
+      <div class="panel-eyebrow">Section 10</div>
       <h1 class="panel-title">Partner Handoff.</h1>
       <p class="panel-lede">The launched system transfers to the support partner under a documented handoff package. This is where Tom steps out of the support chair.</p>
 
@@ -636,7 +813,7 @@
             <li>Stakeholder map (who decides what, who pays)</li>
             <li>Active integrations list</li>
             <li>Known issues / quirks discovered during build</li>
-            <li>30-day QC plan (Section 10)</li>
+            <li>30-day QC plan (Section 11)</li>
           </ul>
         </div>
       </div>
@@ -648,7 +825,7 @@
         <li>Live demo of the system in production</li>
         <li>Partner asks questions; builder answers</li>
         <li>Confirm partner's first client touchpoint date (within 7 days of launch)</li>
-        <li>Confirm escalation rules (Section 10)</li>
+        <li>Confirm escalation rules (Section 11)</li>
       </ul>
 
       <h2>Client introduction email</h2>
@@ -668,9 +845,9 @@
       <p>For Tom-Direct clients, the system stays under Tom for support. The handoff package still gets created (so a future move to partner is possible), but the partner kickoff meeting is skipped. Tom is the named support contact in the client introduction email.</p>
     </section>
 
-    <!-- 10 QC -->
+    <!-- 11 QC -->
     <section class="panel" id="qc">
-      <div class="panel-eyebrow">Section 10</div>
+      <div class="panel-eyebrow">Section 11</div>
       <h1 class="panel-title">Quality Control.</h1>
       <p class="panel-lede">First 30 days post-launch are the QC window. Builder still has visibility, partner is taking primary support. After day 30, full transfer.</p>
 
@@ -712,9 +889,9 @@
       </div>
     </section>
 
-    <!-- 11 NEVER SAY -->
+    <!-- 12 NEVER SAY -->
     <section class="panel" id="neversay">
-      <div class="panel-eyebrow">Section 11</div>
+      <div class="panel-eyebrow">Section 12</div>
       <h1 class="panel-title">Never Say.</h1>
       <p class="panel-lede">Language that creates legal, support, or expectation traps. If a builder writes any of these in an email, slack, or contract, edit before sending.</p>
 
@@ -751,9 +928,9 @@
       </ul>
     </section>
 
-    <!-- 12 NEVER BUILD -->
+    <!-- 13 NEVER BUILD -->
     <section class="panel" id="neverbuild">
-      <div class="panel-eyebrow">Section 12</div>
+      <div class="panel-eyebrow">Section 13</div>
       <h1 class="panel-title">Never Build.</h1>
       <p class="panel-lede">Features and configurations that are off the table, regardless of how much the client wants them. The Red Zone for builders.</p>
 
@@ -790,7 +967,7 @@
         <li><strong>Client misses asset deadline by 48+ hours</strong> &rarr; build clock pauses, launch slips.</li>
         <li><strong>Client demands launch on Friday</strong> &rarr; politely decline. Reschedule.</li>
         <li><strong>Client asks for scope expansion mid-build</strong> &rarr; document, quote, change order. Build does not absorb new scope silently.</li>
-        <li><strong>Client refuses Sophia testing sign-off</strong> &rarr; no launch. Document, escalate to Tom.</li>
+        <li><strong>Client refuses agent testing sign-off</strong> &rarr; no launch. Document, escalate to Tom.</li>
       </ul>
 
       <div class="callout-warn callout">
@@ -799,9 +976,9 @@
       </div>
     </section>
 
-    <!-- 13 RESOURCES -->
+    <!-- 14 RESOURCES -->
     <section class="panel" id="resources">
-      <div class="panel-eyebrow">Section 13</div>
+      <div class="panel-eyebrow">Section 14</div>
       <h1 class="panel-title">Resources.</h1>
       <p class="panel-lede">Templates, links, and cross-references for the build process.</p>
 
