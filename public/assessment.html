@@ -520,11 +520,11 @@
   <div class="intro-inner">
     <div class="intro-label">Point Zero AI &middot; Free Business Assessment</div>
     <h1 class="intro-headline">Your Business Has Gaps That Are Costing You Time and Clients Every Month</h1>
-    <p class="intro-sub">14 questions. 3 minutes. You'll find out exactly where leads, clients, and hours are slipping through the cracks — and what to do about it.</p>
+    <p class="intro-sub">18 questions. About 5 minutes. You'll find out exactly where leads, clients, and hours are slipping through the cracks — and the specific agent or system that closes each gap.</p>
     <button class="btn-start" onclick="startAssessment()">FIND MY BUSINESS GAPS &rarr;</button>
-    <p class="intro-disclaimer">Takes 3 minutes. No email required to start.</p>
+    <p class="intro-disclaimer">Takes about 5 minutes. No email required to start.</p>
     <div class="trust-row">
-      <span class="trust-item">3 Minutes</span>
+      <span class="trust-item">5 Minutes</span>
       <span class="trust-item">100% Free</span>
       <span class="trust-item">Instant Results</span>
     </div>
@@ -544,10 +544,10 @@
 <div id="screen-question" class="screen">
   <div class="assess-header">
     <a href="/" class="assess-logo">Point Zero AI</a>
-    <span class="step-counter" id="step-counter">Step 1 of 14</span>
+    <span class="step-counter" id="step-counter">Step 1 of 18</span>
   </div>
   <div class="progress-bar-wrap">
-    <div class="progress-bar-fill" id="progress-fill" style="width: 7.14%"></div>
+    <div class="progress-bar-fill" id="progress-fill" style="width: 5.55%"></div>
   </div>
   <div class="question-body">
     <div class="question-section" id="q-section"></div>
@@ -624,7 +624,7 @@
 
     <div class="tools-section">
       <div class="tools-label">What To Do About It</div>
-      <div style="font-size: 0.95rem; color: var(--white-70); line-height: 1.7; margin-bottom: 40px;" id="r-tools-body">The specific tools and systems that close these gaps depend on your business, your team, and your workflow. That's what the strategy call is for — 30 minutes, built entirely around your situation.</div>
+      <div style="font-size: 0.95rem; color: var(--white-70); line-height: 1.7; margin-bottom: 40px;" id="r-tools-body">The specific agents and packages that close these gaps depend on your business, your team, and your workflow. That's what the Gap Review call is for — 30 minutes, built entirely around your situation.</div>
     </div>
 
     <div class="hipaa-note" id="r-hipaa" style="display:none"></div>
@@ -632,7 +632,7 @@
 
   <div style="background: rgba(201,164,71,0.07); border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); padding: 16px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
     <div style="font-family:'Space Grotesk',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold);">Limited Availability</div>
-    <div style="font-size:0.88rem; color:var(--white-70); line-height:1.5;">Tom takes a limited number of strategy calls each week. Spots go fast — especially for business owners who already know where their gaps are.</div>
+    <div style="font-size:0.88rem; color:var(--white-70); line-height:1.5;">We take a limited number of Gap Review calls each week. Spots go fast — especially for business owners who already know where their gaps are.</div>
   </div>
 
   <div class="results-cta-section">
@@ -642,9 +642,9 @@
       <span style="color:var(--gold-dim);">&middot;</span>
       <span style="font-family:'Space Grotesk',sans-serif; font-size:0.72rem; letter-spacing:1px; color:var(--white-50);">CNBC &nbsp;&middot;&nbsp; Fox Business &nbsp;&middot;&nbsp; Bloomberg</span>
     </div>
-    <div class="cta-headline" id="r-cta-headline">You Now Know Where the Gaps Are. The Strategy Call Is Where We Close Them.</div>
-    <p class="cta-sub" id="r-cta-sub">In 30 minutes, Tom will walk you through exactly how to close your highest-priority gaps — for your business, your clients, your workflow. He's worked inside 8,000+ businesses. This isn't theory.</p>
-    <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta">BOOK YOUR FREE 30-MINUTE CALL &rarr;</a>
+    <div class="cta-headline" id="r-cta-headline">You Now Know Where the Gaps Are. The Gap Review Call Is Where We Close Them.</div>
+    <p class="cta-sub" id="r-cta-sub">In 30 minutes, you'll get a Gap Review call with a Point Zero AI advisor — a focused walkthrough of your highest-priority gaps, the specific agents that close them, and what investment level fits your business. Built around your situation, not a generic pitch.</p>
+    <a href="https://calendly.com/tomz-pointzeroai/30min" target="_blank" class="btn-cta">BOOK YOUR FREE GAP REVIEW &rarr;</a>
     <p class="cta-email-note" style="margin-top:20px;">Check your inbox — your full results are on their way. Or email <a href="mailto:support@pointzeroai.com" style="color: var(--gold);">support@pointzeroai.com</a> with any questions first.</p>
   </div>
 </div>
@@ -705,6 +705,13 @@ const QUESTIONS = [
     options: ['They can book or buy online 24/7', 'We get back to them next business day', 'I\'m sure we\'re losing business opportunities']
   },
   {
+    id: 'wrong_fit_leads',
+    section: 'YOUR LEADS & CLIENTS',
+    text: 'When inquiries come in, what portion turn out to be wrong-fit (out of service area, can\'t afford you, wrong scope)?',
+    type: 'single',
+    options: ['Almost none \u2014 our leads are usually qualified', 'Maybe 1 in 5', 'Closer to 1 in 3', 'Half or more \u2014 we waste a lot of time on the wrong calls']
+  },
+  {
     id: 'follow_up',
     section: 'YOUR LEADS & CLIENTS',
     text: 'When a prospect doesn\'t close on the first conversation, how do you follow up?',
@@ -712,11 +719,25 @@ const QUESTIONS = [
     options: ['We have an automated follow-up sequence', 'Someone on the team follows up manually, but it\'s hit or miss', 'We follow up once or twice, then drop it', 'We usually don\'t \u2014 if they don\'t buy, we move on']
   },
   {
+    id: 'no_show_rate',
+    section: 'YOUR LEADS & CLIENTS',
+    text: 'What\'s your no-show or cancellation rate on booked appointments?',
+    type: 'single',
+    options: ['Less than 5% \u2014 rare', '5\u201315% \u2014 manageable', '15\u201330% \u2014 it\'s a real problem', 'Over 30% \u2014 we\'re bleeding revenue', 'We don\'t book scheduled appointments']
+  },
+  {
     id: 'dormant_clients',
     section: 'YOUR LEADS & CLIENTS',
     text: 'How many past clients or customers haven\'t heard from you in 6+ months?',
     type: 'single',
     options: ['Not many \u2014 we stay in touch', 'Probably a decent number', 'A lot \u2014 we\'re bad at staying in touch', 'I honestly have no idea']
+  },
+  {
+    id: 'cyclic_service',
+    section: 'YOUR LEADS & CLIENTS',
+    text: 'Does your business have cyclic or recurring service needs (annual checkups, seasonal maintenance, recurring contracts)?',
+    type: 'single',
+    options: ['Yes \u2014 and we systematically remind past customers when it\'s time', 'Yes \u2014 but we don\'t have a system to remind them', 'Sort of \u2014 some services are recurring', 'No \u2014 every job is one-off']
   },
   {
     id: 'reviews',
@@ -738,6 +759,13 @@ const QUESTIONS = [
     text: 'Does your website generate leads on its own \u2014 or do all your new clients come from referrals and word of mouth?',
     type: 'single',
     options: ['My website generates leads consistently on its own', 'Occasionally \u2014 but most clients still come from referrals', 'Almost never \u2014 it\'s basically just an online brochure', 'My website is a PR tool \u2014 leads come from my dedicated sales and marketing team', 'I honestly don\'t know if my website has ever brought in a client']
+  },
+  {
+    id: 'chat_handling',
+    section: 'YOUR DIGITAL PRESENCE',
+    text: 'When website visitors have questions before reaching out, what happens?',
+    type: 'single',
+    options: ['Live chat or AI assistant answers in real time', 'They fill out a contact form and we reply when we can', 'They call or email us directly', 'They probably leave the site without their question being answered']
   },
   {
     id: 'communication',
@@ -803,7 +831,7 @@ function resetAssessment(e) {
   const btn = document.querySelector('.btn-start');
   if (btn) btn.textContent = 'FIND MY BUSINESS GAPS \u2192';
   const disclaimer = document.querySelector('.intro-disclaimer');
-  if (disclaimer) disclaimer.textContent = 'Takes 3 minutes. No email required to start.';
+  if (disclaimer) disclaimer.textContent = 'Takes about 5 minutes. No email required to start.';
 }
 
 function submitEmail() {
@@ -982,11 +1010,24 @@ function detectGaps() {
       desc: isHigh
         ? 'New leads that come in after hours are falling through the cracks. Every hour a lead waits, the chance of closing drops dramatically.'
         : 'Leads that come in after hours wait until the next business day. By then, many have already contacted a competitor.',
-      fix: 'The fix: A system that responds instantly \u2014 24/7 \u2014 and books or qualifies before your team even sees it.'
+      fix: 'The fix: a 24/7 voice agent that answers your business line, qualifies the caller, and books the job into your calendar \u2014 even at 2am on a Sunday. (Catalog: Voice Agent.)'
     });
   }
 
-  // 2. Follow-Up Gap
+  // 2. Lead Qualification Gap → Lead Qualification Agent
+  if (answers.wrong_fit_leads && answers.wrong_fit_leads !== 'Almost none — our leads are usually qualified') {
+    const isHigh = answers.wrong_fit_leads.includes('Half or more') || answers.wrong_fit_leads.includes('1 in 3');
+    gaps.push({
+      title: 'Lead Qualification Gap',
+      severity: isHigh ? 'high' : 'medium',
+      desc: isHigh
+        ? 'A large share of your inbound is wrong-fit. Your team is burning hours on leads that were never going to close — and the qualified leads in the same pile get less attention.'
+        : 'Some inbound is wrong-fit. The cost is hidden: every wrong-fit call is a qualified call your team didn\'t take.',
+      fix: 'The fix: a Lead Qualification Agent that pre-screens inquiries (scope, location, urgency, budget) before they hit the calendar. Qualified leads get booked. Wrong-fit gets a polite next step. (Catalog: Lead Qualification Agent.)'
+    });
+  }
+
+  // 3. Follow-Up Gap → Quote Follow-Up Agent
   if (answers.follow_up && answers.follow_up !== 'We have an automated follow-up sequence') {
     const isHigh = answers.follow_up.includes('don\'t') || answers.follow_up.includes('move on');
     gaps.push({
@@ -995,11 +1036,24 @@ function detectGaps() {
       desc: isHigh
         ? 'Prospects who don\'t close on the first conversation are never contacted again. Most sales happen between the 5th and 12th touchpoint \u2014 you\'re stopping at 1.'
         : 'Your follow-up is manual and inconsistent. Some prospects get a callback, others don\'t. The ones who slip through were often your best opportunities.',
-      fix: 'The fix: Automated follow-up sequences that feel personal \u2014 timed, persistent, and running without your team lifting a finger.'
+      fix: 'The fix: a Quote Follow-Up agent that runs an automatic 3-touch sequence over 14 days for any prospect who got a quote but didn\'t book. Email-first, SMS optional. (Catalog: Quote Follow-Up.)'
     });
   }
 
-  // 3. Client Retention Gap
+  // 4. No-Show Gap → No-Show Killer
+  if (answers.no_show_rate && answers.no_show_rate !== 'Less than 5% — rare' && answers.no_show_rate !== 'We don\'t book scheduled appointments') {
+    const isHigh = answers.no_show_rate.includes('15–30%') || answers.no_show_rate.includes('Over 30%');
+    gaps.push({
+      title: 'No-Show Gap',
+      severity: isHigh ? 'high' : 'medium',
+      desc: isHigh
+        ? 'Your no-show rate is bleeding real revenue every week. Each missed appointment is a lost slot — plus the customer who could have taken it.'
+        : 'You have a manageable no-show rate, but it still costs you slots that could have been filled. Even a small drop adds up over a year.',
+      fix: 'The fix: a No-Show Killer that fires SMS reminders 24h and 2h before each appointment, with a confirm-or-reschedule prompt. Drives no-show rates down materially. (Catalog: No-Show Killer. Requires SMS / 10DLC approval.)'
+    });
+  }
+
+  // 5. Client Retention Gap → Reactivation Caller
   if (answers.dormant_clients && answers.dormant_clients !== 'Not many \u2014 we stay in touch') {
     const isHigh = answers.dormant_clients.includes('A lot') || answers.dormant_clients.includes('no idea');
     gaps.push({
@@ -1008,11 +1062,24 @@ function detectGaps() {
       desc: isHigh
         ? 'A large number of past clients haven\'t heard from you in 6+ months. These are people who already trust you \u2014 and they\'re going elsewhere because nobody reached out.'
         : 'Some past clients have gone quiet. Without regular touchpoints, even satisfied clients forget about you when they need something again.',
-      fix: 'The fix: Automated reactivation sequences that bring past clients back \u2014 before they find someone else.'
+      fix: 'The fix: a Reactivation Caller that runs a 3-touch sequence on past clients who\'ve gone cold (12+ months). Brings them back before they find someone else. (Catalog: Reactivation Caller.)'
     });
   }
 
-  // 4. Reputation Gap
+  // 6. Recurring Revenue Gap → Annual Service Reminder
+  if (answers.cyclic_service && (answers.cyclic_service.includes('don\'t have a system') || answers.cyclic_service === 'Sort of — some services are recurring')) {
+    const isHigh = answers.cyclic_service.includes('don\'t have a system');
+    gaps.push({
+      title: 'Recurring Revenue Gap',
+      severity: isHigh ? 'high' : 'medium',
+      desc: isHigh
+        ? 'Your business has cyclic service work, but no system reminds past customers when it\'s time again. Every cycle missed is recurring revenue lost — and a competitor\'s opportunity to win the customer.'
+        : 'Some of your services recur, but there\'s no clean system catching them. The repeat business is sitting there waiting to be claimed.',
+      fix: 'The fix: an Annual Service Reminder that fires automatically on the anniversary of the last job — a 4-week, 2-week, and 1-week-out touch with a booking link. (Catalog: Annual Service Reminder.)'
+    });
+  }
+
+  // 7. Reputation Gap → Review & Reputation Agent
   if (answers.reviews && answers.reviews !== 'We have a system that asks automatically') {
     const isHigh = answers.reviews === 'We don\'t actively ask';
     gaps.push({
@@ -1021,7 +1088,7 @@ function detectGaps() {
       desc: isHigh
         ? 'You\'re not asking for reviews or testimonials. Prospects research you before reaching out \u2014 and a thin online reputation costs you business you never even knew about.'
         : 'You ask for reviews sometimes, but there\'s no consistent system. The businesses winning online are the ones that ask every single time, automatically.',
-      fix: 'The fix: An automated system that requests reviews after every engagement \u2014 so your reputation builds itself.'
+      fix: 'The fix: a Review & Reputation Agent that fires an SMS review request the moment a job is marked complete. Email fallback for non-SMS clients. (Catalog: Review & Reputation Agent. Requires SMS / 10DLC approval.)'
     });
   }
 
@@ -1037,11 +1104,28 @@ function detectGaps() {
         : oldWebsite
           ? 'Your website hasn\'t been updated in years. The design, messaging, and functionality are falling behind what prospects expect.'
           : 'Your website isn\'t generating leads on its own. If it\'s not bringing in business, it\'s just an expense.',
-      fix: 'The fix: A modern, conversion-focused website that works for you 24/7 \u2014 capturing leads, booking appointments, and making a first impression that closes.'
+      fix: 'The fix: a Smart Site Refresh ($3,500) if the bones are good, or Smart Site + Voice Agent ($7,500) if you want the site rebuilt and the after-hours problem solved at the same time. (Catalog: Smart Response Systems.)'
     });
   }
 
-  // 6. Communication Gap
+  // 9. On-Site Conversion Gap → Website Chat Agent
+  if (answers.chat_handling && answers.chat_handling.includes('leave the site without')) {
+    gaps.push({
+      title: 'On-Site Conversion Gap',
+      severity: 'high',
+      desc: 'Visitors are leaving your site without their question being answered. Every unanswered question is a lead going to whoever responds first — usually a competitor.',
+      fix: 'The fix: a Website Chat Agent that answers FAQs in real time, captures the lead, and routes serious inquiries to booking. Replaces the "fill out this form, we\'ll get back to you" flow. (Catalog: Website Chat Agent.)'
+    });
+  } else if (answers.chat_handling === 'They fill out a contact form and we reply when we can') {
+    gaps.push({
+      title: 'On-Site Conversion Gap',
+      severity: 'medium',
+      desc: 'Your contact form works, but the delay between form-submit and your reply is where leads cool off — especially after hours and on weekends.',
+      fix: 'The fix: a Website Chat Agent that answers in real time and books the qualified ones to your calendar instead of holding them in a queue. (Catalog: Website Chat Agent.)'
+    });
+  }
+
+  // 10. Communication Gap → Workflow stack
   const commArr = Array.isArray(answers.communication) ? answers.communication : [];
   const hasChaotic = commArr.some(c => c.includes('chaotic'));
   const hasDisorganized = commArr.some(c => c.includes('nothing is really organized'));
@@ -1052,7 +1136,7 @@ function detectGaps() {
       desc: hasChaotic
         ? 'Client communication is chaotic and things are falling through the cracks. When clients feel ignored or forgotten, they leave \u2014 and they don\'t tell you why.'
         : 'Client communication is mostly email with no real organization. Important messages get buried, follow-ups get missed, and balls get dropped.',
-      fix: 'The fix: A centralized system where every client conversation is tracked, nothing falls through, and your team always knows what\'s next.'
+      fix: 'The fix: a centralized GHL workflow stack — every inbound lead, quote, and follow-up tracked in one CRM. Workflow agents (Quote Follow-Up, Reactivation, Annual Service) handle the recurring touchpoints automatically. (Catalog: Full Response System bundle.)'
     });
   }
 
@@ -1065,7 +1149,7 @@ function detectGaps() {
       desc: isHigh
         ? 'You\'re losing more than 10 hours a week to tasks you shouldn\'t be doing. That\'s a full quarter of your work week spent on things that could be automated or delegated.'
         : 'You\'re losing 5\u201310 hours a week to tasks that shouldn\'t require your attention. That time could be spent on revenue-generating work.',
-      fix: 'The fix: Identify the 3\u20135 highest-impact tasks to automate or systematize \u2014 and reclaim those hours permanently.'
+      fix: 'The fix: identify the 3\u20135 highest-impact tasks an agent can take off your plate \u2014 call answering, follow-up, review requests, no-show reminders \u2014 and stack them. The Gap Review call is where we sequence them. (Catalog: agent stack scoped to the gaps above.)'
     });
   }
 
@@ -1095,7 +1179,7 @@ function composeResults() {
 
   let summary;
   if (gapCount === 0) {
-    summary = 'Your business is running tighter than most. A strategy call can still uncover efficiency gains and scaling opportunities \u2014 but you\'re in a strong position.';
+    summary = 'Your business is running tighter than most. A Gap Review call can still uncover efficiency gains and scaling opportunities \u2014 but you\'re in a strong position.';
   } else if (hours) {
     const hoursPhrase = hours.includes('More than 10')
       ? 'You\'re losing more than 10 hours a week to manual work.'
@@ -1107,32 +1191,36 @@ function composeResults() {
     summary = 'With ' + gapCount + ' gap' + (gapCount > 1 ? 's' : '') + ' identified, your business has clear opportunities to capture more leads, retain more clients, and reclaim lost time.';
   }
 
-  let ctaSub = 'In 30 minutes, Tom will walk you through exactly how to close your highest-priority gaps \u2014 for your business, your clients, your workflow. He\'s worked inside 8,000+ businesses. This isn\'t theory.';
+  let ctaSub = 'In 30 minutes, you\'ll get a Gap Review call with a Point Zero AI advisor \u2014 a focused walkthrough of your highest-priority gaps, the specific agents that close them, and what investment level fits your business. Built around your situation, not a generic pitch.';
   if (highGaps.length > 0) {
     const ctaMessages = {
-      'Lead Response Gap': 'Your biggest gap is in lead response. Tom will show you how to capture every lead instantly \u2014 even at 2am on a Sunday \u2014 so you never lose another prospect to a slow reply.',
-      'Follow-Up Gap': 'Your biggest gap is in follow-up. Tom will walk you through building a follow-up system that runs on autopilot \u2014 so no prospect ever falls through the cracks again.',
-      'Client Retention Gap': 'Your biggest gap is client retention. Tom will show you how to systematically reactivate past clients \u2014 people who already trust you and are the easiest revenue you\'ll ever recover.',
-      'Reputation Gap': 'Your biggest gap is reputation. Tom will show you how to build a review system that runs automatically \u2014 so your online presence grows without anyone on your team thinking about it.',
-      'Website Gap': 'Your biggest gap is your website. Tom will show you what a modern, conversion-focused site looks like for your industry \u2014 and how fast one can be built.',
-      'Communication Gap': 'Your biggest gap is communication. Tom will show you how to centralize client conversations so nothing falls through \u2014 and your team always knows what\'s next.',
-      'Time Recovery Gap': 'Your biggest gap is time. Tom will identify the 3\u20135 tasks eating your week and show you exactly how to automate them \u2014 so you get those hours back permanently.'
+      'Lead Response Gap': 'Your biggest gap is in lead response. The Gap Review call walks you through how a 24/7 voice agent captures every lead instantly \u2014 even at 2am on a Sunday \u2014 so you never lose another prospect to a slow reply.',
+      'Lead Qualification Gap': 'Your biggest gap is lead qualification. The Gap Review call shows you how a Lead Qualification Agent pre-screens inquiries \u2014 so your team only spends time on the leads worth booking.',
+      'Follow-Up Gap': 'Your biggest gap is in follow-up. The Gap Review call walks you through a Quote Follow-Up agent that runs an automatic 3-touch sequence \u2014 so no quoted prospect ever falls through the cracks again.',
+      'No-Show Gap': 'Your biggest gap is no-shows. The Gap Review call shows you how a No-Show Killer fires SMS reminders 24h and 2h out \u2014 drives no-show rates down materially.',
+      'Client Retention Gap': 'Your biggest gap is client retention. The Gap Review call shows you how a Reactivation Caller systematically brings past clients back \u2014 people who already trust you and are the easiest revenue you\'ll recover.',
+      'Recurring Revenue Gap': 'Your biggest gap is recurring-revenue capture. The Gap Review call shows you how an Annual Service Reminder fires automatically on the anniversary of every job \u2014 so cyclic customers don\'t walk away.',
+      'Reputation Gap': 'Your biggest gap is reputation. The Gap Review call shows you how a Review & Reputation Agent fires post-job review requests automatically \u2014 so your online presence grows without your team thinking about it.',
+      'Website Gap': 'Your biggest gap is your website. The Gap Review call shows you what a Smart Site Refresh or Smart Site + Voice Agent looks like for your industry \u2014 and how fast it can be live.',
+      'On-Site Conversion Gap': 'Your biggest gap is on-site conversion. The Gap Review call shows you how a Website Chat Agent answers questions in real time and books the qualified ones to your calendar.',
+      'Communication Gap': 'Your biggest gap is communication. The Gap Review call walks you through a centralized GHL workflow stack \u2014 every lead, quote, and follow-up tracked in one place, with workflow agents handling the recurring touchpoints.',
+      'Time Recovery Gap': 'Your biggest gap is time. The Gap Review call identifies the 3\u20135 tasks eating your week and sequences the agents that close them \u2014 so you get those hours back permanently.'
     };
     ctaSub = ctaMessages[highGaps[0].title] || ctaSub;
   }
 
-  let toolsBody = 'The specific tools and systems that close these gaps depend on your business, your team, and your workflow. That\'s what the strategy call is for \u2014 30 minutes, built entirely around your situation.';
+  let toolsBody = 'The specific agents and packages that close these gaps depend on your business, your team, and your workflow. That\'s what the Gap Review call is for \u2014 30 minutes, built entirely around your situation. From a $1,500 standalone agent to a $12,500 Full Response System, the right scope is the one that actually closes your gaps.';
   const goalsSummary = goals.filter(g => g !== 'All of the above' && g !== 'Additional');
   if (goalsSummary.length > 0 && gapCount > 0) {
     const goalsText = goalsSummary.length === 1
       ? goalsSummary[0].toLowerCase()
       : goalsSummary.slice(0, 2).map(g => g.toLowerCase()).join(' and ');
-    toolsBody = 'You said your top priority is to ' + goalsText + '. Every gap above is standing between you and that goal. The strategy call is 30 minutes built entirely around closing them \u2014 for your business, your team, and your workflow.';
+    toolsBody = 'You said your top priority is to ' + goalsText + '. Every gap above is standing between you and that goal. The Gap Review call is 30 minutes built entirely around closing them \u2014 pick the right agents, the right scope, the right sequence.';
   }
 
   const hipaaIndustries = ['Healthcare / Medical', 'Dental'];
   const hipaaNote = hipaaIndustries.includes(answers.industry)
-    ? 'Note for ' + answers.industry + ' professionals: All recommended tools and systems can be configured for HIPAA-compliant use. During your strategy call, Tom will walk you through compliant implementation specific to your practice.'
+    ? 'Note for ' + answers.industry + ' professionals: by default, Point Zero AI builds marketing-only sites \u2014 no patient health information flows through anything we build. If you need recall workflows, insurance verification, or any PHI-touching automation, those route through our HIPAA-capable support partner who signs the BAA directly with your practice before any work begins. Point Zero AI never holds a Business Associate Agreement.'
     : '';
 
   return { gaps, gapCount, highGaps, headlineHtml, headlineText, contextText, summary, ctaSub, toolsBody, hipaaNote };
@@ -1196,9 +1284,16 @@ async function submitAssessment() {
         industry: answers.industry || '',
         hours_lost: answers.hours_lost || '',
         lead_response: answers.lead_response || '',
+        wrong_fit_leads: answers.wrong_fit_leads || '',
         follow_up: answers.follow_up || '',
+        no_show_rate: answers.no_show_rate || '',
         dormant_clients: answers.dormant_clients || '',
+        cyclic_service: answers.cyclic_service || '',
         reviews: answers.reviews || '',
+        website_age: answers.website_age || '',
+        website_leads: answers.website_leads || '',
+        chat_handling: answers.chat_handling || '',
+        communication: (answers.communication || []).join(', '),
         goal: answers.goal || '',
         tasks: (answers.tasks || []).join(', '),
         headline: r.headlineText,

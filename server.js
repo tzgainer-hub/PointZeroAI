@@ -212,7 +212,9 @@ app.post('/api/submit-assessment', async (req, res) => {
     const {
       email, phone, sms_consent,
       gaps, top_gap, all_gaps, gaps_detail,
-      industry, hours_lost, lead_response, follow_up, dormant_clients, reviews, goal, tasks,
+      industry, hours_lost, lead_response, wrong_fit_leads, follow_up, no_show_rate,
+      dormant_clients, cyclic_service, reviews, website_age, website_leads, chat_handling,
+      communication, goal, tasks,
       headline, summary, cta_sub, hipaa_note
     } = req.body;
 
@@ -220,45 +222,82 @@ app.post('/api/submit-assessment', async (req, res) => {
     const gapCount = gaps || 0;
     const gapList = Array.isArray(gaps_detail) ? gaps_detail : [];
 
-    // Build opps_html (prospect email — the gap cards)
+    // ── Email-safe HTML helpers ──
+    // Email clients (Outlook, Yahoo, older Gmail) strip flex/grid; tables work everywhere.
+    // Centering done via wrapper <table align="center"> so GHL template doesn't matter.
+
+    // Build opps_html (prospect email — the gap cards, centered + max-width 600)
     let oppsHtml;
+    const oppsHeader = `<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;"><tr><td style="padding:0 20px;">`;
+    const oppsFooter = `</td></tr></table>`;
+
     if (gapList.length === 0) {
-      oppsHtml = `<div style="padding:20px;background:#0f2547;border-left:4px solid #c9a447;border-radius:4px;margin:16px 0;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px;">No Major Gaps Detected</div>
-        <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
-      </div>`;
+      oppsHtml = oppsHeader + `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#0f2547;border-left:4px solid #c9a447;border-radius:4px;margin:16px 0;">
+        <tr><td style="padding:24px 28px;">
+          <div style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;margin-bottom:8px;">No Major Gaps Detected</div>
+          <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
+        </td></tr>
+      </table>` + oppsFooter;
     } else {
-      oppsHtml = gapList.map(g => {
-        const sevColor = g.severity === 'high' ? '#c9a447' : 'rgba(255,255,255,0.12)';
-        const sevTextColor = g.severity === 'high' ? '#1a1000' : 'rgba(255,255,255,0.7)';
-        const sevLabel = g.severity === 'high' ? 'High Priority' : 'Moderate';
-        return `<div style="padding:20px;background:#0f2547;border:1px solid rgba(201,164,71,0.15);border-radius:4px;margin:12px 0;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:#fff;">${esc(g.title)}</span>
-            <span style="background:${sevColor};color:${sevTextColor};font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:3px;">${sevLabel}</span>
-          </div>
-          <div style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:8px;">${esc(g.desc)}</div>
-          <div style="font-size:0.85rem;color:#c9a447;line-height:1.5;">${esc(g.fix)}</div>
-        </div>`;
+      const gapCards = gapList.map(g => {
+        const sevColor = g.severity === 'high' ? '#c9a447' : '#2a3f5f';
+        const sevTextColor = g.severity === 'high' ? '#1a1000' : '#b8c2d2';
+        const sevLabel = g.severity === 'high' ? 'HIGH PRIORITY' : 'MODERATE';
+        return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#0f2547;border:1px solid #2a3f5f;border-radius:4px;margin:12px 0;">
+          <tr><td style="padding:22px 28px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+              <tr>
+                <td style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;padding-right:12px;vertical-align:middle;">${esc(g.title)}</td>
+                <td style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:${sevTextColor};background:${sevColor};padding:4px 10px;border-radius:3px;vertical-align:middle;white-space:nowrap;">${sevLabel}</td>
+              </tr>
+            </table>
+            <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;margin-bottom:10px;">${esc(g.desc)}</div>
+            <div style="font-family:Arial,sans-serif;font-size:14px;color:#c9a447;line-height:1.55;">${esc(g.fix)}</div>
+          </td></tr>
+        </table>`;
       }).join('');
+      oppsHtml = oppsHeader + gapCards + oppsFooter;
     }
 
-    // Build details_html (Tom's notification — full answer dump)
+    // Build details_html (Tom's notification — full answer dump, centered + max-width 600)
     const smsOptInDisplay = (sms_consent && phone) ? 'YES — consented at ' + new Date().toISOString() : (phone ? 'Phone provided, SMS not opted in' : '—');
-    const detailsHtml = `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
-      <tr><td style="padding:6px 0;color:#aab;width:140px;">Phone</td><td style="padding:6px 0;font-weight:600;">${esc(phone || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">SMS Opt-In</td><td style="padding:6px 0;font-weight:600;color:${(sms_consent && phone) ? '#c9a447' : '#aab'};">${esc(smsOptInDisplay)}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Gaps Found</td><td style="padding:6px 0;font-weight:600;color:#c9a447;">${gapCount}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Top Gap</td><td style="padding:6px 0;font-weight:600;">${esc(top_gap || 'None')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">All Gaps</td><td style="padding:6px 0;">${esc(all_gaps || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Industry</td><td style="padding:6px 0;">${esc(industry || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Hours Lost/Wk</td><td style="padding:6px 0;">${esc(hours_lost || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Lead Response</td><td style="padding:6px 0;">${esc(lead_response || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Follow-Up</td><td style="padding:6px 0;">${esc(follow_up || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Dormant Clients</td><td style="padding:6px 0;">${esc(dormant_clients || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Reviews</td><td style="padding:6px 0;">${esc(reviews || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Goals</td><td style="padding:6px 0;">${esc(goalStr || '—')}</td></tr>
-      <tr><td style="padding:6px 0;color:#aab;">Tasks Eating Time</td><td style="padding:6px 0;">${esc(tasks || '—')}</td></tr>
+    const detailRow = (label, value, opts = {}) => {
+      const valColor = opts.gold ? '#c9a447' : '#ffffff';
+      const valWeight = opts.bold ? '600' : '400';
+      return `<tr>
+        <td style="padding:8px 12px 8px 0;font-family:Arial,sans-serif;font-size:13px;color:#8a9bb5;width:160px;vertical-align:top;border-bottom:1px solid #1a2e4a;">${esc(label)}</td>
+        <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:13px;color:${valColor};font-weight:${valWeight};vertical-align:top;border-bottom:1px solid #1a2e4a;">${esc(value)}</td>
+      </tr>`;
+    };
+    const detailsHtml = `<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;">
+      <tr><td style="padding:0 20px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#0c1e3c;border:1px solid #1a2e4a;border-radius:4px;">
+          <tr><td style="padding:24px 28px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+              ${detailRow('Phone', phone || '—', { bold: true })}
+              ${detailRow('SMS Opt-In', smsOptInDisplay, { gold: !!(sms_consent && phone), bold: true })}
+              ${detailRow('Gaps Found', String(gapCount), { gold: true, bold: true })}
+              ${detailRow('Top Gap', top_gap || 'None', { bold: true })}
+              ${detailRow('All Gaps', all_gaps || '—')}
+              ${detailRow('Industry', industry || '—')}
+              ${detailRow('Hours Lost/Wk', hours_lost || '—')}
+              ${detailRow('Lead Response', lead_response || '—')}
+              ${detailRow('Wrong-Fit Leads', wrong_fit_leads || '—')}
+              ${detailRow('Follow-Up', follow_up || '—')}
+              ${detailRow('No-Show Rate', no_show_rate || '—')}
+              ${detailRow('Dormant Clients', dormant_clients || '—')}
+              ${detailRow('Cyclic Service', cyclic_service || '—')}
+              ${detailRow('Reviews', reviews || '—')}
+              ${detailRow('Website Age', website_age || '—')}
+              ${detailRow('Website Leads', website_leads || '—')}
+              ${detailRow('Chat Handling', chat_handling || '—')}
+              ${detailRow('Communication', communication || '—')}
+              ${detailRow('Goals', goalStr || '—')}
+              ${detailRow('Tasks Eating Time', tasks || '—')}
+            </table>
+          </td></tr>
+        </table>
+      </td></tr>
     </table>`;
 
     const contactTags = [
