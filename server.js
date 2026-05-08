@@ -106,14 +106,17 @@ function esc(s) {
 
 // ── TEAM HUB AUTH ──
 // Single shared password gate covering /sales-hub, /delivery-hub, /partner-hub, /team.
-// Set HUB_PASSWORD and HUB_COOKIE_SECRET in Railway env vars before deploy.
+// Set HUB_PASSWORD in Railway env vars before deploy. That's the only setup needed.
 const crypto = require('crypto');
 const HUB_PROTECTED = ['/sales-hub', '/delivery-hub', '/partner-hub', '/team'];
 
 function hubAuthToken() {
-  const secret = process.env.HUB_COOKIE_SECRET || '';
-  if (!secret) return '';
-  return crypto.createHmac('sha256', secret).update('pzai-team-v1').digest('hex');
+  const pw = process.env.HUB_PASSWORD || '';
+  if (!pw) return '';
+  // Cookie value is a hash of the password + a fixed namespace.
+  // Anyone with the cookie can't reverse it to the password (one-way SHA-256).
+  // If password rotates, all existing cookies become invalid (re-login required).
+  return crypto.createHash('sha256').update('pzai-team-v1:' + pw).digest('hex');
 }
 
 function parseCookies(header) {
@@ -127,7 +130,7 @@ function parseCookies(header) {
 }
 
 function hubIsAuthed(req) {
-  if (!process.env.HUB_PASSWORD || !process.env.HUB_COOKIE_SECRET) return false;
+  if (!process.env.HUB_PASSWORD) return false;
   const tok = parseCookies(req.headers.cookie)['pzai_team'];
   if (!tok) return false;
   const expected = hubAuthToken();
@@ -176,8 +179,8 @@ app.get('/team-login', (req, res) => res.sendFile(path.join(__dirname, 'public',
 
 app.post('/api/team-login', (req, res) => {
   const { password, next: nextPath } = req.body || {};
-  if (!process.env.HUB_PASSWORD || !process.env.HUB_COOKIE_SECRET) {
-    return res.status(500).json({ ok: false, error: 'Server not configured (HUB_PASSWORD / HUB_COOKIE_SECRET missing).' });
+  if (!process.env.HUB_PASSWORD) {
+    return res.status(500).json({ ok: false, error: 'Server not configured (HUB_PASSWORD missing on PointZeroAI service).' });
   }
   if (!password || password !== process.env.HUB_PASSWORD) {
     return res.status(401).json({ ok: false, error: 'Wrong password.' });
