@@ -456,7 +456,7 @@
         <div class="metric"><div class="metric-label">Cold Calls / day</div><div class="metric-value">8&ndash;10</div><div class="metric-sub">Tier S &amp; A list</div></div>
         <div class="metric"><div class="metric-label">Discovery calls / wk</div><div class="metric-value">5&ndash;8</div><div class="metric-sub">From assessment leads</div></div>
         <div class="metric"><div class="metric-label">Proposals / wk</div><div class="metric-value">3&ndash;5</div><div class="metric-sub">Sent within 24h of call</div></div>
-        <div class="metric"><div class="metric-label">Closes / mo target</div><div class="metric-value">8&ndash;12</div><div class="metric-sub">Mix of bundle &amp; agent-only</div></div>
+        <div class="metric"><div class="metric-label">Closes / mo (ramp)</div><div class="metric-value">2&ndash;10</div><div class="metric-sub">2&ndash;4 first 90d &middot; 4&ndash;6 proven &middot; 6&ndash;10 mature</div></div>
       </div>
 
       <h2>The daily rhythm</h2>
@@ -506,7 +506,7 @@
 
       <div class="callout">
         <span class="callout-label">The math</span>
-        <p>40 cold calls/wk &times; 25% conversation rate = 10 conversations &times; 30% book rate = 3 new discovery calls. Plus 3&ndash;5 inbound from assessment. Plus 1&ndash;2 referrals. = 7&ndash;10 discovery calls/wk. At 30% close rate = 2&ndash;3 closes/wk = 8&ndash;12/mo. <strong>That's the engine.</strong></p>
+        <p>40 cold calls/wk &times; 25% conversation rate = 10 conversations &times; 30% book rate = 3 new discovery calls. Plus 3&ndash;5 inbound from assessment. Plus 1&ndash;2 referrals. = 7&ndash;10 discovery calls/wk. <strong>The mature-state math:</strong> at 30% close rate that's 6&ndash;10 closes/mo at $7,500&ndash;$12,500. <strong>The ramp reality:</strong> first 90 days expect 2&ndash;4/mo while the offer settles. Don't build the team around fantasy volume.</p>
       </div>
     </section>
 
@@ -620,17 +620,25 @@
       <div class="card card-gold">
         <div class="card-title">Path B &mdash; Marketing-Only (default for white coat)</div>
         <p><strong>What we build:</strong> Marketing site, brand pages, services, locations, lead-capture form that hands off to the practice's existing EHR/PMS. <strong>No PHI collected, stored, transmitted, or processed by anything we build.</strong></p>
-        <p><strong>Sophia's job (if included):</strong> Books a consult call. Qualifies. Routes. <em>Does not</em> handle insurance verification, recall, intake forms, or anything PHI-adjacent.</p>
-        <p><strong>BAA exposure:</strong> Zero. Tom never signs a BAA. The hub never quotes a job that requires one.</p>
+        <p><strong>Sophia's job (if included):</strong> Books a consult call. Qualifies on non-medical fields only (name, contact, general reason for the consult). Routes. <em>Does not</em> handle insurance verification, recall, intake forms, or anything PHI-adjacent.</p>
+        <p><strong>The hard form rule (prevents PHI drift):</strong> Path B sites do <em>not</em> host medical intake forms, symptom fields, insurance fields, recall forms, treatment-history fields, or free-text "describe your issue" fields. Patient-side health information goes through the practice's own scheduler, EHR, or PMS &mdash; never through a form Point Zero AI built. Lead-capture is name, contact, preferred consult time. That's it.</p>
+        <p><strong>BAA exposure:</strong> Designed to keep PHI out of PZAI's scope entirely. Tom does not sign a BAA. The hub does not quote any feature that would require one.</p>
         <p><strong>Use this path:</strong> Default for every white coat prospect.</p>
       </div>
 
       <div class="card card-gold">
-        <div class="card-title">Path A &mdash; HIPAA-Touching Build (partner takes BAA at handover)</div>
-        <p><strong>What we build:</strong> Recall receptionist, insurance verifier, PHI-touching intake, patient-facing scheduling agents.</p>
-        <p><strong>The hard rule:</strong> Tom builds it, but at handover the <em>partner</em> signs the BAA and runs HIPAA-compliant operations. Tom never holds the BAA. Point Zero AI never holds the BAA.</p>
-        <p><strong>Pre-condition:</strong> A HIPAA-capable partner must be on the bench. If no partner is locked, Path A can be sold but not built &mdash; closer notes the dependency in the proposal.</p>
-        <p><strong>Use this path:</strong> Only when the prospect explicitly demands HIPAA features and a HIPAA-capable partner is available.</p>
+        <div class="card-title">Path A &mdash; HIPAA-Touching Build (partner-led, synthetic data during build)</div>
+        <p><strong>What gets built:</strong> Recall receptionist, insurance verifier, PHI-touching intake, patient-facing scheduling agents.</p>
+        <p><strong>The hard rule, in order:</strong></p>
+        <ol style="margin: 8px 0 12px 22px; color: var(--text-2);">
+          <li>HIPAA-capable partner contracts with the practice and signs the BAA <em>before</em> any build work starts.</li>
+          <li>Point Zero AI builds and tests using <strong>synthetic / placeholder data only</strong>. No PHI is created, received, transmitted, accessed, or stored by PZAI at any point.</li>
+          <li>At launch, the partner activates the system with real patient data under the BAA. PZAI hands over admin access and steps fully out of the PHI chain.</li>
+          <li>Post-launch, the partner owns operations, monitoring, breach response, and BAA lifecycle. PZAI does not access, monitor, or troubleshoot anything PHI-touching.</li>
+        </ol>
+        <p><strong>Why the synthetic-data rule:</strong> HHS treats anyone who creates, receives, maintains, or transmits PHI on behalf of a covered entity as a Business Associate &mdash; even before a formal handoff. Building with synthetic data keeps PZAI out of that definition entirely. Tom never holds a BAA. PZAI never holds a BAA.</p>
+        <p><strong>Pre-condition:</strong> A HIPAA-capable partner must be on the bench AND the BAA between the practice and the partner must be signed before any build kickoff. If either is missing, Path A can be quoted but not built. Closer documents the dependency in the proposal.</p>
+        <p><strong>Use this path:</strong> Only when the prospect explicitly demands HIPAA features and the partner is locked.</p>
       </div>
 
       <div class="callout-warn callout">
@@ -735,7 +743,7 @@
         <li><strong>Specificity</strong> &mdash; their trade, their city, what you noticed. Proves you researched.</li>
         <li><strong>The problem</strong> &mdash; missed after-hours calls. Universally felt.</li>
         <li><strong>The product</strong> &mdash; one sentence. Not a pitch.</li>
-        <li><strong>The price</strong> &mdash; up front. No games.</li>
+        <li><strong>The next step</strong> &mdash; a 5-minute demo before any pricing. The demo is what earns the price conversation, not the cold call.</li>
         <li><strong>The ask</strong> &mdash; specific day. Not "sometime next week."</li>
       </ul>
 
@@ -756,7 +764,7 @@
         <strong>Subject:</strong> Quick demo &mdash; the after-hours call problem at [Business Name]<br><br>
         [Owner Name] &mdash;<br><br>
         I left you a voicemail earlier. Here's the 5-minute demo of Sophia I mentioned: <span style="color: var(--gold-bright);">[demo link]</span><br><br>
-        She answers calls 24/7, qualifies the lead, and books the job into your calendar &mdash; the kind of after-hours call most [trade] businesses miss entirely. Most of our clients see her cover the cost in the first month from a single booked job.<br><br>
+        She answers calls 24/7, qualifies the lead, and books the job into your calendar &mdash; the kind of after-hours call most [trade] businesses miss entirely. For a business with $1,500+ jobs, recovering one missed after-hours job a month makes the math obvious.<br><br>
         If it looks like a fit for [Business Name], here's my calendar: <span style="color: var(--gold-bright);">[calendly link]</span><br><br>
         &mdash; [Rep Name]<br>
         Point Zero AI</span>
@@ -1000,12 +1008,12 @@
     <section class="panel" id="objections">
       <div class="panel-eyebrow">Section 09</div>
       <h1 class="panel-title">Objection Handlers.</h1>
-      <p class="panel-lede">Ten objections cover 95% of pushback. Memorize the structure: <em>acknowledge &rarr; reframe &rarr; ask</em>. Never argue.</p>
+      <p class="panel-lede">Eleven objections cover 95% of pushback. Memorize the structure: <em>acknowledge &rarr; reframe &rarr; ask</em>. Never argue.</p>
 
       <div class="obj">
         <div class="obj-tag">01 &middot; The web guy</div>
         <div class="obj-q">My web guy can probably just add a chatbot for me.</div>
-        <p>"Totally fair question. Here's the difference: a chatbot is a feature. A smart response system is a managed service &mdash; our phone number, our voice tuning, our monthly call review, plus a support partner whose only job is keeping it running. Your web guy installs a chatbot and moves on to the next site. When the call gets handled wrong on a Sunday at 11pm, who's fixing it Monday morning? That's what the system is. Does that make sense?"</p>
+        <p>"Totally fair question. Here's the difference: a chatbot is a feature. A smart response system is a managed service. We design and build it. Then a dedicated support partner runs it &mdash; the partner-managed line, the voice tuning, the monthly call review, the troubleshooting at 11pm on a Sunday. Your web guy installs a chatbot and moves on to the next site. We're not here for the install. We're here for the system that keeps working. Does that make sense?"</p>
       </div>
 
       <div class="obj">
@@ -1047,19 +1055,19 @@
       <div class="obj">
         <div class="obj-tag">08 &middot; Proof</div>
         <div class="obj-q">How do I know this actually works?</div>
-        <p>"Best way is to hear it yourself &mdash; that's why the demo is 5 minutes and live, not a video. Beyond that, we have a 30-day satisfaction guarantee: if Sophia doesn't book a job in your first month, we refund the month and unwind the setup. We're confident because the math just works for businesses your size."</p>
+        <p>"Best way is to hear it yourself &mdash; that's why the demo is 5 minutes and live, not a video. Beyond that, we guarantee the system: Sophia launches as scoped, answers calls, qualifies, summarizes, and books according to the approved workflow. If the launch is materially broken in the first 30 days, we fix it or refund the setup minus hard costs. We don't guarantee how many jobs come in &mdash; that depends on your call volume and market &mdash; but we do guarantee the system works as designed."</p>
       </div>
 
       <div class="obj">
         <div class="obj-tag">09 &middot; HIPAA / Compliance</div>
         <div class="obj-q">What about HIPAA / patient privacy?</div>
-        <p>"Important question, and we have a clean answer. We give every white coat practice two paths. The default is a marketing-only build &mdash; great site, lead capture for new patients, but no patient data flowing through anything we build. Zero HIPAA exposure on either side. If you do want recall, insurance verification, or PHI-touching workflows, we route that through our HIPAA-certified support partner who signs the BAA and runs the compliance side. Point Zero AI builds it; the partner owns the compliance. We never put you in a gray zone, and we don't sign BAAs ourselves. Which sounds closer to what you actually need?"</p>
+        <p>"Important question, and we have a clean answer. We give every white coat practice two paths. The default is a marketing-only build &mdash; great site, lead capture for new patients, but no patient data flowing through anything we build. That path is designed to keep PHI out of our scope entirely. If you want recall, insurance verification, or PHI-touching workflows, that goes through our HIPAA-capable support partner who contracts directly with you under a signed BAA before any PHI-touching work begins. Point Zero AI doesn't sign BAAs and doesn't access patient data. The partner owns the compliance side. Which sounds closer to what you actually need?"</p>
       </div>
 
       <div class="obj">
         <div class="obj-tag">10 &middot; Tech overwhelm</div>
         <div class="obj-q">I'm not tech savvy &mdash; this sounds complicated.</div>
-        <p>"That's actually who we built this for. You don't configure anything. You don't log into a dashboard. You give us your phone, your calendar, and the questions you want her to ask &mdash; and we handle the rest. The only time you interact with Sophia is when you read the call summary on your phone. If you can read a text message, you can run this."</p>
+        <p>"That's actually who we built this for. You don't configure anything. You don't log into a dashboard. You give us your phone, your calendar, and the questions you want her to ask &mdash; we set it up, then your support partner keeps it running. The only time you interact with Sophia is when you read the call summary on your phone. If you can read a text message, you can run this."</p>
       </div>
 
       <div class="obj">
@@ -1144,7 +1152,7 @@
         <li><strong>Setup fee</strong> &mdash; paid 50% on signing, 50% on launch</li>
         <li><strong>Build timeline</strong> &mdash; specified in proposal (10 days / 2&ndash;4 wk / 4&ndash;6 wk by package)</li>
         <li><strong>30-day satisfaction guarantee on the build</strong> &mdash; if launch is materially broken in month 1, we refund the setup minus actual costs</li>
-        <li><strong>Phone number ownership</strong> &mdash; we provision the number; on cancellation, port back to client at cost</li>
+        <li><strong>Phone number ownership</strong> &mdash; provisioned in the client's or support partner's account, never in Point Zero AI's. Operational control sits with the partner under the Care plan. PZAI is not in the phone-number chain post-launch.</li>
         <li><strong>What we explicitly do not warranty:</strong> ongoing performance after launch is governed by the partner Care agreement, not the build agreement (Partner-Served track)</li>
         <li><strong>White Coat Path A only:</strong> BAA is signed by the support partner, not by Point Zero AI. Build does not commence until partner BAA is in place.</li>
       </ul>
@@ -1200,12 +1208,22 @@
         <li><strong>No medical diagnosis or triage agents.</strong> Including: symptom-checker chat, "is this an emergency" routing, diagnosis-adjacent intake.</li>
       </ul>
 
+      <h2>Operational compliance</h2>
+      <ul>
+        <li><strong>No outbound AI voice or SMS without TCPA review.</strong> Follow-Up Agent, Quote Follow-Up Caller, or any agent that initiates contact requires documented prior consent, opt-out language, and legal/TCPA review on the client side. The FCC has confirmed AI-generated voices in robocalls fall under TCPA &mdash; treat that as the floor.</li>
+        <li><strong>No call recording, transcription, or summary storage without consent.</strong> Sophia produces transcripts and summaries by design. Every client deployment requires approved consent language on the inbound greeting, defined retention rules, and the client's written approval before recordings or transcripts are stored.</li>
+        <li><strong>No payment-card or bank-credential collection through any agent we build.</strong> If the client wants payments, we route to an approved PCI-compliant provider (Stripe Checkout, etc.) &mdash; the agent never collects card numbers, CVV, or banking info.</li>
+        <li><strong>No emergency, safety, medical, legal, or hazard advice from any agent.</strong> If a caller describes immediate danger, the agent's job is to route to 911 or the client's pre-approved emergency instruction. Sophia is not a triage system. Especially relevant for HVAC, electrical, water damage, locksmith, towing, vet.</li>
+        <li><strong>No eligibility or qualification decisions for regulated categories.</strong> No agent makes credit, housing, employment, insurance, healthcare, lending, or benefits eligibility calls. Capture intent, route to a human.</li>
+        <li><strong>No client passwords sent by email or stored in personal accounts.</strong> All credentials live in approved shared credential tools (1Password, Bitwarden, etc.). Admin access is documented, transferred at launch, and removed from PZAI staff at handoff.</li>
+      </ul>
+
       <h2>Pricing floors</h2>
       <ul>
         <li><strong>No custom build under $15,000.</strong> Custom = anything outside the four published packages. Below $15k, custom work is a margin trap and a scope-creep magnet.</li>
         <li><strong>No Sophia-only at $297/mo with no setup.</strong> The cheap monthly trains the wrong client and creates support volume Tom doesn't own. Standalone Sophia is $2,500 setup + partner Care.</li>
         <li><strong>No discount of build setup in exchange for a larger Care plan.</strong> Care belongs to the partner. Trading PZAI revenue for partner revenue is bad math for everyone.</li>
-        <li><strong>No "free month" of Care.</strong> The first month is included in the launch (already standard). No additional free months.</li>
+        <li><strong>No "free month" of Care.</strong> The first month of partner Care is due at launch. Build setup includes launch QA only, not free Care months.</li>
         <li><strong>No setup fee waived.</strong> If a prospect can't pay the setup, they can't afford the system to support them after.</li>
       </ul>
 
@@ -1221,7 +1239,9 @@
       <h2>Language we never use</h2>
       <ul>
         <li><strong>"The customer doesn't know it's AI."</strong> Lawsuit bait. Use: <em>"Sophia sounds natural and is configured to be transparent and professional."</em></li>
-        <li><strong>"We sign a BAA."</strong> We do not. Use: <em>"Our HIPAA-certified support partner signs the BAA at handover."</em></li>
+        <li><strong>"We sign a BAA."</strong> We do not. Use: <em>"Our HIPAA-capable support partner signs the BAA directly with the practice before any PHI-touching work begins."</em></li>
+        <li><strong>"HIPAA-certified" anything.</strong> No magic certification exists. Use <em>"HIPAA-capable"</em> or <em>"operating under a signed BAA and compliance framework."</em></li>
+        <li><strong>"Zero HIPAA exposure."</strong> Never promise an absolute. Use <em>"Path B is designed to keep PHI out of anything Point Zero AI builds."</em></li>
         <li><strong>"Guaranteed compliance."</strong> Compliance is a partner deliverable, not a PZAI promise.</li>
         <li><strong>"We'll figure it out."</strong> If we can't scope it on the call, it goes in writing or doesn't go at all.</li>
         <li><strong>"AI agents."</strong> Use <em>"smart response system"</em> with prospects. AI is a feature; the response is the product.</li>

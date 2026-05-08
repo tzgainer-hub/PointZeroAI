@@ -575,7 +575,7 @@
     <section class="panel" id="hipaa">
       <div class="panel-eyebrow">Section 10</div>
       <h1 class="panel-title">White Coat &amp; BAA Flow.</h1>
-      <p class="panel-lede">For dental, medical, and healthcare clients on Path A (HIPAA-touching builds). Path B clients are zero-PHI &mdash; this section doesn't apply to them.</p>
+      <p class="panel-lede">For dental, medical, and healthcare clients on Path A (HIPAA-touching builds). Path B is designed to keep PHI out of anything PZAI builds &mdash; this section doesn't apply to those clients.</p>
 
       <h2>The hard rule, restated</h2>
       <div class="callout-warn callout">
@@ -597,8 +597,8 @@
         </div>
         <div class="step">
           <div class="step-meta">Build phase</div>
-          <div class="step-title">PZAI builds to compliance spec</div>
-          <p>PZAI builds the system following the partner's HIPAA-compliant infrastructure requirements: encrypted data at rest, encrypted in transit, access logging, audit trails, segregated environments, etc.</p>
+          <div class="step-title">PZAI builds with synthetic data only</div>
+          <p>PZAI builds the system to the partner's compliance spec (encrypted data at rest, encrypted in transit, access logging, audit trails, segregated environments). <strong>The build uses synthetic / placeholder data only &mdash; no PHI is created, received, transmitted, accessed, or stored by PZAI at any point.</strong> This keeps PZAI outside the HIPAA Business Associate definition during the build phase.</p>
         </div>
         <div class="step">
           <div class="step-meta">Pre-launch</div>
@@ -620,9 +620,10 @@
       <h2>What PZAI commits to on Path A</h2>
       <ul>
         <li>Build to partner's stated infrastructure requirements</li>
-        <li>Document data flows and any PHI touchpoints in the build</li>
-        <li>Hand over all access and credentials at launch</li>
-        <li>Retain no PHI access post-launch</li>
+        <li><strong>Use synthetic / placeholder data only during build &mdash; never request, receive, or access real PHI at any phase</strong></li>
+        <li>Document data flows and any PHI touchpoints the partner will activate post-launch</li>
+        <li>Hand over all access and credentials at launch; no shadow access retained</li>
+        <li>Retain no PHI access at any point, before, during, or after build</li>
         <li>Notify partner of any planned upgrades or changes that would touch PHI</li>
       </ul>
 
@@ -638,7 +639,7 @@
 
       <div class="callout-warn callout">
         <span class="callout-label">If partner can't sign a BAA</span>
-        <p>If partner does not have BAA capacity (no compliance program, no insurance, no infrastructure), Path A clients cannot be sold &mdash; only Path B (marketing-only, zero PHI). PZAI sales is informed of partner's BAA capacity at all times. <em>"We can do HIPAA" is a binary capability, not a maybe.</em></p>
+        <p>If partner does not have BAA capacity (no compliance program, no insurance, no infrastructure), Path A clients cannot be sold &mdash; only Path B (marketing-only, designed to keep PHI out of PZAI's scope). PZAI sales is informed of partner's BAA capacity at all times. <em>"We can do HIPAA" is a binary capability, not a maybe.</em></p>
       </div>
     </section>
 

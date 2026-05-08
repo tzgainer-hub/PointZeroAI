@@ -660,8 +660,8 @@
 
       <h2>White Coat Path A &mdash; the BAA gate</h2>
       <div class="callout-warn callout">
-        <span class="callout-label">Do not hand off without it</span>
-        <p>For Path A (HIPAA-touching) builds, partner signs the BAA <em>before</em> the system goes live. If the BAA is not signed at handoff, the build pauses. <strong>Tom does not sign the BAA. Point Zero AI does not sign the BAA.</strong> No exceptions, no temporary workarounds.</p>
+        <span class="callout-label">Do not start building without it</span>
+        <p>For Path A (HIPAA-touching) builds, the partner signs the BAA with the practice <em>before</em> any build work begins. The build phase uses <strong>synthetic data only</strong> &mdash; no PHI is created, received, or accessed by Point Zero AI at any point. Real-data activation happens post-launch by the partner under the BAA. If the BAA isn't in place at kickoff, the build doesn't start. <strong>Tom does not sign the BAA. Point Zero AI does not sign the BAA.</strong> No exceptions.</p>
       </div>
 
       <h2>Tom-Direct clients (the 10) &mdash; modified handoff</h2>
@@ -727,7 +727,8 @@
 
       <h2>HIPAA / compliance</h2>
       <ul>
-        <li><strong>"We sign a BAA."</strong> &rarr; <em>"Our HIPAA-certified support partner signs the BAA at handover."</em></li>
+        <li><strong>"We sign a BAA."</strong> &rarr; <em>"Our HIPAA-capable support partner signs the BAA directly with the practice before any PHI-touching work begins."</em></li>
+        <li><strong>"HIPAA-certified" anything.</strong> &rarr; Use <em>"HIPAA-capable"</em> or <em>"operating under a signed BAA."</em></li>
         <li><strong>"All our agents are HIPAA-compliant."</strong> &rarr; <em>"PHI-touching workflows route to a partner-led Path A build with BAA in place."</em></li>
         <li><strong>"Don't worry about compliance, we'll handle it."</strong> &rarr; never. Compliance has owners, in writing, with contracts.</li>
         <li><strong>"It's HIPAA-ready out of the box."</strong> &rarr; never. HIPAA is not a feature flag; it's a contractual structure.</li>
