@@ -334,44 +334,46 @@ app.post('/api/submit-assessment', async (req, res) => {
     const subjectGapCount = gapCount === 0 ? 'All Clear' : (gapCount === 1 ? '1 Gap Found' : `${gapCount} Gaps Found`);
     const prospectSubject = `Your Business Gap Analysis — ${subjectGapCount}`;
 
-    // Build gap cards for the Resend email (no outer max-width wrapper; lives inside email body padding)
+    // Build gap cards — light-body design: white cards with colored severity stripe
     let prospectGapCardsHtml;
     if (gapList.length === 0) {
-      prospectGapCardsHtml = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0f2547;border-left:4px solid #c9a447;border-radius:4px;margin:8px 0;">
+      prospectGapCardsHtml = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#ffffff;border:1px solid #e5e9f0;border-left:4px solid #6b9d7c;border-radius:6px;margin:14px 0;">
         <tr><td style="padding:22px 26px;">
-          <div style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;margin-bottom:8px;">No Major Gaps Detected</div>
-          <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
+          <div style="font-family:Arial,sans-serif;font-size:16px;font-weight:700;color:#0c1e3c;margin-bottom:8px;">No Major Gaps Detected</div>
+          <div style="font-family:Arial,sans-serif;font-size:14px;color:#4a5568;line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
         </td></tr>
       </table>`;
     } else {
       prospectGapCardsHtml = gapList.map(g => {
-        const sevColor = g.severity === 'high' ? '#c9a447' : '#2a3f5f';
-        const sevTextColor = g.severity === 'high' ? '#1a1000' : '#b8c2d2';
-        const sevLabel = g.severity === 'high' ? 'HIGH PRIORITY' : 'MODERATE';
-        return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0f2547;border:1px solid #2a3f5f;border-radius:4px;margin:10px 0;">
+        const isHigh = g.severity === 'high';
+        const stripeColor = isHigh ? '#c9a447' : '#94a3b8';
+        const badgeBg = isHigh ? '#c9a447' : '#e5e9f0';
+        const badgeText = isHigh ? '#1a1000' : '#4a5568';
+        const sevLabel = isHigh ? 'HIGH PRIORITY' : 'MODERATE';
+        return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#ffffff;border:1px solid #e5e9f0;border-left:4px solid ${stripeColor};border-radius:6px;margin:14px 0;">
           <tr><td style="padding:22px 26px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
               <tr>
-                <td style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;padding-right:12px;vertical-align:middle;">${esc(g.title)}</td>
-                <td style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:${sevTextColor};background:${sevColor};padding:4px 10px;border-radius:3px;vertical-align:middle;white-space:nowrap;">${sevLabel}</td>
+                <td style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;color:#0c1e3c;padding-right:14px;vertical-align:middle;">${esc(g.title)}</td>
+                <td style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:${badgeText};background:${badgeBg};padding:5px 11px;border-radius:3px;vertical-align:middle;white-space:nowrap;">${sevLabel}</td>
               </tr>
             </table>
-            <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;margin-bottom:10px;">${esc(g.desc)}</div>
-            <div style="font-family:Arial,sans-serif;font-size:14px;color:#c9a447;line-height:1.55;">${esc(g.fix)}</div>
+            <div style="font-family:Arial,sans-serif;font-size:14.5px;color:#2d3748;line-height:1.7;margin-bottom:12px;">${esc(g.desc)}</div>
+            <div style="font-family:Arial,sans-serif;font-size:14.5px;color:#0c1e3c;line-height:1.6;background:#f6f8fb;padding:14px 18px;border-radius:4px;border-left:2px solid #c9a447;">${esc(g.fix)}</div>
           </td></tr>
         </table>`;
       }).join('');
     }
 
     const prospectHipaaBlock = hipaa_note
-      ? `<tr><td style="padding:8px 32px 0;">
-          <div style="background:#1a2e4a;border-left:3px solid #c9a447;padding:18px 22px;font-family:Arial,sans-serif;font-size:13px;color:#b8c2d2;line-height:1.65;">${esc(hipaa_note)}</div>
+      ? `<tr><td style="padding:14px 32px 0;">
+          <div style="background:#fffbf0;border:1px solid #f0e2b8;border-left:3px solid #c9a447;padding:18px 22px;border-radius:4px;font-family:Arial,sans-serif;font-size:13px;color:#5a4c1f;line-height:1.65;">${esc(hipaa_note)}</div>
         </td></tr>`
       : '';
 
     const prospectSummaryBlock = summary
-      ? `<tr><td style="padding:24px 32px 8px;">
-          <p style="font-family:Arial,sans-serif;font-size:15px;color:#b8c2d2;line-height:1.65;margin:0;">${esc(summary)}</p>
+      ? `<tr><td style="padding:24px 32px 4px;">
+          <p style="font-family:Arial,sans-serif;font-size:16px;color:#2d3748;line-height:1.65;margin:0;">${esc(summary)}</p>
         </td></tr>`
       : '';
 
@@ -379,52 +381,63 @@ app.post('/api/submit-assessment', async (req, res) => {
 
     const prospectHtml = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Your Business Gap Analysis</title></head>
-<body style="margin:0;padding:0;background:#081628;font-family:Arial,Helvetica,sans-serif;">
-  <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#081628;">
+<body style="margin:0;padding:0;background:#f6f8fb;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f6f8fb;">
     <tr><td align="center" style="padding:32px 16px;">
-      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;background:#0c1e3c;border-radius:8px;">
 
-        <tr><td style="padding:36px 32px 24px;border-bottom:1px solid #1a2e4a;">
-          <div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c9a447;font-weight:700;margin-bottom:14px;">Point Zero AI · Business Gap Analysis · Complete</div>
-          <h1 style="font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:#ffffff;margin:0;line-height:1.3;">${esc(headline || 'Your Gap Analysis Is Ready.')}</h1>
+      <!-- BRAND BAND (navy header) -->
+      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;background:#0c1e3c;border-radius:8px 8px 0 0;">
+        <tr><td style="padding:28px 32px;">
+          <div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c9a447;font-weight:700;margin-bottom:6px;">Point Zero AI</div>
+          <div style="font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">Business Gap Analysis · Complete</div>
+        </td></tr>
+      </table>
+
+      <!-- BODY (white card) -->
+      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;background:#ffffff;border:1px solid #e5e9f0;border-top:none;border-radius:0 0 8px 8px;">
+
+        <tr><td style="padding:36px 32px 8px;">
+          <h1 style="font-family:Arial,sans-serif;font-size:26px;font-weight:700;color:#0c1e3c;margin:0;line-height:1.25;">${esc(headline || 'Your Gap Analysis Is Ready.')}</h1>
         </td></tr>
 
         ${prospectSummaryBlock}
 
-        <tr><td style="padding:24px 32px 4px;">
-          <div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c9a447;font-weight:700;">Where Your Business Is Leaking</div>
+        <tr><td style="padding:28px 32px 4px;">
+          <div style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#0c1e3c;font-weight:700;border-bottom:2px solid #c9a447;padding-bottom:8px;display:inline-block;">Where Your Business Is Leaking</div>
         </td></tr>
 
-        <tr><td style="padding:0 32px;">
+        <tr><td style="padding:8px 32px 4px;">
           ${prospectGapCardsHtml}
         </td></tr>
 
         ${prospectHipaaBlock}
 
-        <tr><td style="padding:32px 32px 8px;">
-          <h2 style="font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#ffffff;margin:0 0 8px;line-height:1.4;">You Now Know Where the Gaps Are.</h2>
-          <h2 style="font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#c9a447;margin:0 0 16px;line-height:1.4;">The Gap Review Call Is Where We Close Them.</h2>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.65;margin:0 0 24px;">${esc(cta_sub || fallbackCtaSub)}</p>
+        <tr><td style="padding:36px 32px 8px;border-top:1px solid #e5e9f0;margin-top:28px;">
+          <h2 style="font-family:Arial,sans-serif;font-size:20px;font-weight:700;color:#0c1e3c;margin:0 0 6px;line-height:1.35;">You now know where the gaps are.</h2>
+          <h2 style="font-family:Arial,sans-serif;font-size:20px;font-weight:700;color:#0c1e3c;margin:0 0 16px;line-height:1.35;">The Gap Review call is where we close them.</h2>
+          <p style="font-family:Arial,sans-serif;font-size:15px;color:#4a5568;line-height:1.7;margin:0 0 24px;">${esc(cta_sub || fallbackCtaSub)}</p>
         </td></tr>
 
         <tr><td style="padding:0 32px 36px;">
           <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-            <tr><td style="background:#c9a447;border-radius:4px;">
-              <a href="https://calendly.com/tomz-pointzeroai/30min" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:#1a1000;text-decoration:none;">BOOK YOUR FREE GAP REVIEW &rarr;</a>
+            <tr><td style="background:#c9a447;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,0.06);">
+              <a href="https://calendly.com/tomz-pointzeroai/30min" style="display:inline-block;padding:15px 34px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;color:#1a1000;text-decoration:none;">BOOK YOUR FREE GAP REVIEW &rarr;</a>
             </td></tr>
           </table>
+          <p style="font-family:Arial,sans-serif;font-size:13px;color:#6b7280;line-height:1.6;margin:14px 0 0;">30 minutes. Free. No pitch deck.</p>
         </td></tr>
 
-        <tr><td style="padding:28px 32px 36px;border-top:1px solid #1a2e4a;">
-          <p style="font-family:Arial,sans-serif;font-size:13px;color:#8a9bb5;line-height:1.65;margin:0 0 16px;">Questions? Reply to this email or write to <a href="mailto:support@pointzeroai.com" style="color:#c9a447;text-decoration:none;">support@pointzeroai.com</a>.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#ffffff;font-weight:600;margin:0 0 4px;">— Tom Zgainer</p>
-          <p style="font-family:Arial,sans-serif;font-size:11px;color:#8a9bb5;line-height:1.6;margin:0;">Point Zero AI · Featured in Tony Robbins' <i>Money Master the Game</i> · CNBC · Bloomberg</p>
+        <tr><td style="padding:24px 32px 32px;border-top:1px solid #e5e9f0;background:#f9fafb;border-radius:0 0 8px 8px;">
+          <p style="font-family:Arial,sans-serif;font-size:13px;color:#6b7280;line-height:1.65;margin:0 0 14px;">Questions? Reply to this email or write to <a href="mailto:support@pointzeroai.com" style="color:#0c1e3c;font-weight:600;text-decoration:none;border-bottom:1px solid #c9a447;">support@pointzeroai.com</a>.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#0c1e3c;font-weight:700;margin:0 0 4px;">— Tom Zgainer</p>
+          <p style="font-family:Arial,sans-serif;font-size:11px;color:#6b7280;line-height:1.6;margin:0;">Point Zero AI · Featured in Tony Robbins' <i>Money Master the Game</i> · CNBC · Bloomberg</p>
         </td></tr>
       </table>
 
+      <!-- OUTER FOOTER -->
       <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;margin-top:16px;">
         <tr><td align="center" style="padding:0 16px;">
-          <p style="font-family:Arial,sans-serif;font-size:11px;color:#5a6a82;line-height:1.6;margin:0;">You received this because you took the Point Zero AI Business Gap Assessment.</p>
+          <p style="font-family:Arial,sans-serif;font-size:11px;color:#9ca3af;line-height:1.6;margin:0;">You received this because you took the Point Zero AI Business Gap Assessment.</p>
         </td></tr>
       </table>
     </td></tr>
