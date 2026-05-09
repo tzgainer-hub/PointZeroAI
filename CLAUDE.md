@@ -64,9 +64,9 @@ PointZeroAI/
 ```
 
 ### Typography
-- **Headlines:** `Outfit` (wght 700/800) — bold, modern, confident
+- **Headlines:** `Space Grotesk` (wght 700) — modern, geometric, confident
 - **Body:** `Inter` (wght 300–600) — clean, readable
-- Google Fonts: `Outfit` + `Inter` linked in every page `<head>`
+- Google Fonts: `Space Grotesk` + `Inter` linked in every page `<head>`
 
 ### Visual Tone
 - Dark navy background throughout — premium, serious, not clinical
