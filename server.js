@@ -167,6 +167,8 @@ app.get('/masterclass', (req, res) => res.sendFile(path.join(__dirname, 'public'
 app.get('/ai-business-stack', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-business-stack.html')));
 app.get('/assessment', (req, res) => res.sendFile(path.join(__dirname, 'public', 'assessment.html')));
 app.get('/practice-audit', (req, res) => res.sendFile(path.join(__dirname, 'public', 'practice-audit.html')));
+app.get('/ai-voice-agent', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent.html')));
+app.get('/ai-voice-agent-vs-answering-service', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent-vs-answering-service.html')));
 
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));
