@@ -170,6 +170,7 @@ app.get('/practice-audit', (req, res) => res.sendFile(path.join(__dirname, 'publ
 app.get('/ai-voice-agent', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent.html')));
 app.get('/ai-voice-agent-vs-answering-service', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent-vs-answering-service.html')));
 app.get('/insights', (req, res) => res.sendFile(path.join(__dirname, 'public', 'insights.html')));
+app.get('/sms-terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'sms-terms.html')));
 
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));
@@ -213,7 +214,7 @@ app.post('/api/submit-assessment', async (req, res) => {
   try {
     console.log('Assessment submission received:', req.body.email);
     const {
-      email, phone, sms_consent,
+      email, phone,
       gaps, top_gap, all_gaps, gaps_detail,
       industry, hours_lost, lead_response, wrong_fit_leads, follow_up, no_show_rate,
       dormant_clients, cyclic_service, reviews, website_age, website_leads, chat_handling,
@@ -263,7 +264,6 @@ app.post('/api/submit-assessment', async (req, res) => {
     }
 
     // Build details_html (Tom's notification — full answer dump, centered + max-width 600)
-    const smsOptInDisplay = (sms_consent && phone) ? 'YES — consented at ' + new Date().toISOString() : (phone ? 'Phone provided, SMS not opted in' : '—');
     const detailRow = (label, value, opts = {}) => {
       const valColor = opts.gold ? '#c9a447' : '#ffffff';
       const valWeight = opts.bold ? '600' : '400';
@@ -278,7 +278,6 @@ app.post('/api/submit-assessment', async (req, res) => {
           <tr><td style="padding:24px 28px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
               ${detailRow('Phone', phone || '—', { bold: true })}
-              ${detailRow('SMS Opt-In', smsOptInDisplay, { gold: !!(sms_consent && phone), bold: true })}
               ${detailRow('Gaps Found', String(gapCount), { gold: true, bold: true })}
               ${detailRow('Top Gap', top_gap || 'None', { bold: true })}
               ${detailRow('All Gaps', all_gaps || '—')}
@@ -308,7 +307,6 @@ app.post('/api/submit-assessment', async (req, res) => {
       `gaps-${gapCount}`,
       industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
     ];
-    if (sms_consent && phone) contactTags.push('sms-opted-in');
 
     await createGhlContact({
       email,

@@ -783,7 +783,6 @@ let currentQ = 0;
 let answers = {};
 let userEmail = '';
 let userPhone = '';
-let userSmsConsent = false;
 
 (function restoreProgress() {
   try {
@@ -840,9 +839,7 @@ function submitEmail() {
   userEmail = email;
 
   const phoneEl = document.getElementById('phone-input');
-  const smsEl = document.getElementById('sms-consent');
   userPhone = phoneEl ? phoneEl.value.trim() : '';
-  userSmsConsent = !!(smsEl && smsEl.checked && userPhone);
 
   try { localStorage.removeItem('pzai_assessment'); } catch(e) {}
   showProcessing();
@@ -1269,7 +1266,6 @@ async function submitAssessment() {
       body: JSON.stringify({
         email: userEmail,
         phone: userPhone,
-        sms_consent: userSmsConsent,
         gaps: r.gapCount,
         top_gap: r.highGaps.length > 0 ? r.highGaps[0].title : (r.gapCount > 0 ? r.gaps[0].title : 'None'),
         all_gaps: r.gaps.map(g => g.title + ' (' + g.severity + ')').join(', '),
