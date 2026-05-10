@@ -169,6 +169,7 @@ app.get('/assessment', (req, res) => res.sendFile(path.join(__dirname, 'public',
 app.get('/practice-audit', (req, res) => res.sendFile(path.join(__dirname, 'public', 'practice-audit.html')));
 app.get('/ai-voice-agent', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent.html')));
 app.get('/ai-voice-agent-vs-answering-service', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ai-voice-agent-vs-answering-service.html')));
+app.get('/insights', (req, res) => res.sendFile(path.join(__dirname, 'public', 'insights.html')));
 
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));

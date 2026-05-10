@@ -144,6 +144,11 @@
 
     .nav-cta:hover { background: var(--gold-light); }
 
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.7); font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; text-decoration: none; }
+    .nav-link:hover { color: var(--gold); }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
     /* ── PAGE CONTENT ── */
     .page-hero {
       background: linear-gradient(160deg, #0c1e3c 0%, #152847 50%, #0c1e3c 100%);
@@ -320,6 +325,7 @@
 
   <nav>
     <a href="/" class="nav-logo-text">POINT <span>ZERO</span> AI</a>
+    <div class="nav-links"><a href="/insights" class="nav-link">Insights</a></div>
     <a href="/#assessment" class="nav-cta">Get an Assessment</a>
   </nav>
 
