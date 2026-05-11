@@ -222,15 +222,10 @@
     .device-content { padding-top: 36px; }
     .device-app-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .device-app-icon {
-      width: 30px; height: 30px; border-radius: 8px;
-      background: linear-gradient(135deg, #1fb3a5, #2dd4bf);
-      display: grid; place-items: center;
-    }
-    .device-app-icon::before {
-      content: ''; width: 12px; height: 12px;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
-      background: #fff;
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      display: block;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     .device-app-name {
       font-family: 'Space Grotesk', sans-serif;
@@ -535,7 +530,7 @@
           <div class="device-notch"></div>
           <div class="device-content">
             <div class="device-app-row">
-              <div class="device-app-icon"></div>
+              <img src="/tripsignal/icon.svg" alt="" class="device-app-icon" />
               <div class="device-app-name">TripSignal</div>
             </div>
 
