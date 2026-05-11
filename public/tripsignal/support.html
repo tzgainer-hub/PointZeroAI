@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSGMQREKGT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSGMQREKGT');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripSignal Support — Point Zero AI LLC</title>
+  <meta name="description" content="Support and FAQ for TripSignal, an iOS app by Point Zero AI LLC. Contact support@pointzeroai.com." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.pointzeroai.com/tripsignal/support" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-dark: #0c1e3c;
+      --navy-card: #102b54;
+      --teal: #2dd4bf;
+      --amber: #f59e0b;
+      --gold: #c9a447;
+      --white: #ffffff;
+      --white-80: rgba(255,255,255,0.80);
+      --white-65: rgba(255,255,255,0.65);
+      --white-45: rgba(255,255,255,0.45);
+      --line: rgba(255,255,255,0.08);
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--white); background: var(--navy-dark); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.25; }
+    a { color: var(--teal); text-decoration: none; border-bottom: 1px solid rgba(45,212,191,0.3); }
+    a:hover { border-bottom-color: var(--teal); }
+
+    .umbrella-bar {
+      background: var(--navy-dark);
+      border-bottom: 1px solid rgba(201,164,71,0.15);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .umbrella-brand {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white-65); border: none;
+    }
+    .umbrella-brand:hover { color: var(--gold); }
+    .umbrella-brand span { color: var(--gold); }
+    .umbrella-nav { display: flex; gap: 28px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; }
+    .umbrella-nav a { color: var(--white-45); border: none; }
+    .umbrella-nav a:hover { color: var(--teal); }
+    .umbrella-nav a.active { color: var(--teal); }
+    @media (max-width: 640px) { .umbrella-bar { padding: 14px 20px; flex-direction: column; gap: 10px; } .umbrella-nav { gap: 18px; font-size: 0.7rem; } }
+
+    .doc-wrap { max-width: 880px; margin: 0 auto; padding: 72px 32px 80px; }
+    .doc-eyebrow { font-size: 0.72rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 14px; }
+    h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); margin-bottom: 14px; }
+    .doc-lede { font-size: 1.08rem; color: var(--white-80); max-width: 640px; margin-bottom: 38px; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+
+    .contact-card {
+      background: linear-gradient(140deg, #102b54 0%, #0a1f3e 100%);
+      border: 1px solid rgba(45,212,191,0.22);
+      border-radius: 14px;
+      padding: 26px 28px;
+      margin: 0 0 42px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .contact-card .left h3 { font-size: 1.05rem; color: var(--white); margin-bottom: 4px; }
+    .contact-card .left p { font-size: 0.92rem; color: var(--white-65); margin: 0; }
+    .contact-btn {
+      display: inline-block;
+      padding: 12px 22px;
+      background: var(--teal);
+      color: #062528;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      border: none;
+    }
+    .contact-btn:hover { background: #5fe0d0; border: none; }
+
+    h2.section-h {
+      font-size: 1.5rem;
+      margin: 50px 0 18px;
+      color: var(--white);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-item {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(45,212,191,0.3); }
+    .faq-q {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 20px 24px;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.02rem;
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.4;
+    }
+    .faq-q:hover { color: var(--teal); }
+    .faq-q .chev {
+      flex: 0 0 22px;
+      color: var(--white-45);
+      font-size: 1.3rem;
+      transition: transform 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .faq-item[open] .faq-q .chev { transform: rotate(45deg); color: var(--teal); }
+    .faq-a { padding: 0 24px 22px; }
+    .faq-a p { font-size: 0.96rem; color: var(--white-80); line-height: 1.7; margin-bottom: 10px; }
+    .faq-a p:last-child { margin-bottom: 0; }
+    .faq-a ol, .faq-a ul { margin: 6px 0 6px 22px; }
+    .faq-a li { font-size: 0.96rem; color: var(--white-80); margin-bottom: 6px; }
+
+    /* details/summary native styling override */
+    details summary { list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+
+    .closing-note {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.22);
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      padding: 22px 26px;
+      margin-top: 38px;
+    }
+    .closing-note .label {
+      font-size: 0.7rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #fbbf24; font-weight: 600; margin-bottom: 10px; display: block;
+    }
+    .closing-note p { font-size: 0.96rem; color: var(--white-80); margin-bottom: 0; }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 32px; background: #08172e;
+      font-size: 0.82rem; color: var(--white-45); text-align: center;
+    }
+    .footer-links { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+    .footer-links a { color: var(--white-65); border: none; }
+    .footer-links a:hover { color: var(--teal); }
+
+    @media (max-width: 640px) {
+      .doc-wrap { padding: 50px 22px 60px; }
+      .faq-q { font-size: 0.95rem; padding: 16px 18px; }
+      .faq-a { padding: 0 18px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="umbrella-bar">
+    <a href="https://www.pointzeroai.com" class="umbrella-brand">POINT <span>ZERO</span> AI</a>
+    <nav class="umbrella-nav">
+      <a href="/tripsignal">TripSignal</a>
+      <a href="/tripsignal/support" class="active">Support</a>
+      <a href="/tripsignal/privacy">Privacy</a>
+      <a href="/tripsignal/terms">Terms</a>
+    </nav>
+  </div>
+
+  <main class="doc-wrap">
+    <div class="doc-eyebrow">TripSignal</div>
+    <h1>Support</h1>
+    <p class="doc-lede">A quick guide to what TripSignal does, how to set up your watchlist, and how to manage notifications. Can't find what you need? Email us &mdash; a real person answers.</p>
+
+    <div class="contact-card">
+      <div class="left">
+        <h3>Need a hand?</h3>
+        <p>Email <a href="mailto:support@pointzeroai.com" style="color:#fff;">support@pointzeroai.com</a> &mdash; we typically reply within one business day.</p>
+      </div>
+      <a href="mailto:support@pointzeroai.com" class="contact-btn">Email Support</a>
+    </div>
+
+    <h2 class="section-h">Frequently asked</h2>
+
+    <details class="faq-item">
+      <summary class="faq-q">What does TripSignal do? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>TripSignal lets you build a personal watchlist of places and diseases. The App pulls signals from official public-health sources (CDC, WHO, ECDC, state and local health departments, and travel advisories) and shows you a clean summary of what's happening &mdash; and what changed since the last time you checked.</p>
+        <p>Think of it as a personal "weather report" for the health signals around your home, your loved ones, your trips, and the diseases that matter most to you.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Is TripSignal medical advice? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>No. TripSignal is for informational purposes only. It does not diagnose, treat, or prevent disease, and it does not tell you whether to travel. Always review official health sources directly and consult qualified medical professionals for health decisions. For full detail, see our <a href="/tripsignal/terms">Terms of Use</a>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Where does the data come from? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>From official public-health sources, including the U.S. Centers for Disease Control and Prevention (CDC), the World Health Organization (WHO), the European Centre for Disease Prevention and Control (ECDC), U.S. state and local health departments, and government travel advisories.</p>
+        <p>TripSignal does not invent signals. We organize what those sources publish and link back to them so you can read the underlying detail.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Why don't I see a signal for my location? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>A few possible reasons:</p>
+        <ul>
+          <li>No active public-health signal has been published for that area &mdash; this is usually good news.</li>
+          <li>The location is very small and is reported only at the county or regional level. Try widening to the nearest larger area.</li>
+          <li>The source agency for that region updates on a slow cadence (some agencies publish weekly).</li>
+          <li>You don't have internet connectivity. TripSignal needs a connection to refresh signals.</li>
+        </ul>
+        <p>If you believe a signal is missing that should be there, email <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a> and tell us the location.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I add a home area? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <ol>
+          <li>Open TripSignal and tap <strong>Watchlist</strong>.</li>
+          <li>Tap <strong>Add a watch &rarr; Home area</strong>.</li>
+          <li>Enter your city, county, or ZIP code.</li>
+          <li>Confirm the suggested area. That's it &mdash; your home now shows on your daily brief.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I add a trip? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <ol>
+          <li>Open <strong>Watchlist &rarr; Add a watch &rarr; Trip</strong>.</li>
+          <li>Add each city or country you'll visit. Multi-stop trips are supported.</li>
+          <li>Set your travel dates so TripSignal knows when to start and stop watching.</li>
+          <li>Optional: turn on notifications for the trip if you want to be alerted when something changes.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I follow a disease? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <ol>
+          <li>Open <strong>Watchlist &rarr; Add a watch &rarr; Disease</strong>.</li>
+          <li>Pick from the list (COVID, flu, measles, dengue, mpox, pneumonia, and others).</li>
+          <li>Optional: tie the disease watch to one of your saved locations so you only get signals where it matters to you.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I manage notifications? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>Notifications are off by default. To manage them:</p>
+        <ol>
+          <li>Open <strong>Settings &rarr; Notifications</strong> inside TripSignal.</li>
+          <li>Turn notifications on or off for each watch individually, or set a quiet-hours window.</li>
+          <li>You can also revoke notification permission entirely in your device's iOS Settings under <strong>Settings &rarr; Notifications &rarr; TripSignal</strong>.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I delete my data? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>Your watchlist lives on your device, so:</p>
+        <ul>
+          <li>Remove individual watches from inside the App at any time.</li>
+          <li>Delete the App from your device to remove all local TripSignal data.</li>
+          <li>If you joined the launch waitlist on the website, email <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a> with subject "Remove from TripSignal waitlist" and we'll delete your email from our launch list.</li>
+        </ul>
+        <p>Full detail is in our <a href="/tripsignal/privacy">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Does TripSignal cost money? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>Pricing will be confirmed before launch. TripSignal may offer optional paid features or subscriptions in the future; any purchase is handled by Apple through the App Store and is subject to Apple's terms. Final pricing and any free-tier limits will appear in the App and on the App Store listing before they go live.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Which devices does TripSignal run on? <span class="chev">+</span></summary>
+      <div class="faq-a">
+        <p>TripSignal is launching on iPhone (iOS). iPad and other platforms may follow based on early demand. If you'd like to be notified when TripSignal expands to a new platform, email <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a>.</p>
+      </div>
+    </details>
+
+    <div class="closing-note">
+      <span class="label">Reminder</span>
+      <p>TripSignal is informational only. It is not medical advice and does not decide whether you should travel. Always review official health sources and consult qualified medical professionals for health decisions.</p>
+    </div>
+
+    <p style="color: var(--white-45); font-size: 0.9rem; margin-top: 36px;">Point Zero AI LLC &middot; TripSignal &middot; <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a></p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/tripsignal">TripSignal</a>
+      <a href="/tripsignal/privacy">Privacy</a>
+      <a href="/tripsignal/terms">Terms</a>
+      <a href="https://www.pointzeroai.com">Point Zero AI</a>
+    </div>
+    &copy; 2026 Point Zero AI LLC. TripSignal is informational only and is not medical or travel advice.
+  </footer>
+</body>
+</html>

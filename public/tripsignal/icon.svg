@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="TripSignal app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f2547"/>
+      <stop offset="100%" stop-color="#0a1830"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5fe0d0"/>
+      <stop offset="100%" stop-color="#1fb3a5"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- App icon background -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- Signal arcs (amber) -->
+  <g fill="none" stroke="#e6b14b" stroke-linecap="round">
+    <path d="M 156 165 Q 256 100 356 165" stroke-width="10"/>
+    <path d="M 132 130 Q 256 50 380 130" stroke-width="10"/>
+  </g>
+  <!-- Signal dot -->
+  <circle cx="380" cy="130" r="11" fill="#e6b14b"/>
+
+  <!-- Location pin (teardrop) -->
+  <g filter="url(#shadow)">
+    <path d="M 256 195
+             C 200 195 158 237 158 293
+             C 158 339 192 373 230 405
+             L 256 442
+             L 282 405
+             C 320 373 354 339 354 293
+             C 354 237 312 195 256 195 Z"
+          fill="url(#pin)"/>
+  </g>
+
+  <!-- Heartbeat pulse line (white) -->
+  <g fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 182 295 L 212 295 L 228 268 L 252 332 L 276 250 L 296 320 L 312 295 L 330 295"/>
+  </g>
+</svg>
