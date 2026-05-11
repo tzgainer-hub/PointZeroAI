@@ -18,11 +18,11 @@
   <meta property="og:description" content="Watch official health signals for your home area, family locations, trips, and diseases you care about." />
   <meta property="og:url" content="https://www.pointzeroai.com/tripsignal" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.pointzeroai.com/tripsignal/icon.svg" />
+  <meta property="og:image" content="https://www.pointzeroai.com/tripsignal/app-icon-1024.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="TripSignal — Official Health Signals That Matter to You" />
   <meta name="twitter:description" content="Watch official health signals for your home area, family locations, trips, and diseases you care about." />
-  <meta name="twitter:image" content="https://www.pointzeroai.com/tripsignal/icon.svg" />
+  <meta name="twitter:image" content="https://www.pointzeroai.com/tripsignal/app-icon-1024.png" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.pointzeroai.com/tripsignal" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -112,6 +112,17 @@
       0%   { box-shadow: 0 0 0 0 rgba(45,212,191,0.55); }
       70%  { box-shadow: 0 0 0 10px rgba(45,212,191,0); }
       100% { box-shadow: 0 0 0 0 rgba(45,212,191,0); }
+    }
+
+    .hero-app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22%;
+      display: block;
+      margin: 10px 0 26px;
+      box-shadow:
+        0 14px 32px -10px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.06);
     }
 
     .hero h1 {
@@ -413,6 +424,7 @@
       }
       .hero-visual { min-height: 460px; order: -1; }
       .hero-screenshot { max-width: 280px; }
+      .hero-app-icon { width: 80px; height: 80px; margin: 6px 0 18px; }
       section { padding: 70px 24px; }
     }
   </style>
@@ -433,6 +445,7 @@
   <section class="hero">
     <div>
       <div class="hero-eyebrow">Coming Soon to iOS</div>
+      <img src="/tripsignal/app-icon-1024.png" alt="TripSignal app icon" class="hero-app-icon" width="96" height="96" />
       <h1>Know what is <span class="accent">changing</span> before you go.</h1>
       <p class="hero-sub">TripSignal watches official health signals for your home area, family locations, trips, and diseases you care about.</p>
 
