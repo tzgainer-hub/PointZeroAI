@@ -193,82 +193,15 @@
       background: radial-gradient(ellipse at center, rgba(45,212,191,0.16) 0%, transparent 60%);
       pointer-events: none;
     }
-    .device-frame {
+    .hero-screenshot {
       position: relative;
-      width: 290px; height: 580px;
-      background: linear-gradient(165deg, #0a1830 0%, #102845 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 44px;
-      padding: 14px;
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      border-radius: 28px;
       box-shadow:
         0 30px 60px -20px rgba(0,0,0,0.55),
-        0 0 0 1px rgba(45,212,191,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.04);
-    }
-    .device-screen {
-      width: 100%; height: 100%;
-      background: linear-gradient(180deg, #0c1e3c 0%, #0a1830 100%);
-      border-radius: 32px;
-      overflow: hidden;
-      padding: 22px 18px;
-      position: relative;
-    }
-    .device-notch {
-      position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
-      width: 88px; height: 22px;
-      background: #060e1f; border-radius: 12px;
-      z-index: 2;
-    }
-    .device-content { padding-top: 36px; }
-    .device-app-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .device-app-icon {
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      display: block;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    .device-app-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;
-    }
-    .device-section-label {
-      font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--white-45);
-      margin: 18px 0 8px;
-    }
-    .device-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 12px 13px;
-      margin-bottom: 10px;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    }
-    .device-card-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
-    .device-card-title {
-      font-size: 0.78rem; font-weight: 600; color: var(--white); letter-spacing: 0.1px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .device-card-sub { font-size: 0.6rem; color: var(--white-45); letter-spacing: 0.3px; }
-    .device-pill {
-      font-size: 0.55rem; font-weight: 700; letter-spacing: 1.2px;
-      padding: 4px 8px; border-radius: 100px; text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .pill-steady { background: rgba(255,255,255,0.06); color: var(--white-65); }
-    .pill-watch  { background: rgba(245,158,11,0.18); color: var(--amber-soft); }
-    .pill-rising { background: rgba(45,212,191,0.18); color: var(--teal-soft); }
-
-    .device-footer-note {
-      position: absolute; bottom: 24px; left: 18px; right: 18px;
-      text-align: center; font-size: 0.55rem; color: var(--white-25);
-      letter-spacing: 1px; text-transform: uppercase;
-    }
-    .hero-icon-floater {
-      position: absolute; top: 32px; left: -8px;
-      width: 110px; height: 110px;
-      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
-      border-radius: 24px;
+        0 0 0 1px rgba(255,255,255,0.06);
     }
 
     /* SECTIONS */
@@ -479,8 +412,7 @@
         grid-template-columns: 1fr; gap: 50px; padding: 60px 24px 60px;
       }
       .hero-visual { min-height: 460px; order: -1; }
-      .device-frame { width: 240px; height: 480px; }
-      .hero-icon-floater { width: 88px; height: 88px; top: 16px; left: 4px; }
+      .hero-screenshot { max-width: 280px; }
       section { padding: 70px 24px; }
     }
   </style>
@@ -524,60 +456,7 @@
 
     <div class="hero-visual">
       <div class="hero-glow"></div>
-      <img src="/tripsignal/icon.svg" alt="TripSignal app icon" class="hero-icon-floater" />
-      <div class="device-frame" aria-hidden="true">
-        <div class="device-screen">
-          <div class="device-notch"></div>
-          <div class="device-content">
-            <div class="device-app-row">
-              <img src="/tripsignal/icon.svg" alt="" class="device-app-icon" />
-              <div class="device-app-name">TripSignal</div>
-            </div>
-
-            <div class="device-section-label">Your Watchlist</div>
-
-            <div class="device-card">
-              <div class="device-card-meta">
-                <span class="device-card-title">Scottsdale, AZ &middot; Home</span>
-                <span class="device-card-sub">Last checked just now</span>
-              </div>
-              <span class="device-pill pill-steady">Steady</span>
-            </div>
-            <div class="device-card">
-              <div class="device-card-meta">
-                <span class="device-card-title">Mom &middot; Naples, FL</span>
-                <span class="device-card-sub">2 signals this week</span>
-              </div>
-              <span class="device-pill pill-watch">Watch</span>
-            </div>
-            <div class="device-card">
-              <div class="device-card-meta">
-                <span class="device-card-title">Lisbon trip &middot; Sep 4&ndash;14</span>
-                <span class="device-card-sub">3 sources monitored</span>
-              </div>
-              <span class="device-pill pill-steady">Steady</span>
-            </div>
-
-            <div class="device-section-label">Diseases You Watch</div>
-
-            <div class="device-card">
-              <div class="device-card-meta">
-                <span class="device-card-title">Influenza A</span>
-                <span class="device-card-sub">Activity climbing locally</span>
-              </div>
-              <span class="device-pill pill-rising">Rising</span>
-            </div>
-            <div class="device-card">
-              <div class="device-card-meta">
-                <span class="device-card-title">Dengue</span>
-                <span class="device-card-sub">No change in trip areas</span>
-              </div>
-              <span class="device-pill pill-steady">Steady</span>
-            </div>
-          </div>
-          <div class="device-footer-note">Preview &middot; Not real-time data</div>
-        </div>
-      </div>
+      <img src="/tripsignal/screenshots/01-home.png?v=2" alt="TripSignal home dashboard — watch home, family, trips, and diseases that matter" class="hero-screenshot" />
     </div>
   </section>
 
