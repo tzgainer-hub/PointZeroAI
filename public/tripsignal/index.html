@@ -131,7 +131,7 @@
 
     .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 
-    /* App Store-style badge */
+    /* App Store-style badge (non-interactive status) */
     .app-store-badge {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 12px 22px;
@@ -140,12 +140,6 @@
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.14);
       text-align: left;
-      transition: transform 0.15s, border-color 0.2s;
-      cursor: pointer;
-    }
-    .app-store-badge:hover {
-      border-color: rgba(255,255,255,0.3);
-      transform: translateY(-1px);
     }
     .app-store-badge .apple-mark {
       flex: 0 0 26px; height: 30px; display: grid; place-items: center;
@@ -432,58 +426,6 @@
     }
     .disclaimer p { font-size: 0.95rem; color: var(--white-80); line-height: 1.7; }
 
-    /* Waitlist */
-    .waitlist { padding: 90px 32px; max-width: 1180px; margin: 0 auto; }
-    .waitlist-card {
-      background: linear-gradient(140deg, #102b54 0%, #0a1f3e 100%);
-      border: 1px solid rgba(45,212,191,0.2);
-      border-radius: 18px;
-      padding: 50px 48px;
-      text-align: center;
-    }
-    .waitlist-card h2 {
-      font-size: clamp(1.55rem, 3vw, 2.05rem);
-      margin: 6px auto 14px;
-      max-width: 640px;
-    }
-    .waitlist-card .lede {
-      max-width: 580px; margin: 0 auto 28px;
-      color: var(--white-80);
-    }
-    .waitlist-form {
-      max-width: 480px; margin: 0 auto;
-      display: flex; gap: 10px; flex-wrap: wrap;
-    }
-    .waitlist-form input[type="email"] {
-      flex: 1 1 240px;
-      padding: 15px 18px;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px;
-      color: var(--white);
-      font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
-      transition: border-color 0.2s;
-    }
-    .waitlist-form input[type="email"]:focus { outline: none; border-color: var(--teal); }
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 15px 30px;
-      background: var(--teal); color: #062528;
-      border-radius: 8px;
-      font-weight: 700; font-size: 0.92rem; letter-spacing: 0.5px;
-      transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
-      box-shadow: 0 8px 22px -8px rgba(45,212,191,0.55);
-      border: none; cursor: pointer;
-      font-family: 'Inter', sans-serif;
-    }
-    .btn-primary:hover { background: var(--teal-soft); transform: translateY(-1px); }
-    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    .waitlist-msg {
-      margin-top: 18px; min-height: 22px; font-size: 0.9rem; color: var(--teal);
-    }
-    .waitlist-msg.error { color: #ff8a8a; }
-
     /* Compliance band — sits above footer */
     .compliance-band {
       max-width: 1180px;
@@ -545,8 +487,6 @@
       .device-frame { width: 240px; height: 480px; }
       .hero-icon-floater { width: 88px; height: 88px; top: 16px; left: 4px; }
       section { padding: 70px 24px; }
-      .waitlist { padding: 70px 24px; }
-      .waitlist-card { padding: 38px 26px; }
     }
   </style>
 </head>
@@ -570,7 +510,7 @@
       <p class="hero-sub">TripSignal watches official health signals for your home area, family locations, trips, and diseases you care about.</p>
 
       <div class="cta-row">
-        <a href="#waitlist" class="app-store-badge" aria-label="Coming soon on the App Store — join the launch list">
+        <span class="app-store-badge" role="img" aria-label="Coming soon on the App Store">
           <span class="apple-mark" aria-hidden="true">
             <svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" fill="#fff">
               <path d="M19.05 21.5c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C4.79 16.5 5.51 8.84 11.05 8.56c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.05zM14.03 8.5c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
@@ -580,7 +520,7 @@
             <span class="top">Coming Soon on the</span>
             <span class="bottom">App Store</span>
           </span>
-        </a>
+        </span>
         <a href="/tripsignal/support" class="btn-secondary">Read Support &rarr;</a>
       </div>
 
@@ -767,20 +707,6 @@
     </div>
   </section>
 
-  <!-- WAITLIST -->
-  <div class="waitlist" id="waitlist">
-    <div class="waitlist-card">
-      <span class="section-label" style="margin-bottom:6px;">Launch Notification</span>
-      <h2>Be the first to know when TripSignal is on the App Store.</h2>
-      <p class="lede">One email at launch. No marketing churn. We'll send a single note the day TripSignal goes live, and that's it.</p>
-      <form class="waitlist-form" id="ts-waitlist-form" novalidate>
-        <input type="email" name="email" id="ts-waitlist-email" placeholder="you@example.com" required autocomplete="email" />
-        <button type="submit" class="btn-primary" id="ts-waitlist-btn">Notify Me &rarr;</button>
-      </form>
-      <div class="waitlist-msg" id="ts-waitlist-msg" role="status" aria-live="polite"></div>
-    </div>
-  </div>
-
   <!-- COMPLIANCE BAND -->
   <div class="compliance-band">
     <div class="compliance-band-inner">
@@ -808,49 +734,5 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var form = document.getElementById('ts-waitlist-form');
-      var emailEl = document.getElementById('ts-waitlist-email');
-      var btn = document.getElementById('ts-waitlist-btn');
-      var msg = document.getElementById('ts-waitlist-msg');
-      if (!form) return;
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        msg.classList.remove('error');
-        msg.textContent = '';
-
-        var email = (emailEl.value || '').trim();
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          msg.classList.add('error');
-          msg.textContent = 'Please enter a valid email address.';
-          return;
-        }
-
-        btn.disabled = true;
-        var origLabel = btn.textContent;
-        btn.textContent = 'Sending...';
-
-        fetch('/api/tripsignal-waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email })
-        }).then(function (r) { return r.json().catch(function () { return {}; }); })
-          .then(function () {
-            msg.textContent = "You're on the list. We'll email you when TripSignal launches.";
-            emailEl.value = '';
-          })
-          .catch(function () {
-            msg.classList.add('error');
-            msg.textContent = "Couldn't reach the server. Please try again in a moment.";
-          })
-          .finally(function () {
-            btn.disabled = false;
-            btn.textContent = origLabel;
-          });
-      });
-    })();
-  </script>
 </body>
 </html>
