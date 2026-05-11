@@ -24,6 +24,12 @@ Tom Zgainer — 30+ years in business. Built and sold America's Best 401k, which
 - [Business Gap Assessment](https://www.pointzeroai.com/assessment): Free 5-minute assessment identifying which gaps are leaking leads, time, and clients
 - [AI Business Stack](https://www.pointzeroai.com/ai-business-stack): The exact stack used to build Point Zero AI from zero — $600K of business infrastructure for $300/month
 
+## Insights — Pillar Guides
+
+- [Speed to Lead for Service Businesses: How It Works](https://www.pointzeroai.com/speed-to-lead): Practical guide to speed-to-lead systems — what they are, how fast "fast" really means, what they cost, and which service businesses they fit. Covers web forms, chat, missed calls, Instagram DMs, lead-platform inquiries.
+- [AI Voice Agent for Service Businesses: How It Works](https://www.pointzeroai.com/ai-voice-agent): Practical guide to AI voice agents — how they actually work, what they sound like, what they cost, which businesses they fit. Companion piece to Speed to Lead.
+- [AI Voice Agent vs. Traditional Answering Service](https://www.pointzeroai.com/ai-voice-agent-vs-answering-service): Honest side-by-side comparison of cost, speed, accuracy, integrations, and when to choose which.
+
 ## Companion Products
 
 - [StreamTracker](https://www.getstreamtracker.com): iOS app built solo by the same team — proof of practical AI build capability
