@@ -244,6 +244,49 @@
       margin-top: 36px;
     }
 
+    .hero-pillars {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 44px;
+      max-width: 680px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-pillars li {
+      font-size: 1.05rem;
+      color: var(--white-70);
+      line-height: 1.65;
+      font-weight: 300;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .hero-pillars li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 12px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-pillars li strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     /* ── BUTTONS ── */
     .btn-gold {
       display: inline-block;
@@ -1095,6 +1138,10 @@
       /* Hero */
       .hero h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
       .hero-sub { font-size: 1rem; }
+      .hero-pillars { padding: 0 4px; }
+      .hero-pillars li { font-size: 0.98rem; }
+      .hero-ctas { flex-direction: column; gap: 14px; width: 100%; }
+      .hero-ctas .btn-gold, .hero-ctas .btn-outline { width: 100%; max-width: 320px; text-align: center; }
       .btn-gold { padding: 16px 32px; font-size: 0.75rem; }
 
       /* Stats */
@@ -1326,10 +1373,18 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h1>The world changed.<br /><span>Nobody told you.</span></h1>
-    <p class="hero-sub">Most business websites still sit there like brochures. Yours should answer questions, qualify leads, and book appointments &mdash; even after hours. Find the gaps in 5 min, then build the system that fixes the highest-value ones.</p>
-    <a href="/assessment" class="btn-gold">Take the Free Business Gap Assessment &rarr;</a>
-    <p class="hero-sub-tag" style="margin-top:20px;">Trusted by business owners nationwide &nbsp;·&nbsp; Featured in Tony Robbins' bestselling books</p>
+    <h1>AI for the rest of us<br /><span>&mdash; built by one of you.</span></h1>
+    <p class="hero-sub" style="margin-bottom: 28px;">Point Zero AI is a small studio run by a founder who had an exit &mdash; and still has a hunger to build for small businesses and the individuals they serve. We do three things:</p>
+    <ul class="hero-pillars">
+      <li><strong>Websites</strong> that work for you 24/7. We build them, run them, and answer the phone.</li>
+      <li><strong>AI agents</strong> that catch missed calls, follow up on leads, and chase no-shows &mdash; so nothing leaks while you sleep.</li>
+      <li><strong>Apps</strong> that solve real problems &mdash; StreamTracker, Trip Signal, and eight more on the way.</li>
+    </ul>
+    <div class="hero-ctas">
+      <a href="#build" class="btn-gold">See What We Build &rarr;</a>
+      <a href="/assessment" class="btn-outline">Take the 5-Min Gap Assessment &rarr;</a>
+    </div>
+    <p class="hero-sub-tag" style="margin-top:36px;">Trusted by business owners nationwide &nbsp;·&nbsp; Featured in Tony Robbins' bestselling books</p>
   </section>
 
   <!-- TICKER -->
