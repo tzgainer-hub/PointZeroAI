@@ -288,12 +288,25 @@
 
   <header class="site-header">
     <div class="header-logo">
-      <svg class="header-compass" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="50" cy="50" r="45" stroke="#c9a447" stroke-width="0.8" fill="none" opacity="0.3"/>
+      <svg class="header-compass" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Outer ring -->
+        <circle cx="50" cy="50" r="44" stroke="white" stroke-opacity="0.55" stroke-width="1.5" fill="none"/>
+        <!-- Inner ring — 4 arc segments between diagonal arms (gaps at N/S/E/W) -->
+        <path d="M50,23 A27,27 0 0 1 77,50" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M77,50 A27,27 0 0 1 50,77" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M50,77 A27,27 0 0 1 23,50" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <path d="M23,50 A27,27 0 0 1 50,23" stroke="white" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+        <!-- Diagonal arms NE/SW/SE/NW — dimmer, drawn behind cardinal arms -->
+        <path d="M78,22 L47,47 L56,44 L53,53 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M22,78 L53,53 L44,56 L47,47 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M78,78 L53,47 L56,56 L47,53 Z" fill="white" fill-opacity="0.4"/>
+        <path d="M22,22 L47,53 L44,44 L53,47 Z" fill="white" fill-opacity="0.4"/>
+        <!-- Cardinal arms N/S/E/W — bright white, proper kite with concave notch at base -->
         <path d="M50,7 L44,50 L50,44 L56,50 Z" fill="white"/>
         <path d="M50,93 L56,50 L50,56 L44,50 Z" fill="white"/>
         <path d="M93,50 L50,44 L56,50 L50,56 Z" fill="white"/>
         <path d="M7,50 L50,56 L44,50 L50,44 Z" fill="white"/>
+        <!-- Center dot -->
         <circle cx="50" cy="50" r="2.5" fill="white"/>
       </svg>
       <div class="header-title">POINT <span>ZERO</span></div>
