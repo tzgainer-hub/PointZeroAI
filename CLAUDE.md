@@ -39,8 +39,7 @@ Railway picks it up automatically. Live in ~60 seconds.
 PointZeroAI/
 ├── public/
 │   ├── index.html           ← Main homepage
-│   ├── ai-business-stack.html ← "60-Day AI Business Stack" scorecard page
-│   └── masterclass.html     ← Point Zero AI Masterclass landing page
+│   └── ai-business-stack.html ← "60-Day AI Business Stack" scorecard page
 ├── server.js                ← Express static file server
 ├── package.json
 └── CLAUDE.md                ← This file
@@ -98,15 +97,11 @@ The "60-Day AI Business Stack" scorecard. A detailed table showing every tool To
 - Premium professional website product (White Coat Websites — Claude + Railway — ~$20/mo — vs. $10K–$25K agency)
 - StreamTracker app (Claude Code + Railway)
 - Point Zero AI website (Claude Code)
-- Point Zero AI Masterclass (Teachable + Claude)
 - YouTube channel / content system
 - 401k consulting workflow
 - (and more)
 
 **Key message of this page:** Tom built a complete business infrastructure in 60 days using AI, for ~$50–100/month total, that would have cost $200K+ the traditional way.
-
-### masterclass.html (/masterclass)
-Landing page for the Point Zero AI Masterclass ($797). 8 modules, 44 videos. Target: business owners 50+ intimidated by AI.
 
 ---
 
@@ -125,7 +120,6 @@ Landing page for the Point Zero AI Masterclass ($797). 8 modules, 44 videos. Tar
 
 | Product | Status | URL | Notes |
 |---------|--------|-----|-------|
-| Point Zero AI Masterclass | Active | /masterclass | $797 · 8 modules · 44 videos |
 | StreamTracker | Live | getstreamtracker.com | SaaS app — built with Claude Code |
 | White Coat Websites | Active | dental-prototype-production.up.railway.app | Premium sites for healthcare practices — $2,500 |
 | AI Business Assessment | Active | Email CTA | info@pointzeroai.com |
