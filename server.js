@@ -192,12 +192,19 @@ app.get('/tripsignal/privacy', (req, res) => res.sendFile(path.join(__dirname, '
 app.get('/tripsignal/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tripsignal', 'terms.html')));
 app.get('/tripsignal/support', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tripsignal', 'support.html')));
 
-// ── OWNER PULSE ROUTES ──
-app.get('/ownerpulse', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'index.html')));
-app.get('/ownerpulse/support', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'support.html')));
-app.get('/ownerpulse/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'privacy.html')));
-app.get('/ownerpulse/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'terms.html')));
-app.get('/ownerpulse/screenshots', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'screenshots.html')));
+// ── MY BUSINESS PULSE ROUTES ──
+app.get('/my-business-pulse', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'index.html')));
+app.get('/my-business-pulse/support', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'support.html')));
+app.get('/my-business-pulse/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'privacy.html')));
+app.get('/my-business-pulse/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'terms.html')));
+app.get('/my-business-pulse/screenshots', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'screenshots.html')));
+
+// 301 redirects from the old /ownerpulse/* paths to keep any stale links working
+app.get('/ownerpulse', (req, res) => res.redirect(301, '/my-business-pulse'));
+app.get('/ownerpulse/support', (req, res) => res.redirect(301, '/my-business-pulse/support'));
+app.get('/ownerpulse/privacy', (req, res) => res.redirect(301, '/my-business-pulse/privacy'));
+app.get('/ownerpulse/terms', (req, res) => res.redirect(301, '/my-business-pulse/terms'));
+app.get('/ownerpulse/screenshots', (req, res) => res.redirect(301, '/my-business-pulse/screenshots'));
 
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));

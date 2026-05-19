@@ -67,25 +67,25 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.pointzeroai.com/ownerpulse</loc>
+    <loc>https://www.pointzeroai.com/my-business-pulse</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.pointzeroai.com/ownerpulse/support</loc>
+    <loc>https://www.pointzeroai.com/my-business-pulse/support</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.pointzeroai.com/ownerpulse/privacy</loc>
+    <loc>https://www.pointzeroai.com/my-business-pulse/privacy</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.pointzeroai.com/ownerpulse/terms</loc>
+    <loc>https://www.pointzeroai.com/my-business-pulse/terms</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
