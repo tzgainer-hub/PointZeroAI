@@ -154,6 +154,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   if (!isHubProtectedPath(req.path)) return next();
   if (hubIsAuthed(req)) return next();
+
+  // Share-link bypass: ?key=<password> sets the cookie and redirects to a clean URL
+  if (process.env.HUB_PASSWORD && req.query.key === process.env.HUB_PASSWORD) {
+    const tok = hubAuthToken();
+    const isProd = process.env.NODE_ENV === 'production' || req.headers['x-forwarded-proto'] === 'https';
+    res.setHeader('Set-Cookie', [
+      `pzai_team=${tok}; Max-Age=${60 * 60 * 24 * 30}; Path=/; HttpOnly; SameSite=Lax${isProd ? '; Secure' : ''}`
+    ]);
+    const cleanQuery = { ...req.query };
+    delete cleanQuery.key;
+    const qs = new URLSearchParams(cleanQuery).toString();
+    return res.redirect(req.path + (qs ? `?${qs}` : ''));
+  }
+
   const dest = encodeURIComponent(req.originalUrl);
   return res.redirect(`/team-login?next=${dest}`);
 });
