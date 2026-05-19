@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#102b54"/>
+      <stop offset="100%" stop-color="#0c1e3c"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" rx="48" fill="url(#bg)"/>
+  <rect x="20" y="20" width="350" height="804" rx="34" fill="none" stroke="rgba(255,255,255,0.06)"/>
+
+  <text x="40" y="100" font-family="Inter, sans-serif" font-size="13" letter-spacing="3" fill="#c9a447" font-weight="700">MORNING PULSE</text>
+  <text x="40" y="142" font-family="Space Grotesk, sans-serif" font-size="30" fill="#ffffff" font-weight="700">Set today's move.</text>
+  <text x="40" y="172" font-family="Inter, sans-serif" font-size="14" fill="rgba(255,255,255,0.65)">Tuesday · May 19</text>
+
+  <g font-family="Inter, sans-serif" font-size="14" fill="#ffffff">
+    <rect x="30" y="210" width="330" height="78" rx="14" fill="#102b54" stroke="rgba(201,164,71,0.18)"/>
+    <text x="50" y="240" font-weight="600">Lead response</text>
+    <text x="50" y="262" font-size="12" fill="rgba(255,255,255,0.55)">3 calls to return before noon</text>
+
+    <rect x="30" y="298" width="330" height="78" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="328" font-weight="600">Quote follow-up</text>
+    <text x="50" y="350" font-size="12" fill="rgba(255,255,255,0.55)">2 open quotes past 48 hours</text>
+
+    <rect x="30" y="386" width="330" height="78" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="416" font-weight="600">Past clients</text>
+    <text x="50" y="438" font-size="12" fill="rgba(255,255,255,0.55)">1 reach-back today</text>
+
+    <rect x="30" y="474" width="330" height="78" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="504" font-weight="600">Review requests</text>
+    <text x="50" y="526" font-size="12" fill="rgba(255,255,255,0.55)">Ask 2 happy clients</text>
+
+    <rect x="30" y="562" width="330" height="78" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="592" font-weight="600">Owner bottlenecks</text>
+    <text x="50" y="614" font-size="12" fill="rgba(255,255,255,0.55)">Approve hire decision</text>
+  </g>
+
+  <rect x="30" y="700" width="330" height="56" rx="12" fill="#c9a447"/>
+  <text x="195" y="734" font-family="Inter, sans-serif" font-size="14" fill="#0c1e3c" font-weight="700" text-anchor="middle" letter-spacing="1.5">SAVE MORNING PULSE</text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#102b54"/>
+      <stop offset="100%" stop-color="#0c1e3c"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" rx="48" fill="url(#bg3)"/>
+  <rect x="20" y="20" width="350" height="804" rx="34" fill="none" stroke="rgba(255,255,255,0.06)"/>
+
+  <text x="40" y="100" font-family="Inter, sans-serif" font-size="13" letter-spacing="3" fill="#c9a447" font-weight="700">7-DAY PATTERN</text>
+  <text x="40" y="142" font-family="Space Grotesk, sans-serif" font-size="30" fill="#ffffff" font-weight="700">What keeps coming back.</text>
+
+  <rect x="30" y="186" width="330" height="180" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+  <text x="50" y="216" font-family="Inter, sans-serif" font-size="12" letter-spacing="2" fill="rgba(255,255,255,0.55)" font-weight="600">DAILY PULSE</text>
+
+  <g font-family="Inter, sans-serif" font-size="11" fill="rgba(255,255,255,0.55)">
+    <rect x="56" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="56" y="262" width="28" height="58" rx="4" fill="#c9a447"/>
+    <text x="70" y="342" text-anchor="middle">M</text>
+
+    <rect x="96" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="96" y="280" width="28" height="40" rx="4" fill="#c9a447"/>
+    <text x="110" y="342" text-anchor="middle">T</text>
+
+    <rect x="136" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="136" y="255" width="28" height="65" rx="4" fill="#c9a447"/>
+    <text x="150" y="342" text-anchor="middle">W</text>
+
+    <rect x="176" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="176" y="290" width="28" height="30" rx="4" fill="#c9a447"/>
+    <text x="190" y="342" text-anchor="middle">T</text>
+
+    <rect x="216" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="216" y="248" width="28" height="72" rx="4" fill="#c9a447"/>
+    <text x="230" y="342" text-anchor="middle">F</text>
+
+    <rect x="256" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="256" y="270" width="28" height="50" rx="4" fill="#c9a447"/>
+    <text x="270" y="342" text-anchor="middle">S</text>
+
+    <rect x="296" y="240" width="28" height="80" rx="4" fill="rgba(201,164,71,0.25)"/>
+    <rect x="296" y="285" width="28" height="35" rx="4" fill="#c9a447"/>
+    <text x="310" y="342" text-anchor="middle">S</text>
+  </g>
+
+  <text x="40" y="408" font-family="Inter, sans-serif" font-size="13" letter-spacing="2" fill="rgba(255,255,255,0.55)" font-weight="600">RECURRING GAPS</text>
+
+  <g font-family="Inter, sans-serif" font-size="14" fill="#ffffff">
+    <rect x="30" y="424" width="330" height="64" rx="14" fill="#102b54" stroke="rgba(201,164,71,0.3)"/>
+    <text x="50" y="452" font-weight="600">Quote follow-up</text>
+    <text x="50" y="473" font-size="12" fill="rgba(255,255,255,0.6)">Slipped 5 of 7 days</text>
+    <text x="340" y="461" fill="#c9a447" font-weight="700" text-anchor="end">TOP</text>
+
+    <rect x="30" y="498" width="330" height="64" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="526" font-weight="600">Review requests</text>
+    <text x="50" y="547" font-size="12" fill="rgba(255,255,255,0.6)">Slipped 3 of 7 days</text>
+
+    <rect x="30" y="572" width="330" height="64" rx="14" fill="#102b54" stroke="rgba(255,255,255,0.06)"/>
+    <text x="50" y="600" font-weight="600">Past clients</text>
+    <text x="50" y="621" font-size="12" fill="rgba(255,255,255,0.6)">Slipped 2 of 7 days</text>
+  </g>
+
+  <rect x="30" y="664" width="330" height="120" rx="14" fill="rgba(201,164,71,0.06)" stroke="rgba(201,164,71,0.25)"/>
+  <text x="50" y="696" font-family="Inter, sans-serif" font-size="11" letter-spacing="2" fill="#c9a447" font-weight="700">ASSESSMENT FOCUS</text>
+  <text x="50" y="724" font-family="Space Grotesk, sans-serif" font-size="18" fill="#ffffff" font-weight="700">Quote follow-up</text>
+  <text x="50" y="752" font-family="Inter, sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">Top gap from your</text>
+  <text x="50" y="768" font-family="Inter, sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">Point Zero AI assessment</text>
+</svg>

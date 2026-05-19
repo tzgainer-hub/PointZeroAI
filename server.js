@@ -192,6 +192,13 @@ app.get('/tripsignal/privacy', (req, res) => res.sendFile(path.join(__dirname, '
 app.get('/tripsignal/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tripsignal', 'terms.html')));
 app.get('/tripsignal/support', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tripsignal', 'support.html')));
 
+// ── OWNER PULSE ROUTES ──
+app.get('/ownerpulse', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'index.html')));
+app.get('/ownerpulse/support', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'support.html')));
+app.get('/ownerpulse/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'privacy.html')));
+app.get('/ownerpulse/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'terms.html')));
+app.get('/ownerpulse/screenshots', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ownerpulse', 'screenshots.html')));
+
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));
 app.get('/sales-hub', (req, res) => res.sendFile(path.join(__dirname, 'public', 'sales-hub.html')));

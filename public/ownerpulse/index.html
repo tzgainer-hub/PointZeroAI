@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSGMQREKGT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSGMQREKGT');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner Pulse — Start the day with the gap that matters.</title>
+  <meta name="description" content="Owner Pulse is a Point Zero AI companion app for business owners. A daily rhythm around five operating gaps: lead response, quote follow-up, past clients, review requests, and owner bottlenecks." />
+  <meta name="keywords" content="Owner Pulse, Point Zero AI, business owner app, daily rhythm, operating gaps, lead response, quote follow-up, review requests" />
+  <meta property="og:title" content="Owner Pulse — Start the day with the gap that matters." />
+  <meta property="og:description" content="A Point Zero AI companion app for business owners. Daily rhythm around the five operating gaps that quietly cost attention." />
+  <meta property="og:url" content="https://www.pointzeroai.com/ownerpulse" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Owner Pulse — Start the day with the gap that matters." />
+  <meta name="twitter:description" content="A Point Zero AI companion app for business owners. Daily rhythm around the five operating gaps that quietly cost attention." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.pointzeroai.com/ownerpulse" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    :root {
+      --navy-dark: #0c1e3c;
+      --navy-mid: #0f2547;
+      --navy-light: #14305a;
+      --navy-card: #102b54;
+      --gold: #c9a447;
+      --gold-light: #e8c46a;
+      --gold-dim: rgba(201,164,71,0.15);
+      --amber: #f59e0b;
+      --amber-soft: #fbbf24;
+      --white: #ffffff;
+      --white-80: rgba(255,255,255,0.80);
+      --white-65: rgba(255,255,255,0.65);
+      --white-45: rgba(255,255,255,0.45);
+      --white-25: rgba(255,255,255,0.25);
+      --line: rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      background: var(--navy-dark);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; line-height: 1.18; font-weight: 700; letter-spacing: -0.01em; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    .umbrella-bar {
+      background: var(--navy-dark);
+      border-bottom: 1px solid rgba(201,164,71,0.15);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .umbrella-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white-65); transition: color 0.2s;
+    }
+    .umbrella-brand:hover { color: var(--gold); }
+    .umbrella-brand span { color: var(--gold); }
+    .umbrella-nav { display: flex; gap: 28px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white-45); }
+    .umbrella-nav a:hover { color: var(--gold); }
+
+    @media (max-width: 640px) {
+      .umbrella-bar { padding: 14px 20px; flex-direction: column; gap: 10px; }
+      .umbrella-nav { gap: 18px; font-size: 0.7rem; }
+    }
+
+    .hero {
+      padding: 90px 32px 80px;
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 14px;
+      border: 1px solid rgba(201,164,71,0.4); background: var(--gold-dim);
+      border-radius: 100px;
+      font-size: 0.7rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(201,164,71,0.6);
+      animation: pulse 2.2s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(201,164,71,0.55); }
+      70%  { box-shadow: 0 0 0 10px rgba(201,164,71,0); }
+      100% { box-shadow: 0 0 0 0 rgba(201,164,71,0); }
+    }
+
+    .hero-app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22%;
+      display: block;
+      margin: 10px 0 26px;
+      box-shadow:
+        0 14px 32px -10px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1.12rem;
+      color: var(--white-80);
+      margin-bottom: 38px;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px;
+      background: var(--gold);
+      color: var(--navy-dark);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      transition: all 0.2s;
+      border: 1px solid var(--gold);
+    }
+    .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px;
+      color: var(--white-80);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(201,164,71,0.5); color: var(--gold); }
+
+    .availability-note {
+      margin-top: 22px;
+      font-size: 0.8rem;
+      color: var(--white-45);
+      letter-spacing: 0.3px;
+    }
+    .availability-note strong { color: var(--amber-soft); font-weight: 600; }
+
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 520px;
+    }
+    .hero-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,164,71,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-screenshot {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 28px;
+      box-shadow:
+        0 30px 60px -20px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    section { padding: 90px 32px; max-width: 1180px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      margin-bottom: 18px;
+    }
+    section h2 {
+      font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+    section .lede {
+      font-size: 1.05rem; color: var(--white-80);
+      max-width: 720px; margin-bottom: 48px; line-height: 1.6;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .feature {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px 26px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature:hover { border-color: rgba(201,164,71,0.35); transform: translateY(-2px); }
+    .feature-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(201,164,71,0.12);
+      border: 1px solid rgba(201,164,71,0.3);
+      display: grid; place-items: center;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      color: var(--gold); font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+    .feature h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--white); }
+    .feature p { font-size: 0.92rem; color: var(--white-65); line-height: 1.6; }
+
+    /* How it works — three columns */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .how-card {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 30px 28px;
+      transition: border-color 0.2s;
+    }
+    .how-card:hover { border-color: rgba(201,164,71,0.3); }
+    .how-card .step {
+      font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .how-card h3 { font-size: 1.15rem; margin-bottom: 12px; color: var(--white); }
+    .how-card p { font-size: 0.95rem; color: var(--white-65); line-height: 1.65; }
+
+    /* Screenshot showcase */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .screenshot-card {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      display: block;
+      box-shadow:
+        0 20px 50px -20px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .screenshot-card figcaption {
+      font-size: 0.88rem;
+      color: var(--white-65);
+      text-align: center;
+      letter-spacing: 0.2px;
+      line-height: 1.5;
+      padding-top: 2px;
+    }
+    .screenshot-card figcaption strong {
+      display: block;
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.96rem;
+      letter-spacing: 0.1px;
+      margin-bottom: 2px;
+    }
+    .placeholder-note {
+      max-width: 700px;
+      margin: 26px auto 0;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--white-45);
+      letter-spacing: 0.2px;
+    }
+    @media (max-width: 900px) {
+      .screenshot-grid { grid-template-columns: 1fr; gap: 22px; max-width: 380px; }
+      .screenshot-card img { border-radius: 20px; }
+    }
+
+    /* Two-up callouts (Assessment Focus + Premium Preview) */
+    .two-up { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .callout-card {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 30px 28px;
+    }
+    .callout-card .label {
+      font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .callout-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--white); }
+    .callout-card p { font-size: 0.95rem; color: var(--white-80); line-height: 1.65; }
+
+    .cta-band {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 60px 32px 90px;
+    }
+    .cta-band-inner {
+      background: linear-gradient(140deg, #102b54 0%, #0a1f3e 100%);
+      border: 1px solid rgba(201,164,71,0.22);
+      border-radius: 18px;
+      padding: 50px 44px;
+      text-align: center;
+    }
+    .cta-band-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      color: var(--white);
+      margin-bottom: 16px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band-inner p {
+      font-size: 1.02rem;
+      color: var(--white-80);
+      max-width: 640px;
+      margin: 0 auto 26px;
+      line-height: 1.6;
+    }
+    .cta-band-inner .cta-row { justify-content: center; }
+
+    /* Compliance band */
+    .compliance-band {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .compliance-band-inner {
+      background: rgba(245,158,11,0.04);
+      border: 1px solid rgba(245,158,11,0.18);
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 20px 26px;
+      font-size: 0.92rem;
+      color: var(--white-65);
+      line-height: 1.65;
+    }
+    .compliance-band-inner strong { color: var(--white-80); font-weight: 600; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 50px 32px 40px;
+      background: #08172e;
+      margin-top: 32px;
+    }
+    .footer-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px; align-items: flex-start;
+    }
+    .footer-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-sub { font-size: 0.78rem; color: var(--white-45); letter-spacing: 0.4px; }
+    .footer-links {
+      display: flex; flex-wrap: wrap; gap: 22px;
+      font-size: 0.82rem; color: var(--white-65);
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-legal {
+      max-width: 1180px; margin: 36px auto 0;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.72rem; color: var(--white-25);
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr; gap: 50px; padding: 60px 24px 60px;
+      }
+      .hero-visual { min-height: 440px; order: -1; }
+      .hero-screenshot { max-width: 260px; }
+      .hero-app-icon { width: 80px; height: 80px; margin: 6px 0 18px; }
+      section { padding: 70px 24px; }
+      .cta-band-inner { padding: 38px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UMBRELLA HEADER -->
+  <div class="umbrella-bar">
+    <a href="https://www.pointzeroai.com" class="umbrella-brand">POINT <span>ZERO</span> AI</a>
+    <nav class="umbrella-nav">
+      <a href="/ownerpulse/support">Support</a>
+      <a href="/ownerpulse/privacy">Privacy</a>
+      <a href="/ownerpulse/terms">Terms</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Point Zero AI Companion App</div>
+      <img src="/ownerpulse/icon.svg" alt="Owner Pulse app icon" class="hero-app-icon" width="96" height="96" />
+      <h1>Start the day with the <span class="accent">gap that matters</span>.</h1>
+      <p class="hero-sub">Owner Pulse helps business owners check the five daily operating gaps that quietly cost attention: lead response, quote follow-up, past clients, reviews, and owner bottlenecks.</p>
+
+      <div class="cta-row">
+        <a href="https://www.pointzeroai.com/assessment" class="btn-primary">Take the Point Zero Assessment &rarr;</a>
+        <a href="/ownerpulse/support" class="btn-secondary">Owner Pulse Support</a>
+      </div>
+
+      <div class="availability-note">An iOS app by <strong>Point Zero AI LLC</strong> &middot; Companion to the Point Zero AI assessment.</div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-glow"></div>
+      <img src="/ownerpulse/screenshots/01-morning-pulse.svg" alt="Owner Pulse Morning Pulse screen — plan today's calls, quotes, review asks, past-client touches, and owner decisions" class="hero-screenshot" />
+    </div>
+  </section>
+
+  <!-- THE FIVE GAPS -->
+  <section>
+    <span class="section-label">The Five Daily Gaps</span>
+    <h2>Five operating gaps. Checked every day.</h2>
+    <p class="lede">These are the recurring leaks that quietly cost attention in most owner-led businesses. Owner Pulse turns them into a daily rhythm instead of a once-a-quarter scramble.</p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <div class="feature-num">1</div>
+        <h3>Lead response</h3>
+        <p>The new inquiries waiting on a callback or a reply right now. Speed is the gap most owners don't realize they're losing.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">2</div>
+        <h3>Quote follow-up</h3>
+        <p>The estimates already sent that have gone quiet. Revenue you already earned the right to ask for again.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">3</div>
+        <h3>Past clients</h3>
+        <p>The buyers who already know you. A 2-minute touch reopens work most owners never go back for.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">4</div>
+        <h3>Review requests</h3>
+        <p>The asks that compound over months. One a day beats a quarterly review campaign every single time.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">5</div>
+        <h3>Owner bottlenecks</h3>
+        <p>The decisions only you can make. Owner Pulse keeps them visible so the team isn't stuck waiting on a yes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <span class="section-label">How It Works</span>
+    <h2>Morning Pulse sets the move. Evening Pulse records the truth.</h2>
+    <p class="lede">The weekly pattern shows what keeps coming back &mdash; so you stop running the same fire drill every Monday.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="step">Step 1 &middot; Morning</div>
+        <h3>Morning Pulse</h3>
+        <p>Plan today's calls, quotes, review asks, past-client touches, and owner decisions.</p>
+      </div>
+      <div class="how-card">
+        <div class="step">Step 2 &middot; Evening</div>
+        <h3>Evening Pulse</h3>
+        <p>Score what slipped using a plain formula: None = 0, 1&ndash;2 = 1, 3+ = 3 across five gaps.</p>
+      </div>
+      <div class="how-card">
+        <div class="step">Step 3 &middot; Weekly</div>
+        <h3>The Pattern</h3>
+        <p>The 7-day picture surfaces the gap that keeps repeating &mdash; the one worth fixing this week, not next quarter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section>
+    <span class="section-label">Inside Owner Pulse</span>
+    <h2>The actual screens.</h2>
+    <p class="lede">Morning Pulse, Evening Pulse, and the weekly pattern that keeps the gap visible.</p>
+
+    <div class="screenshot-grid">
+      <figure class="screenshot-card">
+        <img src="/ownerpulse/screenshots/01-morning-pulse.svg" alt="Owner Pulse Morning Pulse screen — plan today's calls, quotes, review asks, past-client touches, and owner decisions" loading="lazy" />
+        <figcaption><strong>Morning Pulse</strong>Set today's move across the five gaps</figcaption>
+      </figure>
+      <figure class="screenshot-card">
+        <img src="/ownerpulse/screenshots/02-evening-pulse.svg" alt="Owner Pulse Evening Pulse screen — score what slipped today using None=0, 1-2=1, 3+=3" loading="lazy" />
+        <figcaption><strong>Evening Pulse</strong>Score what slipped, plain and quick</figcaption>
+      </figure>
+      <figure class="screenshot-card">
+        <img src="/ownerpulse/screenshots/03-weekly-pattern.svg" alt="Owner Pulse 7-day pattern — recurring gaps and the assessment focus pinned to the home screen" loading="lazy" />
+        <figcaption><strong>Weekly Pattern</strong>The gap that keeps coming back</figcaption>
+      </figure>
+    </div>
+
+    <p class="placeholder-note">Illustrative placeholders. Real App Store screenshots will replace these before launch.</p>
+  </section>
+
+  <!-- ASSESSMENT FOCUS + PREMIUM PREVIEW -->
+  <section>
+    <span class="section-label">Built to Pair With the Assessment</span>
+    <h2>The assessment names the gap. Owner Pulse keeps it visible.</h2>
+
+    <div class="two-up">
+      <div class="callout-card">
+        <div class="label">Assessment Focus</div>
+        <h3>Pin the top gap from your Point Zero AI assessment</h3>
+        <p>Record the top gap from the Point Zero AI assessment so Owner Pulse keeps it visible every day &mdash; on the home screen, in the morning planner, and in the weekly pattern.</p>
+      </div>
+      <div class="callout-card">
+        <div class="label">Premium Preview</div>
+        <h3>A preview of where Owner Pulse is going</h3>
+        <p>Premium preview uses illustrative data to show how calendar activity and Google Business Profile review signals can support daily entries. It is not a financial estimate, credit score, legal score, or business valuation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div class="cta-band-inner">
+      <h2>Start with the gap. Build the rhythm.</h2>
+      <p>Take the Point Zero AI assessment to surface the bigger business gap. Owner Pulse keeps that gap visible every day.</p>
+      <div class="cta-row">
+        <a href="https://www.pointzeroai.com/assessment" class="btn-primary">Take the Point Zero Assessment &rarr;</a>
+        <a href="/ownerpulse/support" class="btn-secondary">Owner Pulse Support</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLIANCE -->
+  <div class="compliance-band">
+    <div class="compliance-band-inner">
+      <strong>Owner Pulse is an operating check-in tool.</strong> It does not provide financial advice, legal advice, credit scoring, business valuation, revenue estimates, or guaranteed business outcomes.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">OWNER <span>PULSE</span></div>
+        <div class="footer-sub">An iOS app by Point Zero AI LLC</div>
+      </div>
+      <div class="footer-links">
+        <a href="/ownerpulse">Owner Pulse</a>
+        <a href="/ownerpulse/support">Support</a>
+        <a href="/ownerpulse/privacy">Privacy</a>
+        <a href="/ownerpulse/terms">Terms</a>
+        <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a>
+        <a href="https://www.pointzeroai.com">Point Zero AI</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      &copy; 2026 Point Zero AI LLC. Owner Pulse is an operating check-in tool and is not financial, legal, credit, or valuation advice.
+    </div>
+  </footer>
+
+</body>
+</html>
