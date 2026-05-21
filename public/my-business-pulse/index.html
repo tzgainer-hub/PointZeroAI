@@ -254,9 +254,9 @@
     /* Screenshot showcase */
     .screenshot-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      max-width: 980px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      max-width: 1100px;
       margin: 0 auto;
     }
     .screenshot-card {
@@ -299,8 +299,11 @@
       color: var(--white-45);
       letter-spacing: 0.2px;
     }
-    @media (max-width: 900px) {
-      .screenshot-grid { grid-template-columns: 1fr; gap: 22px; max-width: 380px; }
+    @media (max-width: 1100px) {
+      .screenshot-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 640px; }
+    }
+    @media (max-width: 600px) {
+      .screenshot-grid { grid-template-columns: 1fr; gap: 22px; max-width: 320px; }
       .screenshot-card img { border-radius: 20px; }
     }
 
@@ -445,7 +448,7 @@
 
     <div class="hero-visual">
       <div class="hero-glow"></div>
-      <img src="/my-business-pulse/screenshots/01-morning-pulse.svg" alt="My Business Pulse Morning Pulse screen — plan today's calls, quotes, review asks, past-client touches, and owner decisions" class="hero-screenshot" />
+      <img src="/my-business-pulse/screenshots/02-morning-pulse.png" alt="My Business Pulse Morning Pulse screen — plan today's calls, quotes, review asks, past-client touches, and owner decisions" class="hero-screenshot" width="1242" height="2688" />
     </div>
   </section>
 
@@ -513,24 +516,26 @@
   <section>
     <span class="section-label">Inside My Business Pulse</span>
     <h2>The actual screens.</h2>
-    <p class="lede">Morning Pulse, Evening Pulse, and the weekly pattern that keeps the gap visible.</p>
+    <p class="lede">The first screen on a fresh install, the daily plan, the evening close, and the Premium money tools.</p>
 
     <div class="screenshot-grid">
       <figure class="screenshot-card">
-        <img src="/my-business-pulse/screenshots/01-morning-pulse.svg" alt="My Business Pulse Morning Pulse screen — plan today's calls, quotes, review asks, past-client touches, and owner decisions" loading="lazy" />
-        <figcaption><strong>Morning Pulse</strong>Set today's move across the five gaps</figcaption>
+        <img src="/my-business-pulse/screenshots/01-welcome.png" alt="My Business Pulse welcome screen — Stop losing business in the gaps. A two-minute daily check across calls, quotes, reviews, past clients, and owner decisions." loading="lazy" width="1242" height="2688" />
+        <figcaption><strong>Welcome</strong>Stop losing business in the gaps</figcaption>
       </figure>
       <figure class="screenshot-card">
-        <img src="/my-business-pulse/screenshots/02-evening-pulse.svg" alt="My Business Pulse Evening Pulse screen — record what stayed open today across the five gaps" loading="lazy" />
-        <figcaption><strong>Evening Pulse</strong>Record what stayed open today</figcaption>
+        <img src="/my-business-pulse/screenshots/02-morning-pulse.png" alt="My Business Pulse Morning Pulse screen — name today's follow-ups across calls, quotes, past clients, reviews, and owner decisions." loading="lazy" width="1242" height="2688" />
+        <figcaption><strong>Morning Pulse</strong>Name what's open before the day takes over</figcaption>
       </figure>
       <figure class="screenshot-card">
-        <img src="/my-business-pulse/screenshots/03-weekly-pattern.svg" alt="My Business Pulse 7-day pattern — recurring gaps and the assessment focus pinned to the home screen" loading="lazy" />
-        <figcaption><strong>Weekly Pattern</strong>The gap that keeps coming back</figcaption>
+        <img src="/my-business-pulse/screenshots/03-evening-pulse.png" alt="My Business Pulse Evening Pulse screen — mark each item Handled or Still Open and see the 7-day operating signal." loading="lazy" width="1242" height="2688" />
+        <figcaption><strong>Evening Pulse</strong>Mark what closed. See what slipped.</figcaption>
+      </figure>
+      <figure class="screenshot-card">
+        <img src="/my-business-pulse/screenshots/04-money-moves.png" alt="My Business Pulse Money Moves — Premium Quote Recovery, Review Asks, Calendar Pulse, Script Bank, and the Weekly Owner Brief." loading="lazy" width="1242" height="2688" />
+        <figcaption><strong>Money Moves</strong>Five Premium tools that pay for themselves</figcaption>
       </figure>
     </div>
-
-    <p class="placeholder-note">Illustrative placeholders. Real App Store screenshots will replace these before launch.</p>
   </section>
 
   <!-- PREMIUM -->
@@ -548,7 +553,7 @@
       <div class="feature">
         <div class="feature-num">2</div>
         <h3>Review Ask System</h3>
-        <p>Log each completed job, then mark review asked and review received. Save your Google review link for one-tap sharing. No third-party connection required.</p>
+        <p>Log each completed job by name, then mark each one Review Asked and Review Received as the loop closes. No Google or Yelp connection required — just a visible habit for the asks that compound over months.</p>
       </div>
       <div class="feature">
         <div class="feature-num">3</div>
