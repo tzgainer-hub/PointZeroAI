@@ -200,13 +200,6 @@ app.get('/my-business-pulse/terms', (req, res) => res.sendFile(path.join(__dirna
 app.get('/my-business-pulse/screenshots', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'screenshots.html')));
 app.get('/my-business-pulse/how-to-use', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'how-to-use.html')));
 
-// 301 redirects from the old /ownerpulse/* paths to keep any stale links working
-app.get('/ownerpulse', (req, res) => res.redirect(301, '/my-business-pulse'));
-app.get('/ownerpulse/support', (req, res) => res.redirect(301, '/my-business-pulse/support'));
-app.get('/ownerpulse/privacy', (req, res) => res.redirect(301, '/my-business-pulse/privacy'));
-app.get('/ownerpulse/terms', (req, res) => res.redirect(301, '/my-business-pulse/terms'));
-app.get('/ownerpulse/screenshots', (req, res) => res.redirect(301, '/my-business-pulse/screenshots'));
-
 // ── TEAM HUB ROUTES (gated) ──
 app.get('/team', (req, res) => res.sendFile(path.join(__dirname, 'public', 'team.html')));
 app.get('/sales-hub', (req, res) => res.sendFile(path.join(__dirname, 'public', 'sales-hub.html')));
