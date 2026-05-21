@@ -304,7 +304,7 @@
       .screenshot-card img { border-radius: 20px; }
     }
 
-    /* Two-up callouts (Assessment Focus + Premium Preview) */
+    /* Two-up callouts (legacy class, kept for reuse) */
     .two-up { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
     .callout-card {
       background: var(--navy-card);
@@ -498,7 +498,7 @@
       <div class="how-card">
         <div class="step">Step 2 &middot; Evening</div>
         <h3>Evening Pulse</h3>
-        <p>Score what slipped using a plain formula: None = 0, 1&ndash;2 = 1, 3+ = 3 across five gaps.</p>
+        <p>Capture what stayed open today: missed calls, cold quotes, past clients, unasked reviews, and owner blockers. Two minutes records the truth.</p>
       </div>
       <div class="how-card">
         <div class="step">Step 3 &middot; Weekly</div>
@@ -520,8 +520,8 @@
         <figcaption><strong>Morning Pulse</strong>Set today's move across the five gaps</figcaption>
       </figure>
       <figure class="screenshot-card">
-        <img src="/my-business-pulse/screenshots/02-evening-pulse.svg" alt="My Business Pulse Evening Pulse screen — score what slipped today using None=0, 1-2=1, 3+=3" loading="lazy" />
-        <figcaption><strong>Evening Pulse</strong>Score what slipped, plain and quick</figcaption>
+        <img src="/my-business-pulse/screenshots/02-evening-pulse.svg" alt="My Business Pulse Evening Pulse screen — record what stayed open today across the five gaps" loading="lazy" />
+        <figcaption><strong>Evening Pulse</strong>Record what stayed open today</figcaption>
       </figure>
       <figure class="screenshot-card">
         <img src="/my-business-pulse/screenshots/03-weekly-pattern.svg" alt="My Business Pulse 7-day pattern — recurring gaps and the assessment focus pinned to the home screen" loading="lazy" />
@@ -532,22 +532,53 @@
     <p class="placeholder-note">Illustrative placeholders. Real App Store screenshots will replace these before launch.</p>
   </section>
 
-  <!-- ASSESSMENT FOCUS + PREMIUM PREVIEW -->
+  <!-- PREMIUM -->
+  <section>
+    <span class="section-label">Premium</span>
+    <h2>Premium turns the gaps into recoverable owner actions.</h2>
+    <p class="lede">Essential finds the gaps. Premium turns each one into a concrete owner move you can take today, with everything kept on device.</p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <div class="feature-num">1</div>
+        <h3>Quote Recovery</h3>
+        <p>Add open quotes with the actual quote amount. See total open quote value, oldest quote, status, and follow-up visibility at a glance. Values come only from what you enter.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">2</div>
+        <h3>Review Ask System</h3>
+        <p>Log each completed job, then mark review asked and review received. Save your Google review link for one-tap sharing. No third-party connection required.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">3</div>
+        <h3>Calendar Pulse</h3>
+        <p>With your permission, Premium scans your calendar on device to surface quote follow-ups, review asks, past-client reactivation, and the next move per appointment. Events are processed on device and never uploaded.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">4</div>
+        <h3>Script Bank</h3>
+        <p>Plain-language scripts ready to copy and send: quote follow-up, review ask, missed-call return, past-client reach-out. Written for owners, not marketers.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">5</div>
+        <h3>Weekly Owner Brief</h3>
+        <p>An operating checklist built from your app entries: open quote value, oldest quote, review-ask gap, calendar moves, and the next owner moves for the week.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">6</div>
+        <h3>Owner Playbooks</h3>
+        <p>The five Point Zero fixes, one playbook per gap. Practical owner moves drawn from 30+ years of advising business owners on what actually works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT FOCUS -->
   <section>
     <span class="section-label">Built to Pair With the Assessment</span>
     <h2>The assessment names the gap. My Business Pulse keeps it visible.</h2>
-
-    <div class="two-up">
-      <div class="callout-card">
-        <div class="label">Assessment Focus</div>
-        <h3>Pin the top gap from your Point Zero AI assessment</h3>
-        <p>Record the top gap from the Point Zero AI assessment so My Business Pulse keeps it visible every day &mdash; on the home screen, in the morning planner, and in the weekly pattern.</p>
-      </div>
-      <div class="callout-card">
-        <div class="label">Premium Preview</div>
-        <h3>A preview of where My Business Pulse is going</h3>
-        <p>Premium preview uses illustrative data to show how calendar activity and Google Business Profile review signals can support daily entries. It is not a financial estimate, credit score, legal score, or business valuation.</p>
-      </div>
+    <p class="lede">Take the Point Zero AI assessment to surface the bigger business gap holding you back. Pin it inside My Business Pulse and the app keeps it visible every day &mdash; on the home screen, in the morning planner, and in the weekly pattern.</p>
+    <div class="cta-row">
+      <a href="https://www.pointzeroai.com/assessment" class="btn-primary">Take the Point Zero Assessment &rarr;</a>
     </div>
   </section>
 
@@ -566,7 +597,7 @@
   <!-- COMPLIANCE -->
   <div class="compliance-band">
     <div class="compliance-band-inner">
-      <strong>My Business Pulse is an operating check-in tool.</strong> It does not provide financial advice, legal advice, credit scoring, business valuation, revenue estimates, or guaranteed business outcomes.
+      <strong>My Business Pulse is an operating check-in tool.</strong> It does not provide financial, legal, medical, credit, valuation, or revenue advice. Quote values come only from amounts you enter. Calendar events are processed on device and are not uploaded. This launch version does not require a Point Zero AI account.
     </div>
   </div>
 
@@ -587,7 +618,7 @@
       </div>
     </div>
     <div class="footer-legal">
-      &copy; 2026 Point Zero AI LLC. My Business Pulse is an operating check-in tool and is not financial, legal, credit, or valuation advice.
+      &copy; 2026 Point Zero AI LLC. My Business Pulse is an operating check-in tool and is not financial, legal, medical, credit, valuation, or revenue advice.
     </div>
   </footer>
 
