@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSGMQREKGT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSGMQREKGT');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Use My Business Pulse — Point Zero AI</title>
+  <meta name="description" content="The simple daily rhythm behind My Business Pulse: morning sets the follow-up list, the day catches what needs a response, evening closes the loop." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.pointzeroai.com/my-business-pulse/how-to-use" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-dark: #0c1e3c;
+      --navy-card: #102b54;
+      --navy-card-deep: #0a1f3e;
+      --gold: #c9a447;
+      --gold-light: #e8c46a;
+      --amber: #f59e0b;
+      --white: #ffffff;
+      --white-85: rgba(255,255,255,0.85);
+      --white-80: rgba(255,255,255,0.80);
+      --white-65: rgba(255,255,255,0.65);
+      --white-45: rgba(255,255,255,0.45);
+      --line: rgba(255,255,255,0.08);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      background: var(--navy-dark);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.25; }
+    a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(201,164,71,0.35); }
+    a:hover { border-bottom-color: var(--gold); color: var(--gold-light); }
+
+    .umbrella-bar {
+      background: var(--navy-dark);
+      border-bottom: 1px solid rgba(201,164,71,0.15);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .umbrella-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--white-65);
+      border: none;
+    }
+    .umbrella-brand:hover { color: var(--gold); }
+    .umbrella-brand span { color: var(--gold); }
+    .umbrella-nav { display: flex; gap: 28px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; }
+    .umbrella-nav a { color: var(--white-45); border: none; }
+    .umbrella-nav a:hover { color: var(--gold); }
+    .umbrella-nav a.active { color: var(--gold); }
+    @media (max-width: 640px) {
+      .umbrella-bar { padding: 14px 20px; flex-direction: column; gap: 10px; }
+      .umbrella-nav { gap: 18px; font-size: 0.7rem; }
+    }
+
+    .doc-wrap { max-width: 860px; margin: 0 auto; padding: 70px 32px 80px; }
+    .doc-eyebrow { font-size: 0.72rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3rem); margin-bottom: 16px; }
+    .doc-sub { font-size: 1.15rem; color: var(--white-80); margin-bottom: 50px; padding-bottom: 28px; border-bottom: 1px solid var(--line); line-height: 1.55; }
+
+    .one-question {
+      background: linear-gradient(140deg, var(--navy-card) 0%, var(--navy-card-deep) 100%);
+      border: 1px solid rgba(201,164,71,0.32);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin: 0 0 50px;
+    }
+    .one-question .label {
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .one-question .text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    h2.section-h {
+      font-size: 1.7rem;
+      margin: 60px 0 18px;
+      color: var(--white);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    h3.step-h {
+      font-size: 1.25rem;
+      margin: 36px 0 14px;
+      color: var(--gold-light);
+    }
+
+    p { font-size: 1.02rem; color: var(--white-80); margin-bottom: 16px; }
+    p strong { color: var(--white); font-weight: 600; }
+    ul { margin: 0 0 18px 22px; padding: 0; }
+    li { font-size: 1.02rem; color: var(--white-80); margin-bottom: 8px; line-height: 1.65; }
+
+    .example-block {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 18px 0 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.98rem;
+      color: var(--white-85);
+    }
+    .example-block .ex-label {
+      font-size: 0.7rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .example-block ul { margin-left: 18px; margin-bottom: 0; }
+    .example-block li { margin-bottom: 4px; }
+
+    .rhythm-line {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.5;
+      padding: 22px 26px;
+      background: var(--navy-card);
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      margin: 18px 0 22px;
+    }
+    .rhythm-line .accent { color: var(--gold-light); }
+
+    .feature-card {
+      background: var(--navy-card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin: 16px 0;
+    }
+    .feature-card:hover { border-color: rgba(201,164,71,0.3); }
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .feature-card .label {
+      font-size: 0.7rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .closing-note {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.22);
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 50px 0 0;
+    }
+    .closing-note .label {
+      font-size: 0.7rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #fbbf24; font-weight: 600; margin-bottom: 12px; display: block;
+    }
+    .closing-note p { font-size: 0.98rem; color: var(--white-80); margin-bottom: 0; }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 32px; background: #08172e;
+      font-size: 0.82rem; color: var(--white-45); text-align: center;
+    }
+    .footer-links { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+    .footer-links a { color: var(--white-65); border: none; }
+    .footer-links a:hover { color: var(--gold); }
+
+    @media (max-width: 640px) {
+      .doc-wrap { padding: 50px 22px 60px; }
+      .one-question { padding: 24px 22px; }
+      .one-question .text { font-size: 1.3rem; }
+      h2.section-h { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="umbrella-bar">
+    <a href="https://www.pointzeroai.com" class="umbrella-brand">POINT <span>ZERO</span> AI</a>
+    <nav class="umbrella-nav">
+      <a href="/my-business-pulse">My Business Pulse</a>
+      <a href="/my-business-pulse/how-to-use" class="active">How To</a>
+      <a href="/my-business-pulse/support">Support</a>
+      <a href="/my-business-pulse/privacy">Privacy</a>
+      <a href="/my-business-pulse/terms">Terms</a>
+    </nav>
+  </div>
+
+  <main class="doc-wrap">
+    <div class="doc-eyebrow">My Business Pulse</div>
+    <h1>How to Use This App</h1>
+    <p class="doc-sub">My Business Pulse is not a CRM. It is not a spreadsheet. It is not another place to manage your whole company. It is a daily business responsiveness tool that helps you answer one question, three times a day.</p>
+
+    <div class="one-question">
+      <div class="label">The one question</div>
+      <div class="text">What needs my attention before it costs me business?</div>
+    </div>
+
+    <p>Owners lose money in simple places:</p>
+    <ul>
+      <li>Missed calls that never get called back</li>
+      <li>Quotes that go cold</li>
+      <li>Past clients who never hear from them again</li>
+      <li>Finished work where nobody asks for a review</li>
+      <li>Decisions stuck because the owner is the bottleneck</li>
+    </ul>
+
+    <p>My Business Pulse keeps those things visible. The goal is simple:</p>
+
+    <div class="rhythm-line">
+      Start the day with a clear follow-up list.<br/>
+      Check during the day like you check email or texts.<br/>
+      Close the day by seeing what stayed open.
+    </div>
+
+    <h2 class="section-h">The daily rhythm</h2>
+
+    <h3 class="step-h">1. Morning Pulse: build today's follow-up list</h3>
+    <p>Open the app in the morning. The app asks you to build a real list, not guess at a score. You add names or items under five business areas:</p>
+    <ul>
+      <li>Who needs a call back today?</li>
+      <li>Which quote needs follow-up today?</li>
+      <li>Who is worth reaching back out to?</li>
+      <li>Who should be asked for a review?</li>
+      <li>What decision or task is waiting on you?</li>
+    </ul>
+    <p>This is not theory. You enter real things:</p>
+
+    <div class="example-block">
+      <div class="ex-label">Examples</div>
+      <ul>
+        <li>Simpson Chiro</li>
+        <li>Mesa roof quote</li>
+        <li>Adams Ortho review ask</li>
+        <li>Call back Mark</li>
+        <li>Approve invoice</li>
+      </ul>
+    </div>
+
+    <p>Then tap <strong>Save Today's Follow-Up List</strong>. Now the app knows what needs attention today. That is the morning outcome.</p>
+
+    <h3 class="step-h">2. Home: check your business inbox</h3>
+    <p>The Home screen is the owner's business inbox. It should quickly show:</p>
+    <ul>
+      <li>Is today's Morning list saved?</li>
+      <li>Are there open quotes?</li>
+      <li>Are review asks waiting?</li>
+      <li>Are calendar follow-ups waiting?</li>
+      <li>Is Evening Pulse still open?</li>
+    </ul>
+    <p>The owner should use Home the same way they check email or texts. Not to waste time. To see if something needs a response. If something is sitting there, the app makes it obvious.</p>
+    <div class="rhythm-line">
+      <span class="accent">Morning:</span> start today's list.<br/>
+      <span class="accent">Afternoon:</span> catch anything that needs a response.<br/>
+      <span class="accent">Evening:</span> close the loop.
+    </div>
+
+    <h3 class="step-h">3. Premium / Money Moves: keep money-related follow-ups visible</h3>
+    <p>Premium is not just "more features." Premium is where loose business gets turned into named actions.</p>
+
+    <div class="feature-card">
+      <div class="label">Open Quotes</div>
+      <h3>Quote Recovery</h3>
+      <p>Add a real quote by name and amount. For example: Simpson Chiro, $14,000, follow up tomorrow. The app does not invent revenue risk. It only shows values the owner enters. The purpose is simple: <strong>do not let open quotes disappear.</strong></p>
+    </div>
+
+    <div class="feature-card">
+      <div class="label">Reviews To Ask For</div>
+      <h3>Review Ask System</h3>
+      <p>Add finished work by name. For example: Adams Ortho, Paradise Valley install, Jones appointment. Then mark each item when you asked for the review and when the review came in. The purpose is not to connect to Google. The purpose is to <strong>make review asking a visible habit.</strong></p>
+    </div>
+
+    <div class="feature-card">
+      <div class="label">Calendar Follow-Ups</div>
+      <h3>Calendar Pulse</h3>
+      <p>Scan Calendar. The app looks for calendar events that sound like they may need action: quote, estimate, service call, completed work, consultation, appointment, patient, client, install, follow-up. The app does not change the calendar. The owner chooses useful items, names who they are for, and sends them to Morning Pulse. The purpose: <strong>turn calendar activity into today's follow-up list.</strong></p>
+    </div>
+
+    <div class="feature-card">
+      <div class="label">Words To Send</div>
+      <h3>Script Bank</h3>
+      <p>Sometimes the owner knows what to do but not what to say. Premium gives simple copy-and-send scripts for quote follow-up, missed call, past client check-in, and review ask. The purpose: <strong>remove friction. Give the owner words.</strong></p>
+    </div>
+
+    <h3 class="step-h">4. Evening Pulse: close the loop</h3>
+    <p>At the end of the day, open Evening Pulse. This is not about judgment. It is not a grade. It is a short review of what stayed open. The app asks:</p>
+    <ul>
+      <li>Any calls went unanswered today?</li>
+      <li>Any quotes still waiting for follow-up?</li>
+      <li>Any past-client outreach left undone?</li>
+      <li>Finished work still missing a review ask?</li>
+      <li>What waited on you today?</li>
+    </ul>
+    <p>The outcome: <strong>tomorrow starts cleaner because tonight captured what slipped.</strong> Evening Pulse turns today's loose ends into tomorrow's starting point.</p>
+
+    <h2 class="section-h">Why someone would want this</h2>
+    <p>A business owner does not need another dashboard. They need fewer things slipping. My Business Pulse is valuable because it builds one habit:</p>
+
+    <div class="rhythm-line">Do not let business sit unanswered.</div>
+
+    <p>If an owner uses it every day, they are more likely to:</p>
+    <ul>
+      <li>Call people back</li>
+      <li>Follow up on quotes before they cool</li>
+      <li>Ask for reviews while the work is fresh</li>
+      <li>Reactivate past clients</li>
+      <li>Notice when they are the slowdown</li>
+      <li>Start tomorrow with a clearer list</li>
+    </ul>
+
+    <p>The app should feel like: <em>I check this because it helps me keep business moving.</em> Not: <em>I fill this out because the app wants data.</em></p>
+
+    <div class="closing-note">
+      <span class="label">The whole idea</span>
+      <p>Two minutes in the morning. A quick check during the day. Two minutes at night. The app is not trying to run your whole business. It is trying to protect the places where business quietly leaks: calls, quotes, reviews, past clients, and owner bottlenecks. That is the rhythm. That is My Business Pulse.</p>
+    </div>
+
+    <p style="color: var(--white-45); font-size: 0.9rem; margin-top: 36px;">Point Zero AI LLC &middot; My Business Pulse &middot; <a href="mailto:support@pointzeroai.com">support@pointzeroai.com</a></p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/my-business-pulse">My Business Pulse</a>
+      <a href="/my-business-pulse/support">Support</a>
+      <a href="/my-business-pulse/privacy">Privacy</a>
+      <a href="/my-business-pulse/terms">Terms</a>
+      <a href="https://www.pointzeroai.com">Point Zero AI</a>
+    </div>
+    &copy; 2026 Point Zero AI LLC. My Business Pulse is an operating check-in tool and is not financial, legal, medical, credit, valuation, or revenue advice.
+  </footer>
+</body>
+</html>

@@ -198,6 +198,7 @@ app.get('/my-business-pulse/support', (req, res) => res.sendFile(path.join(__dir
 app.get('/my-business-pulse/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'privacy.html')));
 app.get('/my-business-pulse/terms', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'terms.html')));
 app.get('/my-business-pulse/screenshots', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'screenshots.html')));
+app.get('/my-business-pulse/how-to-use', (req, res) => res.sendFile(path.join(__dirname, 'public', 'my-business-pulse', 'how-to-use.html')));
 
 // 301 redirects from the old /ownerpulse/* paths to keep any stale links working
 app.get('/ownerpulse', (req, res) => res.redirect(301, '/my-business-pulse'));
