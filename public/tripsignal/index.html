@@ -142,7 +142,7 @@
 
     .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 
-    /* App Store-style badge (non-interactive status) */
+    /* App Store badge (links to the live App Store page) */
     .app-store-badge {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 12px 22px;
@@ -151,7 +151,10 @@
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.14);
       text-align: left;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
     }
+    a.app-store-badge:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.32); }
     .app-store-badge .apple-mark {
       flex: 0 0 26px; height: 30px; display: grid; place-items: center;
     }
@@ -444,27 +447,27 @@
   <!-- HERO -->
   <section class="hero">
     <div>
-      <div class="hero-eyebrow">Coming Soon to iOS</div>
+      <div class="hero-eyebrow">Live on the App Store</div>
       <img src="/tripsignal/app-icon-1024.png" alt="TripSignal app icon" class="hero-app-icon" width="96" height="96" />
       <h1>Know what is <span class="accent">changing</span> before you go.</h1>
       <p class="hero-sub">TripSignal watches official health signals for your home area, family locations, trips, and diseases you care about.</p>
 
       <div class="cta-row">
-        <span class="app-store-badge" role="img" aria-label="Coming soon on the App Store">
+        <a class="app-store-badge" href="https://apps.apple.com/us/app/tripsignal/id6768471262" target="_blank" rel="noopener" aria-label="Download TripSignal on the App Store">
           <span class="apple-mark" aria-hidden="true">
             <svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" fill="#fff">
               <path d="M19.05 21.5c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C4.79 16.5 5.51 8.84 11.05 8.56c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.05zM14.03 8.5c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
             </svg>
           </span>
           <span class="label-stack">
-            <span class="top">Coming Soon on the</span>
+            <span class="top">Download on the</span>
             <span class="bottom">App Store</span>
           </span>
-        </span>
+        </a>
         <a href="/tripsignal/support" class="btn-secondary">Read Support &rarr;</a>
       </div>
 
-      <div class="availability-note">In development by <strong>Point Zero AI LLC</strong> &middot; Targeting App Store launch 2026.</div>
+      <div class="availability-note">Now available on iPhone and iPad &middot; Published by <strong>Point Zero AI LLC</strong></div>
     </div>
 
     <div class="hero-visual">
