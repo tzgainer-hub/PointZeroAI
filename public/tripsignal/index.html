@@ -102,6 +102,8 @@
       color: var(--teal); font-weight: 600;
       margin-bottom: 28px;
     }
+    a.hero-eyebrow { transition: background 0.15s ease, border-color 0.15s ease; cursor: pointer; }
+    a.hero-eyebrow:hover { background: rgba(45,212,191,0.25); border-color: rgba(45,212,191,0.7); }
     .hero-eyebrow::before {
       content: ''; width: 7px; height: 7px; border-radius: 50%;
       background: var(--teal);
@@ -447,7 +449,7 @@
   <!-- HERO -->
   <section class="hero">
     <div>
-      <div class="hero-eyebrow">Live on the App Store</div>
+      <a class="hero-eyebrow" href="https://apps.apple.com/us/app/tripsignal/id6768471262" target="_blank" rel="noopener" aria-label="View TripSignal on the App Store">Live on the App Store</a>
       <img src="/tripsignal/app-icon-1024.png" alt="TripSignal app icon" class="hero-app-icon" width="96" height="96" />
       <h1>Know what is <span class="accent">changing</span> before you go.</h1>
       <p class="hero-sub">TripSignal watches official health signals for your home area, family locations, trips, and diseases you care about.</p>
