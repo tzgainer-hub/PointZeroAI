@@ -41,63 +41,6 @@ function sendResendEmail({ to, subject, html }) {
   });
 }
 
-// ── GHL HELPER ──
-// Assessment custom field IDs (created 2026-04-21 in sub-account Hu8eqsCdRaXeRd7PcnCy)
-const GHL_FIELDS = {
-  gap_count:    'sSoEtgILtlYsg2KGkbnr',
-  top_gap:      'fiHi6VoEihasRTfAwsXR',
-  industry:     'kp6VBvk4lCEukorX6whP',
-  headline:     '4L6boKkM0nthdZevL7Pr',
-  opps_html:    'NUWk6e3t5WXRfyoXMjQk',
-  summary:      'OwbW5fr3DH5CppvEClc1',
-  cta_sub:      'xwa2yCdGyq1yk40tS7VZ',
-  hipaa_note:   'phx4iyLYCC6owmPcXSEo',
-  details_html: 'v1Xy64Vb24ZHJqbbN585'
-};
-
-function createGhlContact({ email, firstName, lastName, phone, tags, customFields }) {
-  return new Promise((resolve, reject) => {
-    const token = process.env.GHL_API_TOKEN;
-    const locationId = process.env.GHL_LOCATION_ID;
-    if (!token || !locationId) { console.log('GHL env vars missing'); resolve(); return; }
-
-    const data = JSON.stringify({
-      locationId,
-      email,
-      firstName: firstName || '',
-      lastName: lastName || '',
-      phone: phone || '',
-      tags: tags || [],
-      customFields: customFields || []
-    });
-
-    const options = {
-      hostname: 'services.leadconnectorhq.com',
-      path: '/contacts/upsert',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'Version': '2021-07-28',
-        'Accept': 'application/json',
-        'Content-Length': Buffer.byteLength(data)
-      }
-    };
-
-    const req = https.request(options, (res) => {
-      let body = '';
-      res.on('data', chunk => body += chunk);
-      res.on('end', () => {
-        console.log('GHL status:', res.statusCode, body.slice(0, 300));
-        resolve();
-      });
-    });
-    req.on('error', (e) => { console.error('GHL error:', e); resolve(); });
-    req.write(data);
-    req.end();
-  });
-}
-
 function esc(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -256,40 +199,7 @@ app.post('/api/submit-assessment', async (req, res) => {
 
     // ── Email-safe HTML helpers ──
     // Email clients (Outlook, Yahoo, older Gmail) strip flex/grid; tables work everywhere.
-    // Centering done via wrapper <table align="center"> so GHL template doesn't matter.
-
-    // Build opps_html (prospect email — the gap cards, centered + max-width 600)
-    let oppsHtml;
-    const oppsHeader = `<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;"><tr><td style="padding:0 20px;">`;
-    const oppsFooter = `</td></tr></table>`;
-
-    if (gapList.length === 0) {
-      oppsHtml = oppsHeader + `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#0f2547;border-left:4px solid #c9a447;border-radius:4px;margin:16px 0;">
-        <tr><td style="padding:24px 28px;">
-          <div style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;margin-bottom:8px;">No Major Gaps Detected</div>
-          <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;">Your business systems are ahead of most. The remaining opportunity is in optimization and scaling what's already working.</div>
-        </td></tr>
-      </table>` + oppsFooter;
-    } else {
-      const gapCards = gapList.map(g => {
-        const sevColor = g.severity === 'high' ? '#c9a447' : '#2a3f5f';
-        const sevTextColor = g.severity === 'high' ? '#1a1000' : '#b8c2d2';
-        const sevLabel = g.severity === 'high' ? 'HIGH PRIORITY' : 'MODERATE';
-        return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#0f2547;border:1px solid #2a3f5f;border-radius:4px;margin:12px 0;">
-          <tr><td style="padding:22px 28px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
-              <tr>
-                <td style="font-family:Arial,sans-serif;font-size:16px;font-weight:600;color:#ffffff;padding-right:12px;vertical-align:middle;">${esc(g.title)}</td>
-                <td style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:${sevTextColor};background:${sevColor};padding:4px 10px;border-radius:3px;vertical-align:middle;white-space:nowrap;">${sevLabel}</td>
-              </tr>
-            </table>
-            <div style="font-family:Arial,sans-serif;font-size:14px;color:#b8c2d2;line-height:1.6;margin-bottom:10px;">${esc(g.desc)}</div>
-            <div style="font-family:Arial,sans-serif;font-size:14px;color:#c9a447;line-height:1.55;">${esc(g.fix)}</div>
-          </td></tr>
-        </table>`;
-      }).join('');
-      oppsHtml = oppsHeader + gapCards + oppsFooter;
-    }
+    // Centering done via wrapper <table align="center">.
 
     // Build details_html (Tom's notification — full answer dump, centered + max-width 600)
     const detailRow = (label, value, opts = {}) => {
@@ -330,36 +240,35 @@ app.post('/api/submit-assessment', async (req, res) => {
       </td></tr>
     </table>`;
 
-    const contactTags = [
-      'assessment',
-      `gaps-${gapCount}`,
-      industry ? industry.replace(/\s+/g, '-').toLowerCase() : 'other'
-    ];
-
-    await createGhlContact({
-      email,
-      phone: phone || '',
-      tags: contactTags,
-      customFields: [
-        { id: GHL_FIELDS.gap_count,    field_value: String(gapCount) },
-        { id: GHL_FIELDS.top_gap,      field_value: top_gap || 'None' },
-        { id: GHL_FIELDS.industry,     field_value: industry || '' },
-        { id: GHL_FIELDS.headline,     field_value: headline || '' },
-        { id: GHL_FIELDS.opps_html,    field_value: oppsHtml },
-        { id: GHL_FIELDS.summary,      field_value: summary || '' },
-        { id: GHL_FIELDS.cta_sub,      field_value: cta_sub || '' },
-        { id: GHL_FIELDS.hipaa_note,   field_value: hipaa_note
-            ? `<div style="padding:16px 18px;background:rgba(255,255,255,0.03);border-left:3px solid rgba(201,164,71,0.35);border-radius:3px;margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.6;">${esc(hipaa_note)}</div>`
-            : '' },
-        { id: GHL_FIELDS.details_html, field_value: detailsHtml }
-      ]
+    // ── INTERNAL NOTIFICATION TO TOM VIA RESEND ──
+    // Replaces the retired GHL "Assessment Submission" workflow (Action 2). detailsHtml is the
+    // same dark-body data dump GHL used to store and email. No CRM record is created anymore —
+    // submissions live as this email only. Add Postgres/Sheet storage later if a record is needed.
+    const internalSubject = `🧭 Assessment: ${email || 'no-email'} — ${gapCount} gap${gapCount === 1 ? '' : 's'}${industry ? ' — ' + industry : ''}`;
+    const internalHtml = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#0a1830;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0a1830;">
+    <tr><td align="center" style="padding:28px 16px;">
+      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;">
+        <tr><td style="padding:0 20px 18px;">
+          <div style="font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;color:#c9a447;font-weight:700;">POINT ZERO AI</div>
+          <div style="font-family:Arial,sans-serif;font-size:20px;color:#ffffff;font-weight:700;margin-top:6px;">New Assessment Submission</div>
+          <div style="font-family:Arial,sans-serif;font-size:14px;color:#9fb0c8;margin-top:6px;">${esc(email || '—')}${phone ? ' &middot; ' + esc(phone) : ''}${headline ? '<br>' + esc(headline) : ''}</div>
+        </td></tr>
+      </table>
+      ${detailsHtml}
+    </td></tr>
+  </table>
+</body></html>`;
+    await sendResendEmail({
+      to: 'tomz@pointzeroai.com',
+      subject: internalSubject,
+      html: internalHtml
     });
 
     // ── PROSPECT CONFIRMATION EMAIL VIA RESEND ──
-    // Bypasses GHL's domain warmup so Outlook/Hotmail recipients actually receive results.
-    // Disable Action 1 (Send Prospect Confirmation) in the GHL Assessment Submission workflow
-    // so prospects don't receive duplicate emails. Action 2 (internal notification to Tom)
-    // stays active in GHL.
+    // Bypasses email-deliverability warmup so Outlook/Hotmail recipients actually receive results.
     const subjectGapCount = gapCount === 0 ? 'All Clear' : (gapCount === 1 ? '1 Gap Found' : `${gapCount} Gaps Found`);
     const prospectSubject = `Your Business Gap Analysis — ${subjectGapCount}`;
 
